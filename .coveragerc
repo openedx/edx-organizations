@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = organizations
+omit =
+    **/__init__.py
+    **/migrations/*
