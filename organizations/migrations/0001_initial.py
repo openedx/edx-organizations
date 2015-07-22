@@ -33,7 +33,6 @@ class Migration(SchemaMigration):
         # Adding unique constraint on 'OrganizationCourse', fields ['course_id', 'organization']
         db.create_unique('organizations_organizationcourse', ['course_id', 'organization_id'])
 
-
     def backwards(self, orm):
         # Removing unique constraint on 'OrganizationCourse', fields ['course_id', 'organization']
         db.delete_unique('organizations_organizationcourse', ['course_id', 'organization_id'])
@@ -43,7 +42,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'OrganizationCourse'
         db.delete_table('organizations_organizationcourse')
-
 
     models = {
         'organizations.organization': {
