@@ -13,6 +13,8 @@ pylint==1.2.1
 pep257==0.3.2
 mock==1.0.1
 testfixtures==4.0.0
+pillow==2.9.0
+logilab-common==0.63.0
 
 # edX Packages
 -e git+https://github.com/edx/opaque-keys.git@cba8e23f53ff3ce9d1f45871986c8974576185c0#egg=opaque-keys
