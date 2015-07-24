@@ -26,4 +26,6 @@ INSTALLED_APPS = (
     'south',
 )
 
-MIDDLEWARE_CLASSES = {}
+MIDDLEWARE_CLASSES = {
+    'django.contrib.messages.middleware.MessageMiddleware'
+}

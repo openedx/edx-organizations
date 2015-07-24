@@ -21,6 +21,9 @@ class Organization(TimeStampedModel):
     description = models.TextField()
     active = models.BooleanField(default=True)
 
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
 
 class OrganizationCourse(TimeStampedModel):
     """
