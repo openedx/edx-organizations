@@ -120,6 +120,7 @@ def create_organization(organization):
         organization = internal.Organization.objects.create(
             name=organization_obj.name,
             description=organization_obj.description,
+            logo=organization_obj.logo,
             active=True
         )
     return serializers.serialize_organization(organization)
@@ -135,6 +136,7 @@ def update_organization(organization):
         organization = internal.Organization.objects.get(id=organization_obj.id)
         organization.name = organization_obj.name
         organization.description = organization_obj.description
+        organization.logo = organization_obj.logo
         organization.active = organization_obj.active
     except internal.Organization.DoesNotExist:
         exceptions.raise_exception("organization", organization, exceptions.InvalidOrganizationException)

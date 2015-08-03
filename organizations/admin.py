@@ -12,8 +12,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     Admin for the Organization table.
     soft-delete on the organizations
     """
-    list_display = ('name', 'description', 'created', 'active')
-    fields = ('name', 'description', 'created', 'active')
+    list_display = ('name', 'description', 'logo', 'created', 'active')
     readonly_fields = ('created',)
     ordering = ['created']
     actions = ['activate_selected', 'deactivate_selected']

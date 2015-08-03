@@ -9,6 +9,7 @@ offers one programmatic API -- api.py for direct Python integration.
 
 from django.db import models
 from model_utils.models import TimeStampedModel
+from django.utils.translation import ugettext_lazy as _
 
 
 class Organization(TimeStampedModel):
@@ -19,6 +20,11 @@ class Organization(TimeStampedModel):
     """
     name = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
+    logo = models.ImageField(
+        upload_to='organization_logos',
+        help_text=_(u'Organization logo file. It should be an image.'),
+        null=True, blank=True, max_length=255
+    )
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
