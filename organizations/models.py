@@ -45,3 +45,5 @@ class OrganizationCourse(TimeStampedModel):
     class Meta:
         """ Meta class for this Django model """
         unique_together = (("course_id", "organization"),)
+        verbose_name = _('Link Course')
+        verbose_name_plural = _('Link Courses')
