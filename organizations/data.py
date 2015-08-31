@@ -119,6 +119,7 @@ def create_organization(organization):
     except internal.Organization.DoesNotExist:
         organization = internal.Organization.objects.create(
             name=organization_obj.name,
+            short_name=organization_obj.short_name,
             description=organization_obj.description,
             logo=organization_obj.logo,
             active=True
@@ -135,6 +136,7 @@ def update_organization(organization):
     try:
         organization = internal.Organization.objects.get(id=organization_obj.id)
         organization.name = organization_obj.name
+        organization.short_name = organization_obj.short_name
         organization.description = organization_obj.description
         organization.logo = organization_obj.logo
         organization.active = organization_obj.active
