@@ -18,7 +18,7 @@ class Organization(TimeStampedModel):
     one or more courses delivered by the LMS. Organizations have a base set of
     metadata describing the organization, including id, name, and description.
     """
-    name = models.CharField(max_length=255, db_index=True)
+    name = models.CharField(verbose_name="Long name", max_length=255, db_index=True)
     short_name = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
     logo = models.ImageField(
