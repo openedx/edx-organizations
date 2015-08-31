@@ -27,6 +27,7 @@ class OrganizationsDataTestCase(utils.OrganizationsTestCaseBase):
         with self.assertNumQueries(2):
             organization = data.create_organization({
                 'name': 'local_organization',
+                'short_name': 'organizationX',
                 'description': 'Local Organization Description'
             })
         self.assertGreater(organization['id'], 0)

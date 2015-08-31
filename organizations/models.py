@@ -19,6 +19,7 @@ class Organization(TimeStampedModel):
     metadata describing the organization, including id, name, and description.
     """
     name = models.CharField(max_length=255, db_index=True)
+    short_name = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
     logo = models.ImageField(
         upload_to='organization_logos',
