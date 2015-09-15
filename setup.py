@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='edx-organizations',
-    version='0.1.5',
+    version='0.1.6',
     description='Significant events module for Open edX',
     long_description=open('README.md').read(),
     author='edX',
