@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='edx-organizations',
     version='0.1.6',
-    description='Significant events module for Open edX',
+    description='Organization management module for Open edX',
     long_description=open('README.md').read(),
     author='edX',
     url='https://github.com/edx/edx-organizations',
@@ -19,7 +19,7 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    packages=['organizations'],
+    packages=find_packages(exclude=["tests"]),
     dependency_links=[
     ],
     install_requires=[
