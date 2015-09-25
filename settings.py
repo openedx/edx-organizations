@@ -23,7 +23,6 @@ INSTALLED_APPS = (
 
     'organizations',
     'django_nose',
-    'south',
 )
 
 MIDDLEWARE_CLASSES = {

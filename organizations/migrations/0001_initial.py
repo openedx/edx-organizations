@@ -1,67 +1,50 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import django.utils.timezone
+import model_utils.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Organization'
-        db.create_table('organizations_organization', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('model_utils.fields.AutoCreatedField')(default=datetime.datetime.now)),
-            ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal('organizations', ['Organization'])
+    dependencies = [
+    ]
 
-        # Adding model 'OrganizationCourse'
-        db.create_table('organizations_organizationcourse', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('model_utils.fields.AutoCreatedField')(default=datetime.datetime.now)),
-            ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
-            ('course_id', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
-            ('organization', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['organizations.Organization'])),
-            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal('organizations', ['OrganizationCourse'])
-
-        # Adding unique constraint on 'OrganizationCourse', fields ['course_id', 'organization']
-        db.create_unique('organizations_organizationcourse', ['course_id', 'organization_id'])
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'OrganizationCourse', fields ['course_id', 'organization']
-        db.delete_unique('organizations_organizationcourse', ['course_id', 'organization_id'])
-
-        # Deleting model 'Organization'
-        db.delete_table('organizations_organization')
-
-        # Deleting model 'OrganizationCourse'
-        db.delete_table('organizations_organizationcourse')
-
-    models = {
-        'organizations.organization': {
-            'Meta': {'object_name': 'Organization'},
-            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'})
-        },
-        'organizations.organizationcourse': {
-            'Meta': {'unique_together': "(('course_id', 'organization'),)", 'object_name': 'OrganizationCourse'},
-            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'course_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'}),
-            'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
-            'organization': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['organizations.Organization']"})
-        }
-    }
-
-    complete_apps = ['organizations']
+    operations = [
+        migrations.CreateModel(
+            name='Organization',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
+                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
+                ('name', models.CharField(max_length=255, verbose_name=b'Long name', db_index=True)),
+                ('short_name', models.CharField(max_length=255, db_index=True)),
+                ('description', models.TextField()),
+                ('logo', models.ImageField(help_text='Organization logo file. It should be an image.', max_length=255, null=True, upload_to=b'organization_logos', blank=True)),
+                ('active', models.BooleanField(default=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='OrganizationCourse',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
+                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
+                ('course_id', models.CharField(max_length=255, db_index=True)),
+                ('active', models.BooleanField(default=True)),
+                ('organization', models.ForeignKey(to='organizations.Organization')),
+            ],
+            options={
+                'verbose_name': 'Link Course',
+                'verbose_name_plural': 'Link Courses',
+            },
+        ),
+        migrations.AlterUniqueTogether(
+            name='organizationcourse',
+            unique_together=set([('course_id', 'organization')]),
+        ),
+    ]

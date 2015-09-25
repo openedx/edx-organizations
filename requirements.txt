@@ -1,7 +1,6 @@
 # Django/Framework Packages
-django==1.4.12
+django>1.8,<1.9
 django-model-utils==1.4.0
-South>=0.7.6
 
 # Testing Packages
 coverage==3.7.1
