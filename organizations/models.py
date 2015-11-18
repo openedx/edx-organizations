@@ -23,7 +23,7 @@ class Organization(TimeStampedModel):
     description = models.TextField()
     logo = models.ImageField(
         upload_to='organization_logos',
-        help_text=_(u'Organization logo file. It should be an image.'),
+        help_text=_(u'Please add only .PNG files for logo images.'),
         null=True, blank=True, max_length=255
     )
     active = models.BooleanField(default=True)
