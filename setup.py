@@ -23,9 +23,8 @@ setup(
     dependency_links=[
     ],
     install_requires=[
-        "django>=1.4.12",
+        "django>=1.8",
         "django-model-utils==1.4.0",
-        "South>=0.7.6",
     ],
     tests_require=[
         "coverage==3.7.1",

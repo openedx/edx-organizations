@@ -150,14 +150,14 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
 
     def test_remove_organization(self):
         """ Unit Test: test_remove_organization """
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             api.remove_organization(self.test_organization['id'])
         with self.assertRaises(exceptions.InvalidOrganizationException):
             api.get_organization(self.test_organization['id'])
 
     def test_remove_organization_bogus_organization(self):
         """ Unit Test: test_remove_organization_bogus_organization """
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             api.remove_organization(self.test_organization['id'])
 
         with self.assertRaises(exceptions.InvalidOrganizationException):
@@ -197,7 +197,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
             self.test_course_key
         )
         api.remove_organization_course(self.test_organization, self.test_course_key)
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             api.add_organization_course(
                 self.test_organization,
                 self.test_course_key
@@ -230,7 +230,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         )
         organizations = api.get_course_organizations(self.test_course_key)
         self.assertEqual(len(organizations), 1)
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             api.remove_organization_course(self.test_organization, self.test_course_key)
         organizations = api.get_course_organizations(self.test_course_key)
         self.assertEqual(len(organizations), 0)
@@ -265,6 +265,6 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         self.assertEqual(len(api.get_organization_courses(self.test_organization)), 1)
 
         # Remove the course dependency
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(2):
             api.remove_course_references(self.test_course_key)
         self.assertEqual(len(api.get_organization_courses(self.test_organization)), 0)
