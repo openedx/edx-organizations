@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='edx-organizations',
-    version='0.1.8',
+    version='0.1.9',
     description='Organization management module for Open edX',
     long_description=open('README.md').read(),
     author='edX',
