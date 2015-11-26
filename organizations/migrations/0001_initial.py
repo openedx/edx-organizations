@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255, verbose_name=b'Long name', db_index=True)),
                 ('short_name', models.CharField(max_length=255, db_index=True)),
                 ('description', models.TextField()),
-                ('logo', models.ImageField(help_text='Organization logo file. It should be an image.', max_length=255, null=True, upload_to=b'organization_logos', blank=True)),
+                ('logo', models.ImageField(help_text='Please add only .PNG files for logo images.', max_length=255, null=True, upload_to=b'organization_logos', blank=True)),
                 ('active', models.BooleanField(default=True)),
             ],
             options={
