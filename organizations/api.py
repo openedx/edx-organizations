@@ -59,6 +59,13 @@ def get_organization(organization_id):
     return data.fetch_organization(organization_id)
 
 
+def get_organization_by_short_name(organization_short_name):
+    """
+    Retrieves the organization filtered by short name
+    """
+    return data.fetch_organization_by_short_name(organization_short_name)
+
+
 def get_organizations():
     """
     Retrieves the active organizations managed by the system

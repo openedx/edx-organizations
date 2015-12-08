@@ -27,7 +27,7 @@ script:
     - coverage run ./manage.py test organizations
     - coverage report -m
     - pep8 --config=.pep8 organizations
-    - pylint --rcfile=.pylintrc organizations --report=no
+    - pylint --rcfile=.pylintrc organizations --reports=no
 
 # Post results to Coveralls.io
 after_success: coveralls
