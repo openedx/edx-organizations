@@ -4,12 +4,12 @@
 """
 Organizations Admin Module Test Cases
 """
-import organizations.tests.utils as utils
 from django.contrib.admin.sites import AdminSite
-from organizations.admin import OrganizationAdmin, OrganizationCourseAdmin
-from organizations.models import (Organization, OrganizationCourse)
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpRequest
+import organizations.tests.utils as utils
+from organizations.admin import OrganizationAdmin, OrganizationCourseAdmin
+from organizations.models import (Organization, OrganizationCourse)
 
 
 def create_organization(active=True):

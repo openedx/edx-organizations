@@ -125,6 +125,31 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         self.assertEqual(organization['name'], self.test_organization['name'])
         self.assertEqual(organization['description'], self.test_organization['description'])
 
+    def test_get_organization_by_short_name(self):
+        """ Unit Test: get_organization_by_short_name"""
+        api.add_organization({
+            'name': 'local_organization_1ßßß',
+            'short_name': 'Orgx1',
+            'description': 'Local Organization 1 Descriptionßßß'
+        })
+        api.add_organization({
+            'name': 'local_organization_2',
+            'short_name': 'Orgx2',
+            'description': 'Local Organization 2'
+        })
+        with self.assertNumQueries(1):
+            organization = api.get_organization_by_short_name('Orgx2')
+        self.assertEqual(organization['name'], 'local_organization_2')
+        self.assertEqual(organization['description'], 'Local Organization 2')
+
+        with self.assertNumQueries(0):
+            with self.assertRaises(exceptions.InvalidOrganizationException):
+                api.get_organization_by_short_name(None)
+
+        with self.assertNumQueries(1):
+            with self.assertRaises(exceptions.InvalidOrganizationException):
+                api.get_organization_by_short_name('not_existing')
+
     def test_get_organizations(self):
         """ Unit Test: test_get_organizations """
         api.add_organization({
