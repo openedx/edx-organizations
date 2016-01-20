@@ -1,0 +1,22 @@
+# pylint: disable=too-many-ancestors
+"""
+Views for organizations end points.
+"""
+from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
+from organizations.models import Organization
+from organizations.serializers import OrganizationSerializer
+
+
+class OrganizationsViewSet(viewsets.ReadOnlyModelViewSet):
+    """Organization view to fetch list organization data or single organization
+    using organization short name.
+    """
+    queryset = Organization.objects.filter(active=True)  # pylint: disable=no-member
+    serializer_class = OrganizationSerializer
+    lookup_field = 'short_name'
+    authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)

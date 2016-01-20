@@ -25,6 +25,17 @@ INSTALLED_APPS = (
     'django_nose',
 )
 
-MIDDLEWARE_CLASSES = {
-    'django.contrib.messages.middleware.MessageMiddleware'
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+ROOT_URLCONF = 'organizations.urls'
+
+# DRF Settings
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 20,
+    'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%SZ'
 }
