@@ -2,7 +2,16 @@
 Data layer serialization operations.  Converts querysets to simple
 python containers (mainly arrays and dicts).
 """
-from . import models
+from rest_framework import serializers
+
+from organizations import models
+
+
+# pylint: disable=too-few-public-methods
+class OrganizationSerializer(serializers.ModelSerializer):
+    """ Serializes the Organization object."""
+    class Meta(object):  # pylint: disable=missing-docstring
+        model = models.Organization
 
 
 def serialize_organization(organization):
