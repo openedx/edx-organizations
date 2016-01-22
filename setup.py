@@ -2,9 +2,12 @@
 
 from setuptools import setup, find_packages
 
+with open('test-requirements.txt') as f:
+    test_requirements = f.read().splitlines()
+
 setup(
     name='edx-organizations',
-    version='0.3.0',
+    version='0.4.0',
     description='Organization management module for Open edX',
     long_description=open('README.md').read(),
     author='edX',
@@ -19,19 +22,13 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    packages=find_packages(exclude=["tests"]),
-    dependency_links=[
-    ],
+    packages=find_packages(exclude=['tests']),
     install_requires=[
-        "django>=1.8",
-        "django-model-utils==1.4.0",
+        'django>=1.8,<1.9',
+        'django-model-utils>=1.4.0,<1.5.0',
+        'djangorestframework>=3.2.0,<3.4.0',
+        'djangorestframework-jwt>=1.6.0,<=1.7.2',
+        'edx-opaque-keys>=0.1.2,<1.0.0',
     ],
-    tests_require=[
-        "coverage==3.7.1",
-        "nose==1.3.3",
-        "httpretty==0.8.0",
-        "pep8==1.5.7",
-        "pylint==1.2.1",
-        "pep257==0.3.2"
-    ]
+    tests_require=test_requirements,
 )
