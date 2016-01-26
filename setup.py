@@ -9,7 +9,7 @@ setup(
     name='edx-organizations',
     version='0.3.0',
     description='Organization management module for Open edX',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='edX',
     url='https://github.com/edx/edx-organizations',
     license='AGPL',
