@@ -2,12 +2,9 @@
 
 from setuptools import setup, find_packages
 
-with open('test-requirements.txt') as f:
-    test_requirements = f.read().splitlines()
-
 setup(
     name='edx-organizations',
-    version='0.3.0',
+    version='0.3.1',
     description='Organization management module for Open edX',
     long_description=open('README.rst').read(),
     author='edX',
@@ -30,5 +27,4 @@ setup(
         'djangorestframework-jwt>=1.6.0,<=1.7.2',
         'edx-opaque-keys>=0.1.2,<1.0.0',
     ],
-    tests_require=test_requirements,
 )
