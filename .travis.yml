@@ -21,3 +21,12 @@ script:
 
 after_success: coveralls
 
+deploy:
+  provider: pypi
+  user: edx
+  password:
+    secure: 2uoTQCJvrlAM8jXOO2I0+l/pVorrtzq2wih2VX7qSePOe1OQ19fXIv/HTbzNxkwXob7WlysBaGt/EGl2ns2jEIgH5Lh4KYyNUJGaoKybOYOotWyJwUjiLuEss3tPyToOTLvckPzCq3QKYoF442y3ksg+2RqfWI00bgAiW+fqfFuJ4t+9XDumTcyaaANMmgqiL8Kjies+id5z4c9EY8PGhzbxDfx+HQvUEThotv6rD/8GuHh0GuseQ3rXgkB12hbXJ0MXTDtdqQr3+tZnBNKAtXimgvdDq1KeSQ8UxRCExygtLTuVNcowtcgaOmi8RhyUTU3IDMfFA4rQTzYEL6jRLDlrlr6umsmk8gLtoLVpYhsktd15IFe9OvfbZeCTo6jtRqPrLSVa+mI2/EKYXzLAT5MymEdEqEh/MNr1PjrwRf1I2cRjYUF9DgxjBzFn9IQ8BtdOr/6TaEQoUV3RUgm7cpWCmb/vNtMu+TRgXeFjcYH+pdr1aCeOXDrf6ysutGwSV8sssMpxtJvCDBTWVj029xRrrxlXGPUib1iS+udM/HXI65bA8RWDCfHs2C/DT34Y1SybqoaHkdSmqt4JaONVfdvcQLp0x7P/y89RUQ3u6kooKymwEBIPSAvHIbBHrPOdgv+yvexcxN5oabxuI3zHHZesh/Fi7FpZlJ2cvoPlFIY=
+  on:
+    tags: true
+    repo: edx/edx-organizations
+
