@@ -3,6 +3,7 @@
 
 # Packaging files:
 *.eggs
+*.egg-info/
 
 # Installation artifacts
 src
