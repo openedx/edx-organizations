@@ -18,7 +18,7 @@ Accepts and returns standard Python data structures (dicts, arrays of dicts)
 for easy consumption and manipulation by callers -- the queryset stops here!
 
 When the time comes for remote resources, import the module like so:
-if getattr(settings, 'TEST_MODE', False) or os.getenv('TRAVIS_MODE', False):
+if getattr(settings, 'TEST_MODE', False):
     import organizations.tests.mocks.resources as remote
 else:
     import organizations.resources as remote
