@@ -3,10 +3,6 @@ language: python
 python:
   - "2.7"
 
-env:
-  - TRAVIS_MODE=1
-  - DJANGO_SETTINGS_MODULE=settings
-
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
@@ -14,7 +10,6 @@ before_install:
 # Set Travis builds to use docker container
 sudo: false
 
-# Install dependencies
 install:
     - "pip install -r requirements.txt"
     - "pip install -r test_requirements.txt"
@@ -22,17 +17,10 @@ install:
     - "pip install pep8"
     - "pip install pylint"
 
-# Run tests and quality checks
 script:
-    - coverage run ./manage.py test organizations
-    - coverage report -m
+    - DJANGO_SETTINGS_MODULE=settings coverage run ./manage.py test organizations
     - pep8 --config=.pep8 organizations
     - pylint --rcfile=.pylintrc organizations --reports=no
 
-# Post results to Coveralls.io
 after_success: coveralls
 
-# Monitor changes to the master branch
-branches:
-    only:
-      - master
