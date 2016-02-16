@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='edx-organizations',
-    version='0.3.1',
+    version='0.4.0',
     description='Organization management module for Open edX',
     long_description=open('README.rst').read(),
     author='edX',
@@ -26,5 +26,7 @@ setup(
         'djangorestframework>=3.2.0,<3.4.0',
         'djangorestframework-jwt>=1.6.0,<=1.7.2',
         'edx-opaque-keys>=0.1.2,<1.0.0',
+        'djangorestframework-oauth>=1.1.0,<2.0.0',
+        'edx-django-oauth2-provider>=0.5.0,<1.0.0',
     ],
 )
