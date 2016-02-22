@@ -6,6 +6,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_oauth.authentication import OAuth2Authentication
 
 from organizations.models import Organization
 from organizations.serializers import OrganizationSerializer
@@ -18,5 +19,5 @@ class OrganizationsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Organization.objects.filter(active=True)  # pylint: disable=no-member
     serializer_class = OrganizationSerializer
     lookup_field = 'short_name'
-    authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication,)
+    authentication_classes = (OAuth2Authentication, JSONWebTokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)

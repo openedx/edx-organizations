@@ -23,6 +23,8 @@ INSTALLED_APPS = (
 
     'organizations',
     'django_nose',
+
+    'provider.oauth2',
 )
 
 MIDDLEWARE_CLASSES = (
