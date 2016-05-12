@@ -2,9 +2,11 @@
 
 from setuptools import setup, find_packages
 
+import organizations
+
 setup(
     name='edx-organizations',
-    version='0.4.0',
+    version=organizations.__version__,
     description='Organization management module for Open edX',
     long_description=open('README.rst').read(),
     author='edX',
