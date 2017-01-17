@@ -1,8 +1,8 @@
 """
 Organizations Views Test Cases.
 """
-from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 from provider.constants import CONFIDENTIAL
 from provider.oauth2.models import AccessToken, Client
 
@@ -10,9 +10,9 @@ from organizations.serializers import OrganizationSerializer
 from organizations.tests.factories import UserFactory, OrganizationFactory
 
 
-# pylint: disable=no-member, no-self-use
 class TestOrganizationsView(TestCase):
     """ Test Organizations View."""
+
     def setUp(self):
         super(TestOrganizationsView, self).setUp()
 
@@ -37,14 +37,14 @@ class TestOrganizationsView(TestCase):
         OrganizationFactory.create()
         response = self.client.get(self.organization_list_url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 2)
+        self.assertEqual(len(response.data['results']), 2)  # pylint: disable=no-member
 
     def test_single_organization(self):
         """verify single organization data could be fetched using short name"""
         url = self._get_organization_url(self.organization)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, OrganizationSerializer(self.organization).data)
+        self.assertEqual(response.data, OrganizationSerializer(self.organization).data)  # pylint: disable=no-member
 
     def test_inactive_organization(self):
         """ Verify inactive organization are filtered out."""
