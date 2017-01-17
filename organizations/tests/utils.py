@@ -16,4 +16,5 @@ class OrganizationsTestCaseBase(TestCase):
         """
         Helper method for test case scaffolding
         """
+        super(OrganizationsTestCaseBase, self).setUp()
         self.test_course_key = CourseKey.from_string('the/course/key')

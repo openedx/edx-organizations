@@ -1,6 +1,3 @@
-# pylint: disable=no-init
-# pylint: disable=old-style-class
-# pylint: disable=too-few-public-methods
 """
 Database ORM models managed by this Django app
 Please do not integrate directly with these models!!!  This app currently
@@ -43,7 +40,7 @@ class OrganizationCourse(TimeStampedModel):
     organization = models.ForeignKey(Organization, db_index=True)
     active = models.BooleanField(default=True)
 
-    class Meta:
+    class Meta(object):
         """ Meta class for this Django model """
         unique_together = (("course_id", "organization"),)
         verbose_name = _('Link Course')
