@@ -18,12 +18,14 @@ Usage
 Organizations is designed to centralize metadata about course publishers, such as their title, logo URL,
 and information included in certificates.
 
-Standalone Testing
-------------------
+Local Development
+-----------------
 
 .. code-block:: bash
 
-        $ ./run_tests
+    $ make requirements
+    $ make test
+    $ make quality
 
 Open edX Platform Integration
 -----------------------------

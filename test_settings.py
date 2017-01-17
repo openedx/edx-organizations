@@ -1,17 +1,16 @@
-DEBUG=True
-TEST_MODE=True
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-TEST_ROOT = "tests"
-TRANSACTIONS_MANAGED = {}
-USE_TZ = False
-TIME_ZONE = {}
-SECRET_KEY='SHHHHHH'
+
+SECRET_KEY = 'insecure-secret-key'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': u'{}/db/organizations.db'.format(TEST_ROOT)
-    },
+        'NAME': 'default.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
 }
 
 INSTALLED_APPS = (
@@ -20,10 +19,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-
     'organizations',
     'django_nose',
-
     'provider.oauth2',
 )
 

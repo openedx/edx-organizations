@@ -1,7 +1,4 @@
-# This Python file uses the following encoding: utf-8
-# pylint: disable=invalid-name
-# pylint: disable=too-many-ancestors
-# pylint: disable=too-many-public-methods
+# -*- coding: utf-8 -*-
 """
 Organizations API Module Test Cases
 """

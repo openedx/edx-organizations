@@ -11,13 +11,12 @@ before_install:
 sudo: false
 
 install:
-    - "pip install -r requirements.txt"
+    - make requirements
     - "pip install coveralls"
 
 script:
-    - DJANGO_SETTINGS_MODULE=settings coverage run ./manage.py test organizations
-    - pep8 --config=.pep8 organizations
-    - pylint --rcfile=.pylintrc organizations --reports=no
+    - make test
+    - make quality
 
 after_success: coveralls
 
