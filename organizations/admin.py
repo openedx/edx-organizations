@@ -13,6 +13,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_filter = ('active',)
     ordering = ('name', 'short_name',)
     readonly_fields = ('created',)
+    search_fields = ('name', 'short_name',)
 
     def get_actions(self, request):
         actions = super(OrganizationAdmin, self).get_actions(request)
@@ -56,6 +57,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 class OrganizationCourseAdmin(admin.ModelAdmin):
     """ Admin for the CourseOrganization model. """
     list_display = ('course_id', 'organization', 'active')
+    search_fields = ('course_id', 'organization__name', 'organization__short_name',)
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         # Only display active Organizations.
