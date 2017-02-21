@@ -15,9 +15,9 @@ class Organization(TimeStampedModel):
     one or more courses delivered by the LMS. Organizations have a base set of
     metadata describing the organization, including id, name, and description.
     """
-    name = models.CharField(verbose_name="Long name", max_length=255, db_index=True)
+    name = models.CharField(max_length=255, db_index=True)
     short_name = models.CharField(max_length=255, db_index=True)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
         upload_to='organization_logos',
         help_text=_('Please add only .PNG files for logo images. This logo will be used on certificates.'),
@@ -42,6 +42,6 @@ class OrganizationCourse(TimeStampedModel):
 
     class Meta(object):
         """ Meta class for this Django model """
-        unique_together = (("course_id", "organization"),)
+        unique_together = (('course_id', 'organization'),)
         verbose_name = _('Link Course')
         verbose_name_plural = _('Link Courses')
