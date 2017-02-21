@@ -1,65 +1,65 @@
-# pylint: disable=too-many-public-methods
-# pylint: disable=no-member
-"""
-django admin pages for organization models
-"""
+""" Django admin pages for organization models """
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+
 from organizations.models import (Organization, OrganizationCourse)
 
 
+@admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    """
-    Admin for the Organization table.
-    soft-delete on the organizations
-    """
-    list_display = ('name', 'short_name', 'description', 'logo', 'created', 'active')
-    readonly_fields = ('created',)
-    ordering = ['created']
+    """ Admin for the Organization model. """
     actions = ['activate_selected', 'deactivate_selected']
+    list_display = ('name', 'short_name', 'logo', 'active',)
+    list_filter = ('active',)
+    ordering = ('name', 'short_name',)
+    readonly_fields = ('created',)
 
     def get_actions(self, request):
-        """ return actions """
         actions = super(OrganizationAdmin, self).get_actions(request)
+
+        # Remove the delete action.
         del actions['delete_selected']
+
         return actions
 
     def activate_selected(self, request, queryset):
-        """activate the selected entries"""
+        """ Activate the selected entries. """
         queryset.update(active=True)
-        if queryset.count() == 1:
-            message_bit = "1 organization entry was"
+        count = queryset.count()
+
+        if count == 1:
+            message = _('1 organization entry was successfully activated')
         else:
-            message_bit = "%s organization entries were" % queryset.count()
-        self.message_user(request, "%s successfully activated." % message_bit)
+            message = _('{count} organization entries were successfully activated')
+            message.format(count=count)  # pylint: disable=no-member
+
+        self.message_user(request, message)
 
     def deactivate_selected(self, request, queryset):
-        """deactivate the selected entries"""
+        """ Deactivate the selected entries. """
         queryset.update(active=False)
-        if queryset.count() == 1:
-            message_bit = "1 organization entry was"
+        count = queryset.count()
+
+        if count == 1:
+            message = _('1 organization entry was successfully deactivated')
         else:
-            message_bit = "%s organization entries were" % queryset.count()
-        self.message_user(request, "%s successfully deactivated." % message_bit)
+            message = _('{count} organization entries were successfully deactivated')
+            message.format(count=count)  # pylint: disable=no-member
 
-    deactivate_selected.short_description = "Deactivate s selected entries"
-    activate_selected.short_description = "Activate s selected entries"
+        self.message_user(request, message)
+
+    deactivate_selected.short_description = _('Deactivate selected entries')
+    activate_selected.short_description = _('Activate selected entries')
 
 
+@admin.register(OrganizationCourse)
 class OrganizationCourseAdmin(admin.ModelAdmin):
-    """
-    Admin for the CourseOrganization table.
-    """
+    """ Admin for the CourseOrganization model. """
     list_display = ('course_id', 'organization', 'active')
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        """
-        list down the active organizations
-        """
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        # Only display active Organizations.
         if db_field.name == 'organization':
             kwargs['queryset'] = Organization.objects.filter(active=True)
 
         return super(OrganizationCourseAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
-
-admin.site.register(Organization, OrganizationAdmin)
-admin.site.register(OrganizationCourse, OrganizationCourseAdmin)
