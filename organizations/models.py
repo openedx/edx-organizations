@@ -16,7 +16,7 @@ class Organization(TimeStampedModel):
     metadata describing the organization, including id, name, and description.
     """
     name = models.CharField(max_length=255, db_index=True)
-    short_name = models.CharField(max_length=255, db_index=True)
+    short_name = models.CharField(max_length=255, db_index=True, verbose_name='Short Name')
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
         upload_to='organization_logos',
@@ -26,7 +26,7 @@ class Organization(TimeStampedModel):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return u"{}".format(self.name)
+        return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
 
 
 class OrganizationCourse(TimeStampedModel):
@@ -36,7 +36,7 @@ class OrganizationCourse(TimeStampedModel):
     (in the Django/ORM sense) the modeling and integrity is limited to that
     of specifying course identifier strings in this model.
     """
-    course_id = models.CharField(max_length=255, db_index=True)
+    course_id = models.CharField(max_length=255, db_index=True, verbose_name='Course ID')
     organization = models.ForeignKey(Organization, db_index=True)
     active = models.BooleanField(default=True)
 

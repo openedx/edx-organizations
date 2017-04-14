@@ -107,7 +107,7 @@ class OrganizationCourseAdminTestCase(utils.OrganizationsTestCaseBase):
         create_organization(active=True)
         self.assertEqual(
             list(self.org_course_admin.get_form(self.request).base_fields['organization'].widget.choices),
-            [('', '---------'), (1, u'test organization')]
+            [('', '---------'), (1, u'test organization ()')]
         )
 
     def test_foreign_key_field_inactive_choices(self):
