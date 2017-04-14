@@ -57,11 +57,12 @@ class OrganizationAdmin(admin.ModelAdmin):
 class OrganizationCourseAdmin(admin.ModelAdmin):
     """ Admin for the CourseOrganization model. """
     list_display = ('course_id', 'organization', 'active')
+    ordering = ('course_id', 'organization__name',)
     search_fields = ('course_id', 'organization__name', 'organization__short_name',)
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         # Only display active Organizations.
         if db_field.name == 'organization':
-            kwargs['queryset'] = Organization.objects.filter(active=True)
+            kwargs['queryset'] = Organization.objects.filter(active=True).order_by('name')
 
         return super(OrganizationCourseAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
