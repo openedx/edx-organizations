@@ -163,7 +163,7 @@ def fetch_organization(organization_id):
     if not organization_id:
         exceptions.raise_exception("organization", organization, exceptions.InvalidOrganizationException)
     organizations = serializers.serialize_organizations(internal.Organization.objects.filter(active=True))
-    if not len(organizations):
+    if not organizations:
         exceptions.raise_exception("organization", organization, exceptions.InvalidOrganizationException)
     return organizations[0]
 
@@ -179,7 +179,7 @@ def fetch_organization_by_short_name(organization_short_name):
     organizations = serializers.serialize_organizations(internal.Organization.objects.filter(
         active=True, short_name=organization_short_name
     ))
-    if not len(organizations):
+    if not organizations:
         exceptions.raise_exception("organization", organization, exceptions.InvalidOrganizationException)
     return organizations[0]
 

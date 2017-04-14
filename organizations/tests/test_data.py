@@ -13,12 +13,6 @@ class OrganizationsDataTestCase(utils.OrganizationsTestCaseBase):
     Many of the module operations are covered indirectly via the test_api.py test suite
     So at the moment we're mainly focused on hitting the corner cases with this suite
     """
-    def setUp(self):
-        """
-        Organizations Data Test Case scaffolding
-        """
-        super(OrganizationsDataTestCase, self).setUp()
-
     def test_create_organization(self):
         """ Unit Test: test_create_organization"""
         with self.assertNumQueries(2):
