@@ -27,6 +27,6 @@ def organization_data_is_valid(organization_data):
         return False
     if 'id' in organization_data and not organization_data.get('id'):
         return False
-    if 'name' in organization_data and not len(organization_data.get('name')):
+    if 'name' in organization_data and not organization_data.get('name'):
         return False
     return True
