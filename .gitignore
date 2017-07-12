@@ -53,4 +53,6 @@ reports/
 coverage/
 htmlcov/
 acceptance_tests/*.png
+.tox/
+
 
