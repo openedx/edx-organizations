@@ -12,6 +12,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
     """ Serializes the Organization object."""
     class Meta(object):  # pylint: disable=missing-docstring
         model = models.Organization
+        fields = '__all__'
 
 
 def serialize_organization(organization):
