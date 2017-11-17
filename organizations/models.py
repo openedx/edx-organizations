@@ -4,6 +4,8 @@ Please do not integrate directly with these models!!!  This app currently
 offers one programmatic API -- api.py for direct Python integration.
 """
 
+import re
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
@@ -16,7 +18,11 @@ class Organization(TimeStampedModel):
     metadata describing the organization, including id, name, and description.
     """
     name = models.CharField(max_length=255, db_index=True)
-    short_name = models.CharField(max_length=255, db_index=True, verbose_name='Short Name')
+    short_name = models.CharField(
+        max_length=255, db_index=True, verbose_name='Short Name',
+        help_text=_("Please do not use any spaces or special characters in short name. "
+                    "This short name will be used in the course's course key.")
+    )
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
         upload_to='organization_logos',
@@ -27,6 +33,10 @@ class Organization(TimeStampedModel):
 
     def __unicode__(self):
         return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
+
+    def clean(self):
+        if not re.match("^[a-zA-Z0-9_-]*$", self.short_name):
+            raise ValidationError(_('Please do not use any spaces or special characters in the short name field'))
 
 
 class OrganizationCourse(TimeStampedModel):
