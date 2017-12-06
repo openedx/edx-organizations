@@ -20,8 +20,8 @@ class Organization(TimeStampedModel):
     name = models.CharField(max_length=255, db_index=True)
     short_name = models.CharField(
         max_length=255, db_index=True, verbose_name='Short Name',
-        help_text=_("Please do not use any spaces or special characters in short name. "
-                    "This short name will be used in the course's course key.")
+        help_text=_('Please do not use spaces or special characters. Only allowed special characters '
+                    'are period (.), hyphen (-) and underscore (_).')
     )
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
@@ -35,8 +35,10 @@ class Organization(TimeStampedModel):
         return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
 
     def clean(self):
-        if not re.match("^[a-zA-Z0-9_-]*$", self.short_name):
-            raise ValidationError(_('Please do not use any spaces or special characters in the short name field'))
+        if not re.match("^[a-zA-Z0-9._-]*$", self.short_name):
+            raise ValidationError(_('Please do not use spaces or special characters in the short name '
+                                    'field. Only allowed special characters are period (.), hyphen (-) '
+                                    'and underscore (_).'))
 
 
 class OrganizationCourse(TimeStampedModel):
