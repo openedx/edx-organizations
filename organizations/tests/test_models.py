@@ -17,26 +17,24 @@ class TestOrganizationModel(TestCase):
         self.organization = OrganizationFactory.create()
 
     @ddt.data(
-        "short name with space",
-        "short_name[with,special",
-        "shórt_name"
+        [" ", ",", "@", "(", "!", "#", "$", "%", "^", "&", "*", "+", "=", "{", "[", "ó"]
     )
-    def test_clean_error(self, short_name):
+    def test_clean_error(self, invalid_char_list):
         """
         Verify that the clean method raises validation error if org short name
         consists of special characters or spaces.
         """
-        self.organization.short_name = short_name
-        self.assertRaises(ValidationError, self.organization.clean)
+        for char in invalid_char_list:
+            self.organization.short_name = 'shortname{}'.format(char)
+            self.assertRaises(ValidationError, self.organization.clean)
 
     @ddt.data(
-        "shortnamewithoutspace",
-        "shortName123",
-        "short_name"
+        ["shortnamewithoutspace", "shortName123", "short_name", "short-name", "short.name"]
     )
-    def test_clean_success(self, short_name):
+    def test_clean_success(self, valid_short_name_list):
         """
         Verify that the clean method returns None if org short name is valid
         """
-        self.organization.short_name = short_name
-        self.assertEqual(self.organization.clean(), None)
+        for valid_short_name in valid_short_name_list:
+            self.organization.short_name = valid_short_name
+            self.assertEqual(self.organization.clean(), None)
