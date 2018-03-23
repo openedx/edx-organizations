@@ -25,10 +25,10 @@ setup(
     install_requires=[
         'django>=1.8,<2.0',
         'django-model-utils>=1.4.0',
-        'djangorestframework>=3.2.0,<3.4.0',
+        'djangorestframework>=3.2.0,<3.7.0',
         'djangorestframework-oauth>=1.1.0,<2.0.0',
         'edx-django-oauth2-provider>=1.2.0',
-        'edx-drf-extensions>=0.5.1,<1.0.0',
+        'edx-drf-extensions>=0.5.1',
         'edx-opaque-keys>=0.1.2,<1.0.0',
         'Pillow',
     ],
