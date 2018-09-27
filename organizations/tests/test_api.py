@@ -2,6 +2,7 @@
 """
 Organizations API Module Test Cases
 """
+from __future__ import unicode_literals
 import organizations.api as api
 import organizations.exceptions as exceptions
 import organizations.tests.utils as utils
@@ -17,8 +18,8 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """
         super(OrganizationsApiTestCase, self).setUp()
         self.test_organization = api.add_organization({
-            'name': unicode('test_organizationßßß', 'utf-8'),
-            'description': unicode('Test Organization Descriptionßßß', 'utf-8'),
+            'name': 'test_organizationßßß',
+            'description': 'Test Organization Descriptionßßß'
         })
 
     def test_add_organization(self):
