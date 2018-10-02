@@ -2,6 +2,7 @@
 """
 Validators confirm the integrity of inbound information prior to a data.py handoff
 """
+from six import text_type
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 
@@ -13,7 +14,7 @@ def course_key_is_valid(course_key):
     if course_key is None:
         return False
     try:
-        CourseKey.from_string(unicode(course_key))
+        CourseKey.from_string(text_type(course_key))
     except (InvalidKeyError, UnicodeDecodeError):
         return False
     return True

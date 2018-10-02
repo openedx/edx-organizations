@@ -2,15 +2,19 @@ language: python
 
 python:
   - 2.7
+  - 3.6
 
 env:
-  - TOXENV=django18
   - TOXENV=django111
 
 matrix:
   include:
-    - python: 2.7
+    - python: 3.6
       env: TOXENV=quality
+    - python: 3.6
+      env: TOXENV=django20
+    - python: 3.6
+      env: TOXENV=django21
 
 before_install:
   - "export DISPLAY=:99.0"
@@ -31,8 +35,10 @@ after_success: coveralls
 deploy:
   provider: pypi
   user: edx
-  password:
-    secure: 55EqznKQsYm+87mlwYzl4NTo26Yw4f0X3kJDwwLIoRa1jKQUvuDtVM07NF3FDpGZVxbM3U6rjxgqDIY+B+WK/vHnZq8WCsVZ7DVdDHDz9t/DIPI3rt0ViUzFjurbkCI5viOP/CkO4z9xEFgIdfMCMyWZIYsIJrLQWTxZod9Jo8LfZWbYz8HdpoQQekLE5DgzRCLE2V0aC2l+4yYaJIrdSaU+iithe5Xh1VDrZiQRFubmQeKEoKikXX2dGrMnq8DSqpJUGNXhZZYROMM8zvuxDpXElxHBMlPxIB7Xefu5Y+a4V2xP1z/KfqziT7KTwV2ew7mD4EgTzIcs0xTfQY8ybBNGkJ+c1I07xjEqv68ek0tjytgcGGugN+EtQmx7TKs0MP7M+6gWbSGLcnt3B1iFw5ilYd5Nr8moKxuJDiNAUT5YVFQofZbmAdQ/NEextAGKzFSXJ+a2BJGCVZXw4sRpTzNBVMh6pSmQrerY/4lN+AAJzDF/qNJyu0tVxuW8RkBrWx9+wNa1q5OMpVa6m8b2sPR0cQYiumr4DP8wMGY01plDgn6AcV7b7bTlIHywbe3yxeP1qVVzlry7nWwGRhAeYv6ruQTBSds6YomqwSRz9uVOmFSSkClmqLAfLfRz764+sv0U1SuNh83UhycAv2sAT8mK6l7HL6zS8HqXVD5leNw=
+  distributions: sdist bdist_wheel
   on:
     tags: true
+    condition: $TOXENV = quality
     repo: edx/edx-organizations
+  password:
+    secure: 55EqznKQsYm+87mlwYzl4NTo26Yw4f0X3kJDwwLIoRa1jKQUvuDtVM07NF3FDpGZVxbM3U6rjxgqDIY+B+WK/vHnZq8WCsVZ7DVdDHDz9t/DIPI3rt0ViUzFjurbkCI5viOP/CkO4z9xEFgIdfMCMyWZIYsIJrLQWTxZod9Jo8LfZWbYz8HdpoQQekLE5DgzRCLE2V0aC2l+4yYaJIrdSaU+iithe5Xh1VDrZiQRFubmQeKEoKikXX2dGrMnq8DSqpJUGNXhZZYROMM8zvuxDpXElxHBMlPxIB7Xefu5Y+a4V2xP1z/KfqziT7KTwV2ew7mD4EgTzIcs0xTfQY8ybBNGkJ+c1I07xjEqv68ek0tjytgcGGugN+EtQmx7TKs0MP7M+6gWbSGLcnt3B1iFw5ilYd5Nr8moKxuJDiNAUT5YVFQofZbmAdQ/NEextAGKzFSXJ+a2BJGCVZXw4sRpTzNBVMh6pSmQrerY/4lN+AAJzDF/qNJyu0tVxuW8RkBrWx9+wNa1q5OMpVa6m8b2sPR0cQYiumr4DP8wMGY01plDgn6AcV7b7bTlIHywbe3yxeP1qVVzlry7nWwGRhAeYv6ruQTBSds6YomqwSRz9uVOmFSSkClmqLAfLfRz764+sv0U1SuNh83UhycAv2sAT8mK6l7HL6zS8HqXVD5leNw=

@@ -19,12 +19,12 @@ class TestOrganizationsView(TestCase):
         self.user_password = 'test'
         self.user = UserFactory(password=self.user_password)
         self.organization = OrganizationFactory.create()
-        self.organization_list_url = reverse('v0:organization-list')
+        self.organization_list_url = reverse('organization-list')
         self.client.login(username=self.user.username, password=self.user_password)
 
     def _get_organization_url(self, organization):
         """ Return organization specific URL."""
-        return reverse('v0:organization-detail', kwargs={'short_name': organization.short_name})
+        return reverse('organization-detail', kwargs={'short_name': organization.short_name})
 
     def test_authentication_required(self):
         """ Verify that authentication is required to access view."""
@@ -55,7 +55,7 @@ class TestOrganizationsView(TestCase):
 
     def test_nonexistent_organization(self):
         """ Verify that nonexistent organization have proper status code."""
-        url = reverse('v0:organization-detail', kwargs={'short_name': 'dummy'})
+        url = reverse('organization-detail', kwargs={'short_name': 'dummy'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 

@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from organizations.models import (Organization, OrganizationCourse)
+from organizations.models import Organization, OrganizationCourse
 
 
 @admin.register(Organization)

@@ -7,10 +7,12 @@ offers one programmatic API -- api.py for direct Python integration.
 import re
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
 
+@python_2_unicode_compatible
 class Organization(TimeStampedModel):
     """
     An Organization is a representation of an entity which publishes/provides
@@ -31,7 +33,7 @@ class Organization(TimeStampedModel):
     )
     active = models.BooleanField(default=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
 
     def clean(self):
