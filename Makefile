@@ -1,5 +1,7 @@
 all: requirements quality test
 
+.PHONY: clean requirements quality test upgrade
+
 clean:
 	coverage erase
 	find . -name '*.pyc' -delete
