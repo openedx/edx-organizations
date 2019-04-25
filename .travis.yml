@@ -1,20 +1,9 @@
 language: python
 
+cache: pip
 python:
   - 2.7
   - 3.6
-
-env:
-  - TOXENV=django111
-
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=quality
-    - python: 3.6
-      env: TOXENV=django20
-    - python: 3.6
-      env: TOXENV=django21
 
 before_install:
   - "export DISPLAY=:99.0"
@@ -25,10 +14,11 @@ sudo: false
 
 install:
     - make requirements
-    - "pip install coveralls"
+    - pip install tox-travis
+    - pip install coveralls
 
 script:
-    - make test
+    - tox
 
 after_success: coveralls
 
