@@ -36,5 +36,6 @@ ROOT_URLCONF = 'organizations.urls'
 # DRF Settings
 REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%SZ'
 }
