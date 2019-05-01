@@ -4,6 +4,29 @@ from setuptools import setup, find_packages
 
 import organizations
 
+def load_requirements(*requirements_paths):
+    """
+    Load all requirements from the specified requirements files.
+    Returns a list of requirement strings.
+    """
+    requirements = set()
+    for path in requirements_paths:
+        with open(path) as reqs:
+            requirements.update(
+                line.split('#')[0].strip() for line in reqs
+                if is_requirement(line.strip())
+            )
+    return list(requirements)
+
+
+def is_requirement(line):
+    """
+    Return True if the requirement line is a package requirement;
+    that is, it is not blank, a comment, a URL, or an included file.
+    """
+    return line and not line.startswith(('-r', '#', '-e', 'git+'))
+
+
 setup(
     name='edx-organizations',
     version=organizations.__version__,
@@ -28,14 +51,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     packages=find_packages(exclude=['tests']),
-    install_requires=[
-        'django>=1.11,<2.0',
-        'django-model-utils>=1.4.0',
-        'djangorestframework>=3.2.0,<3.7.0',
-        'djangorestframework-oauth>=1.1.0,<2.0.0',
-        'edx-django-oauth2-provider>=1.2.0',
-        'edx-drf-extensions>=2.0.0,<3.0.0',
-        'edx-opaque-keys>=0.1.2,<1.0.0',
-        'Pillow',
-    ],
+    install_requires=load_requirements('requirements/base.in'),
 )
