@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
                 ('course_id', models.CharField(max_length=255, db_index=True)),
                 ('active', models.BooleanField(default=True)),
-                ('organization', models.ForeignKey(to='organizations.Organization')),
+                ('organization', models.ForeignKey(to='organizations.Organization', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Link Course',

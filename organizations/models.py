@@ -51,7 +51,7 @@ class OrganizationCourse(TimeStampedModel):
     of specifying course identifier strings in this model.
     """
     course_id = models.CharField(max_length=255, db_index=True, verbose_name='Course ID')
-    organization = models.ForeignKey(Organization, db_index=True)
+    organization = models.ForeignKey(Organization, db_index=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
     class Meta(object):
