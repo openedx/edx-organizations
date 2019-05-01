@@ -1,7 +1,7 @@
 """
 Organizations Views Test Cases.
 """
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from provider.constants import CONFIDENTIAL
 from provider.oauth2.models import AccessToken, Client
