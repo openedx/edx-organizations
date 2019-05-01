@@ -4,6 +4,17 @@ cache: pip
 python:
   - 2.7
   - 3.6
+env:
+- TOXENV=django111-drf37
+- TOXENV=django111-drf38
+- TOXENV=django111-drf39
+- TOXENV=django111-drflatest
+
+
+matrix:
+  include:
+  - python: 3.6
+    env: TOXENV=quality
 
 before_install:
   - "export DISPLAY=:99.0"
