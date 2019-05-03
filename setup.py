@@ -24,7 +24,7 @@ def is_requirement(line):
     Return True if the requirement line is a package requirement;
     that is, it is not blank, a comment, a URL, or an included file.
     """
-    return line and not line.startswith(('-r', '#', '-e', 'git+'))
+    return line and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
 
 
 setup(

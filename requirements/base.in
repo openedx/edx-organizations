@@ -1,3 +1,5 @@
+-c constraints.txt
+
 django
 django-model-utils>=1.4.0
 djangorestframework>=3.2.0
