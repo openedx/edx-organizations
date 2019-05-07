@@ -5,10 +5,12 @@
 #    make upgrade
 #
 astroid==1.5.3            # via edx-lint, pylint, pylint-celery
+backports.functools-lru-cache==1.5  # via astroid, isort, pylint
 certifi==2019.3.9
 chardet==3.0.4
 click-log==0.1.8          # via edx-lint
 click==7.0                # via click-log, edx-lint
+configparser==3.7.4       # via pylint
 coverage==4.5.3
 ddt==1.1.0
 django-model-utils==3.1.2
@@ -21,12 +23,15 @@ edx-django-utils==1.0.3
 edx-drf-extensions==2.2.0
 edx-lint==0.6.0
 edx-opaque-keys==0.4.4
+enum34==1.1.6             # via astroid
 factory-boy==2.11.1
 faker==1.0.5              # via factory-boy
 filelock==3.0.10          # via tox
 future==0.17.1
+futures==3.2.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.6
 idna==2.8
+ipaddress==1.0.22         # via faker
 isort==4.3.18             # via pylint
 lazy-object-proxy==1.3.1  # via astroid
 mccabe==0.6.1             # via pylint
@@ -52,6 +57,7 @@ requests==2.21.0
 rest-condition==1.0.3
 semantic-version==2.6.0
 shortuuid==0.5.0
+singledispatch==3.4.0.3   # via astroid, pylint
 six==1.12.0
 stevedore==1.30.1
 text-unidecode==1.2       # via faker
