@@ -28,10 +28,10 @@ pyjwt==1.7.1              # via djangorestframework-jwt
 pymongo==3.8.0            # via edx-opaque-keys
 python-dateutil==2.8.0    # via edx-drf-extensions
 pytz==2019.1              # via django
-requests==2.21.0          # via edx-drf-extensions, pyjwkest
+requests==2.22.0          # via edx-drf-extensions, pyjwkest
 rest-condition==1.0.3     # via edx-drf-extensions
 semantic-version==2.6.0   # via edx-drf-extensions
 shortuuid==0.5.0          # via edx-django-oauth2-provider
 six==1.12.0               # via edx-drf-extensions, edx-opaque-keys, pyjwkest, python-dateutil, stevedore
 stevedore==1.30.1         # via edx-opaque-keys
-urllib3==1.24.3           # via requests
+urllib3==1.25.2           # via requests
