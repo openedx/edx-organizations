@@ -3,3 +3,6 @@ owner: unknown
 oeps:
     oep-18: True  # Automatic dependency management
     oep-7: true   # Python 3.6
+
+tags:
+    - library
