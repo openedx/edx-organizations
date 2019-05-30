@@ -10,6 +10,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
+from simple_history.models import HistoricalRecords
 
 
 @python_2_unicode_compatible
@@ -32,6 +33,8 @@ class Organization(TimeStampedModel):
         null=True, blank=True, max_length=255
     )
     active = models.BooleanField(default=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
