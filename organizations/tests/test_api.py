@@ -24,7 +24,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
 
     def test_add_organization(self):
         """ Unit Test: test_add_organization"""
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             organization = api.add_organization({
                 'name': 'local_organizationßßß',
                 'description': 'Local Organization Descriptionßßß'
@@ -173,14 +173,14 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
 
     def test_remove_organization(self):
         """ Unit Test: test_remove_organization """
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             api.remove_organization(self.test_organization['id'])
         with self.assertRaises(exceptions.InvalidOrganizationException):
             api.get_organization(self.test_organization['id'])
 
     def test_remove_organization_bogus_organization(self):
         """ Unit Test: test_remove_organization_bogus_organization """
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             api.remove_organization(self.test_organization['id'])
 
         with self.assertRaises(exceptions.InvalidOrganizationException):

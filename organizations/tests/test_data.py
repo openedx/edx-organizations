@@ -17,7 +17,7 @@ class OrganizationsDataTestCase(utils.OrganizationsTestCaseBase):
     """
     def test_create_organization(self):
         """ Unit Test: test_create_organization"""
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             organization = data.create_organization({
                 'name': 'local_organization',
                 'short_name': 'organizationX',
