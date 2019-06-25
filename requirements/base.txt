@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-certifi==2019.3.9         # via requests
+certifi==2019.6.16        # via requests
 chardet==3.0.4            # via requests
 django-model-utils==3.1.2
 django-simple-history==2.7.2
@@ -20,7 +20,7 @@ edx-opaque-keys==1.0.1
 future==0.17.1            # via pyjwkest
 idna==2.8                 # via requests
 newrelic==4.20.0.120      # via edx-django-utils
-pbr==5.3.0                # via stevedore
+pbr==5.3.1                # via stevedore
 pillow==6.0.0
 psutil==1.2.1             # via edx-django-utils, edx-drf-extensions
 pycryptodomex==3.8.2      # via pyjwkest
