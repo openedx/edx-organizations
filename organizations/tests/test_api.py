@@ -43,7 +43,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
             organization = api.add_organization(organization_data)
 
     def test_add_organization_inactive_to_active(self):
-        """ Unit Test: test_add_organization_inactive_organization_present"""
+        """ Unit Test: test_add_organization_inactive_to_active"""
         organization_data = {
             'name': 'local_organizationßßß',
             'description': 'Local Organization Descriptionßßß'
@@ -52,8 +52,12 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         self.assertGreater(organization['id'], 0)
         api.remove_organization(organization['id'])
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(5):
             organization = api.add_organization(organization_data)
+
+        # Assert that the organization is active by making sure we can load it.
+        loaded_organization = api.get_organization(organization['id'])
+        self.assertEqual(loaded_organization['name'], organization_data['name'])
 
     def test_add_organization_inactive_organization_with_relationships(self):
         """ Unit Test: test_add_organization_inactive_organization_with_relationships"""
