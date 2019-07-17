@@ -50,26 +50,26 @@ def _inactivate_record(record):
     record.save()
 
 
-def _activate_organization(organization):
+def _activate_organization(organization_id):
     """
     Activates an inactivated (soft-deleted) organization as well as any inactive relationships
     """
     [_activate_organization_course_relationship(record) for record
-     in internal.OrganizationCourse.objects.filter(organization_id=organization.id, active=False)]
+     in internal.OrganizationCourse.objects.filter(organization_id=organization_id, active=False)]
 
     [_activate_record(record) for record
-     in internal.Organization.objects.filter(id=organization.id, active=False)]
+     in internal.Organization.objects.filter(id=organization_id, active=False)]
 
 
-def _inactivate_organization(organization):
+def _inactivate_organization(organization_id):
     """
     Inactivates an activated organization as well as any active relationships
     """
     [_inactivate_organization_course_relationship(record) for record
-     in internal.OrganizationCourse.objects.filter(organization_id=organization.id, active=True)]
+     in internal.OrganizationCourse.objects.filter(organization_id=organization_id, active=True)]
 
     [_inactivate_record(record) for record
-     in internal.Organization.objects.filter(id=organization.id, active=True)]
+     in internal.Organization.objects.filter(id=organization_id, active=True)]
 
 
 def _activate_organization_course_relationship(relationship):  # pylint: disable=invalid-name
@@ -116,7 +116,7 @@ def create_organization(organization):
         )
         # If the organization exists, but was inactivated, we can simply turn it back on
         if not organization.active:
-            _activate_organization(organization_obj)
+            _activate_organization(organization.id)
     except internal.Organization.DoesNotExist:
         organization = internal.Organization.objects.create(
             name=organization_obj.name,
@@ -152,7 +152,7 @@ def delete_organization(organization):
     No return currently defined for this operation
     """
     organization_obj = serializers.deserialize_organization(organization)
-    _inactivate_organization(organization_obj)
+    _inactivate_organization(organization_obj.id)
 
 
 def fetch_organization(organization_id):
