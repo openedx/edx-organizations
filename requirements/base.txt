@@ -15,7 +15,7 @@ djangorestframework-oauth==1.1.0
 djangorestframework==3.9.4
 edx-django-oauth2-provider==1.3.5
 edx-django-utils==2.0.0   # via edx-drf-extensions
-edx-drf-extensions==2.3.6
+edx-drf-extensions==2.3.7
 edx-opaque-keys==1.0.1
 future==0.17.1            # via pyjwkest
 idna==2.8                 # via requests
