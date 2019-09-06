@@ -34,7 +34,7 @@ future==0.17.1
 futures==3.3.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.6
 idna==2.8
-importlib-metadata==0.19  # via pluggy, tox
+importlib-metadata==0.20  # via pluggy, tox
 ipaddress==1.0.22         # via faker
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.2  # via astroid
@@ -44,7 +44,7 @@ newrelic==5.0.2.126
 nose==1.3.7
 packaging==19.1           # via tox
 pathlib2==2.3.4           # via importlib-metadata
-pbr==5.4.2
+pbr==5.4.3
 pep8==1.7.1
 pillow==6.1.0
 pluggy==0.12.0            # via tox
@@ -64,15 +64,15 @@ pytz==2019.2
 requests==2.22.0
 rest-condition==1.0.3
 scandir==1.10.0           # via pathlib2
-semantic-version==2.8.1
+semantic-version==2.8.2
 shortuuid==0.5.0
 singledispatch==3.4.0.3   # via astroid, pylint
 six==1.12.0
-stevedore==1.30.1
+stevedore==1.31.0
 text-unidecode==1.2       # via faker
 toml==0.10.0              # via tox
-tox==3.13.2
+tox==3.14.0
 urllib3==1.25.3
-virtualenv==16.7.4        # via tox
+virtualenv==16.7.5        # via tox
 wrapt==1.11.2             # via astroid
 zipp==0.6.0               # via importlib-metadata
