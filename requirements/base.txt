@@ -9,7 +9,7 @@ chardet==3.0.4            # via requests
 django-model-utils==3.2.0
 django-simple-history==2.7.3
 django-waffle==0.17.0     # via edx-django-utils, edx-drf-extensions
-django==1.11.23
+django==1.11.24
 djangorestframework-jwt==1.11.0  # via edx-drf-extensions
 djangorestframework-oauth==1.1.0
 djangorestframework==3.9.4
@@ -20,7 +20,7 @@ edx-opaque-keys==1.0.1
 future==0.17.1            # via pyjwkest
 idna==2.8                 # via requests
 newrelic==5.0.2.126       # via edx-django-utils
-pbr==5.4.2                # via stevedore
+pbr==5.4.3                # via stevedore
 pillow==6.1.0
 psutil==1.2.1             # via edx-django-utils, edx-drf-extensions
 pycryptodomex==3.9.0      # via pyjwkest
@@ -31,8 +31,8 @@ python-dateutil==2.8.0    # via edx-drf-extensions
 pytz==2019.2              # via django
 requests==2.22.0          # via edx-drf-extensions, pyjwkest
 rest-condition==1.0.3     # via edx-drf-extensions
-semantic-version==2.8.1   # via edx-drf-extensions
+semantic-version==2.8.2   # via edx-drf-extensions
 shortuuid==0.5.0          # via edx-django-oauth2-provider
 six==1.12.0               # via django-simple-history, edx-drf-extensions, edx-opaque-keys, pyjwkest, python-dateutil, stevedore
-stevedore==1.30.1         # via edx-opaque-keys
+stevedore==1.31.0         # via edx-opaque-keys
 urllib3==1.25.3           # via requests
