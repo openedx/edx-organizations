@@ -7,11 +7,11 @@
 astroid==1.5.3            # via edx-lint, pylint, pylint-celery
 attrs==19.1.0             # via packaging
 backports.functools-lru-cache==1.5  # via astroid, isort, pylint
-certifi==2019.6.16
+certifi==2019.9.11
 chardet==3.0.4
 click-log==0.1.8          # via edx-lint
 click==7.0                # via click-log, edx-lint
-configparser==3.8.1       # via importlib-metadata, pylint
+configparser==4.0.2       # via importlib-metadata, pylint
 contextlib2==0.5.5        # via importlib-metadata
 coverage==4.5.4
 ddt==1.1.0
@@ -25,7 +25,7 @@ edx-django-oauth2-provider==1.3.5
 edx-django-utils==2.0.0
 edx-drf-extensions==2.4.0
 edx-lint==0.6.0
-edx-opaque-keys==1.0.1
+edx-opaque-keys==2.0.0
 enum34==1.1.6             # via astroid
 factory-boy==2.12.0
 faker==2.0.1              # via factory-boy
@@ -34,7 +34,7 @@ future==0.17.1
 futures==3.3.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.6
 idna==2.8
-importlib-metadata==0.20  # via pluggy, tox
+importlib-metadata==0.22  # via pluggy, tox
 ipaddress==1.0.22         # via faker
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.2  # via astroid
@@ -47,7 +47,7 @@ pathlib2==2.3.4           # via importlib-metadata
 pbr==5.4.3
 pep8==1.7.1
 pillow==6.1.0
-pluggy==0.12.0            # via tox
+pluggy==0.13.0            # via tox
 psutil==1.2.1
 py==1.8.0                 # via tox
 pycryptodomex==3.9.0
