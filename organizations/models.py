@@ -22,13 +22,13 @@ class Organization(TimeStampedModel):
     """
     name = models.CharField(max_length=255, db_index=True)
     short_name = models.CharField(
-        max_length=255, db_index=True, verbose_name='Short Name',
+        max_length=255, db_index=True, verbose_name=u'Short Name',
         help_text=_('Please do not use spaces or special characters. Only allowed special characters '
                     'are period (.), hyphen (-) and underscore (_).')
     )
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
-        upload_to='organization_logos',
+        upload_to=u'organization_logos',
         help_text=_('Please add only .PNG files for logo images. This logo will be used on certificates.'),
         null=True, blank=True, max_length=255
     )
@@ -53,7 +53,7 @@ class OrganizationCourse(TimeStampedModel):
     (in the Django/ORM sense) the modeling and integrity is limited to that
     of specifying course identifier strings in this model.
     """
-    course_id = models.CharField(max_length=255, db_index=True, verbose_name='Course ID')
+    course_id = models.CharField(max_length=255, db_index=True, verbose_name=u'Course ID')
     organization = models.ForeignKey(Organization, db_index=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 

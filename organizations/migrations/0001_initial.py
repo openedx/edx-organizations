@@ -18,10 +18,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
-                ('name', models.CharField(max_length=255, verbose_name=b'Long name', db_index=True)),
+                ('name', models.CharField(max_length=255, verbose_name=u'Long name', db_index=True)),
                 ('short_name', models.CharField(max_length=255, db_index=True)),
                 ('description', models.TextField()),
-                ('logo', models.ImageField(help_text='Please add only .PNG files for logo images.', max_length=255, null=True, upload_to=b'organization_logos', blank=True)),
+                ('logo', models.ImageField(help_text='Please add only .PNG files for logo images.', max_length=255, null=True, upload_to=u'organization_logos', blank=True)),
                 ('active', models.BooleanField(default=True)),
             ],
             options={

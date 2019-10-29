@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='short_name',
-            field=models.CharField(help_text='Please do not use spaces or special characters. Only allowed special characters are period (.), hyphen (-) and underscore (_).', max_length=255, verbose_name=b'Short Name', db_index=True),
+            field=models.CharField(help_text='Please do not use spaces or special characters. Only allowed special characters are period (.), hyphen (-) and underscore (_).', max_length=255, verbose_name=u'Short Name', db_index=True),
         ),
     ]
