@@ -29,14 +29,14 @@ enum34==1.1.6             # via astroid
 factory-boy==2.12.0
 faker==2.0.3              # via factory-boy
 filelock==3.0.12          # via tox
-future==0.18.1
+future==0.18.2
 futures==3.3.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.7
 idna==2.8
 importlib-metadata==0.23  # via pluggy, tox
 ipaddress==1.0.23         # via faker
 isort==4.3.21             # via pylint
-lazy-object-proxy==1.4.2  # via astroid
+lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
 more-itertools==5.0.0     # via zipp
 newrelic==5.2.1.129
