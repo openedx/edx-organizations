@@ -4,6 +4,7 @@ from setuptools import setup, find_packages
 
 import organizations
 
+
 def load_requirements(*requirements_paths):
     """
     Load all requirements from the specified requirements files.
@@ -42,13 +43,14 @@ setup(
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Affero General Public License v3',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.5',
     ],
     packages=find_packages(exclude=['tests']),
     install_requires=load_requirements('requirements/base.in'),
