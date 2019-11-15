@@ -2,6 +2,9 @@
 Data layer serialization operations.  Converts querysets to simple
 python containers (mainly arrays and dicts).
 """
+import requests
+
+from django.core.files.base import ContentFile
 from rest_framework import serializers
 
 from organizations import models
@@ -10,9 +13,29 @@ from organizations import models
 # pylint: disable=too-few-public-methods
 class OrganizationSerializer(serializers.ModelSerializer):
     """ Serializes the Organization object."""
+    logo_url = serializers.CharField(write_only=True, required=False)
+
     class Meta(object):  # pylint: disable=missing-docstring
         model = models.Organization
-        fields = '__all__'
+        fields = ('id', 'created', 'modified', 'name', 'short_name', 'description', 'logo',
+                  'active', 'logo_url',)
+
+    def update_logo(self, obj, logo_url):  # pylint: disable=missing-docstring
+        if logo_url:
+            logo = requests.get(logo_url)
+            obj.logo.save(logo_url.split('/')[-1], ContentFile(logo.content))
+
+    def create(self, validated_data):
+        logo_url = validated_data.pop('logo_url', None)
+        obj = super(OrganizationSerializer, self).create(validated_data)
+        self.update_logo(obj, logo_url)
+        return obj
+
+    def update(self, instance, validated_data):
+        logo_url = validated_data.pop('logo_url', None)
+        super(OrganizationSerializer, self).update(instance, validated_data)
+        self.update_logo(instance, logo_url)
+        return instance
 
 
 def serialize_organization(organization):
