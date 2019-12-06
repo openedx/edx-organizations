@@ -16,7 +16,7 @@ coverage==4.5.4
 ddt==1.1.0
 django-model-utils==3.2.0
 django-nose==1.4.6
-django-simple-history==2.7.3
+django-simple-history==2.8.0
 django-waffle==0.18.0
 djangorestframework-jwt==1.11.0
 djangorestframework-oauth==1.1.0
@@ -27,13 +27,13 @@ edx-lint==0.6.0
 edx-opaque-keys==2.0.1
 enum34==1.1.6             # via astroid
 factory-boy==2.12.0
-faker==2.0.4              # via factory-boy
+faker==3.0.0              # via factory-boy
 filelock==3.0.12          # via tox
 future==0.18.2
 futures==3.3.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.7
 idna==2.8
-importlib-metadata==0.23  # via pluggy, tox
+importlib-metadata==1.2.0  # via pluggy, tox
 ipaddress==1.0.23         # via faker
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
@@ -70,7 +70,7 @@ six==1.13.0
 stevedore==1.31.0
 text-unidecode==1.3       # via faker
 toml==0.10.0              # via tox
-tox==3.14.1
+tox==3.14.2
 urllib3==1.25.7
 virtualenv==16.7.8        # via tox
 wrapt==1.11.2             # via astroid
