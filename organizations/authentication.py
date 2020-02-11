@@ -1,3 +1,4 @@
+"""Temp auth class to see how often oauth2authentication class is used in organizations"""
 from rest_framework_oauth.authentication import OAuth2Authentication
 from edx_django_utils.monitoring import set_custom_metric
 
