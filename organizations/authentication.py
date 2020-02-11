@@ -1,6 +1,7 @@
 from rest_framework_oauth.authentication import OAuth2Authentication
 from edx_django_utils.monitoring import set_custom_metric
 
+
 class OAuth2AuthenticationDeprecated(OAuth2Authentication):
     """
     This child class was added to add new_relic metrics to OAuth2Authentication. This should be very temporary.
