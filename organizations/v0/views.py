@@ -10,11 +10,11 @@ from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework_oauth.authentication import OAuth2Authentication
 
 from organizations.models import Organization
 from organizations.permissions import UserIsStaff
 from organizations.serializers import OrganizationSerializer
+from organizations.authentication import OAuth2AuthenticationDeprecated
 
 
 class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSet):
@@ -26,7 +26,7 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
     queryset = Organization.objects.filter(active=True)  # pylint: disable=no-member
     serializer_class = OrganizationSerializer
     lookup_field = 'short_name'
-    authentication_classes = (OAuth2Authentication, JwtAuthentication, SessionAuthentication)
+    authentication_classes = (JwtAuthentication, OAuth2AuthenticationDeprecated, SessionAuthentication)
     permission_classes = (IsAuthenticated, UserIsStaff)
 
     def update(self, request, *args, **kwargs):
