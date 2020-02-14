@@ -4,8 +4,6 @@ Organizations Views Test Cases.
 import json
 from django.urls import reverse
 from django.test import TestCase
-from provider.constants import CONFIDENTIAL
-from provider.oauth2.models import AccessToken, Client
 
 from organizations.models import Organization
 from organizations.serializers import OrganizationSerializer
