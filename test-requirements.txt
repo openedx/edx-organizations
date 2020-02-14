@@ -4,6 +4,7 @@
 #
 #    make upgrade
 #
+appdirs==1.4.3            # via virtualenv
 astroid==1.5.3            # via edx-lint, pylint, pylint-celery
 backports.functools-lru-cache==1.6.1  # via astroid, isort, pylint
 certifi==2019.11.28
@@ -11,67 +12,68 @@ chardet==3.0.4
 click-log==0.1.8          # via edx-lint
 click==7.0                # via click-log, edx-lint
 configparser==4.0.2       # via importlib-metadata, pylint
-contextlib2==0.6.0.post1  # via importlib-metadata
+contextlib2==0.6.0.post1  # via importlib-metadata, virtualenv, zipp
 coverage==4.5.4
 ddt==1.1.0
+distlib==0.3.0            # via virtualenv
 django-model-utils==3.2.0
 django-nose==1.4.6
 django-simple-history==2.8.0
-django-waffle==0.18.0
+django-waffle==0.19.0
 djangorestframework-jwt==1.11.0
-djangorestframework-oauth==1.1.0
 edx-django-oauth2-provider==1.3.5
-edx-django-utils==2.0.2
-edx-drf-extensions==2.4.5
+edx-django-utils==2.0.4
+edx-drf-extensions==2.4.6
 edx-lint==0.6.0
 edx-opaque-keys==2.0.1
 enum34==1.1.6             # via astroid
 factory-boy==2.12.0
-faker==3.0.0              # via factory-boy
-filelock==3.0.12          # via tox
+faker==3.0.1              # via factory-boy
+filelock==3.0.12          # via tox, virtualenv
 future==0.18.2
 futures==3.3.0 ; python_version == "2.7"  # via isort
 httpretty==0.9.7
 idna==2.8
-importlib-metadata==1.2.0  # via pluggy, tox
+importlib-metadata==1.5.0  # via pluggy, tox, virtualenv
+importlib-resources==1.0.2  # via virtualenv
 ipaddress==1.0.23         # via faker
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
-more-itertools==5.0.0     # via zipp
-newrelic==5.4.0.132
+newrelic==5.6.0.135
 nose==1.3.7
-packaging==19.2           # via tox
-pathlib2==2.3.5           # via importlib-metadata
+packaging==20.1           # via tox
+pathlib2==2.3.5           # via importlib-metadata, importlib-resources, virtualenv
 pbr==5.4.4
 pep8==1.7.1
-pillow==6.2.1
+pillow==6.2.2
 pluggy==0.13.1            # via tox
 psutil==1.2.1
-py==1.8.0                 # via tox
-pycryptodomex==3.9.4
+py==1.8.1                 # via tox
+pycryptodomex==3.9.6
 pyjwkest==1.3.2
 pyjwt==1.7.1
 pylint-celery==0.3        # via edx-lint
 pylint-django==0.7.2      # via edx-lint
 pylint-plugin-utils==0.6  # via pylint-celery, pylint-django
 pylint==1.7.6             # via edx-lint, pylint-celery, pylint-django, pylint-plugin-utils
-pymongo==3.9.0
-pyparsing==2.4.5          # via packaging
+pymongo==3.10.1
+pyparsing==2.4.6          # via packaging
 python-dateutil==2.8.1
 pytz==2019.3
 requests==2.22.0
 rest-condition==1.0.3
 scandir==1.10.0           # via pathlib2
-semantic-version==2.8.3
+semantic-version==2.8.4
 shortuuid==0.5.0
 singledispatch==3.4.0.3   # via astroid, pylint
-six==1.13.0
-stevedore==1.31.0
+six==1.14.0
+stevedore==1.32.0
 text-unidecode==1.3       # via faker
 toml==0.10.0              # via tox
-tox==3.14.2
-urllib3==1.25.7
-virtualenv==16.7.8        # via tox
+tox==3.14.4
+typing==3.7.4.1           # via importlib-resources
+urllib3==1.25.8
+virtualenv==20.0.4        # via tox
 wrapt==1.11.2             # via astroid
-zipp==0.6.0               # via importlib-metadata
+zipp==1.1.0               # via importlib-metadata

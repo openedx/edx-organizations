@@ -4,8 +4,6 @@ Organizations Views Test Cases.
 import json
 from django.urls import reverse
 from django.test import TestCase
-from provider.constants import CONFIDENTIAL
-from provider.oauth2.models import AccessToken, Client
 
 from organizations.models import Organization
 from organizations.serializers import OrganizationSerializer
@@ -60,29 +58,6 @@ class TestOrganizationsView(TestCase):
         url = reverse('v0:organization-detail', kwargs={'short_name': 'dummy'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
-
-    def test_oauth2(self):
-        """Verify that the API can handle OAuth 2.0 access tokens."""
-        oauth2_client = Client.objects.create(client_type=CONFIDENTIAL)
-        access_token = AccessToken.objects.create(
-            token='fake-access-token',
-            client=oauth2_client,
-            user=self.user,
-        )
-
-        self.client.logout()
-
-        response = self.client.get(
-            self.organization_list_url,
-            HTTP_AUTHORIZATION='Bearer {}'.format(access_token)
-        )
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(
-            self.organization_list_url,
-            HTTP_AUTHORIZATION='Bearer {}'.format('nonexistent-access-token')
-        )
-        self.assertEqual(response.status_code, 401)
 
     def test_create_organization(self):
         """ Verify Organization can be created via PUT endpoint. """
