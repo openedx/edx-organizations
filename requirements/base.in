@@ -1,7 +1,7 @@
 -c constraints.txt
 
 django
-django-model-utils>=1.4.0
+django-model-utils
 django-simple-history
 djangorestframework>=3.2.0
 edx-django-oauth2-provider>=1.2.0

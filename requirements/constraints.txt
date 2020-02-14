@@ -10,3 +10,7 @@
 
 # This package is a backport from python 3 that can only be installed in python 2.7
 futures ; python_version == "2.7"
+
+
+# starting from version 4.0.0, the library no longer supports django 1.11
+django-model-utils<4.0.0
