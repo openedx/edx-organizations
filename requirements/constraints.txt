@@ -14,3 +14,6 @@ futures ; python_version == "2.7"
 
 # starting from version 4.0.0, the library no longer supports django 1.11
 django-model-utils<4.0.0
+
+# does not support python2.7
+faker<4.0.0

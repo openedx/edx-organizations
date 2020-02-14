@@ -24,7 +24,7 @@ edx-drf-extensions==2.4.6
 edx-lint==0.6.0
 edx-opaque-keys==2.0.1
 factory-boy==2.12.0
-faker==4.0.0              # via factory-boy
+faker==3.0.1              # via factory-boy
 filelock==3.0.12          # via tox, virtualenv
 future==0.18.2
 httpretty==0.9.7
