@@ -7,73 +7,73 @@
 appdirs==1.4.3            # via virtualenv
 astroid==1.5.3            # via edx-lint, pylint, pylint-celery
 backports.functools-lru-cache==1.6.1  # via astroid, isort, pylint
-certifi==2019.11.28
-chardet==3.0.4
+certifi==2019.11.28       # via -r requirements/base.txt (line 7), requests
+chardet==3.0.4            # via -r requirements/base.txt (line 8), requests
 click-log==0.1.8          # via edx-lint
 click==7.0                # via click-log, edx-lint
 configparser==4.0.2       # via importlib-metadata, pylint
 contextlib2==0.6.0.post1  # via importlib-metadata, virtualenv, zipp
-coverage==4.5.4
-ddt==1.1.0
+coverage==4.5.4           # via -r requirements/test.in (line 6)
+ddt==1.1.0                # via -r requirements/test.in (line 5)
 distlib==0.3.0            # via virtualenv
-django-model-utils==3.2.0
-django-nose==1.4.6
-django-simple-history==2.8.0
-django-waffle==0.19.0
-djangorestframework-jwt==1.11.0
-edx-django-oauth2-provider==1.3.5
-edx-django-utils==3.0
-edx-drf-extensions==2.4.6
-edx-lint==0.6.0
-edx-opaque-keys==2.0.1
+django-model-utils==3.2.0  # via -c requirements/constraints.txt (line 16), -r requirements/base.txt (line 9)
+django-nose==1.4.6        # via -r requirements/test.in (line 7)
+django-simple-history==2.8.0  # via -r requirements/base.txt (line 10)
+django-waffle==0.20.0     # via -r requirements/base.txt (line 11), edx-django-utils, edx-drf-extensions
+djangorestframework-jwt==1.11.0  # via -r requirements/base.txt (line 13), edx-drf-extensions
+edx-django-oauth2-provider==1.3.5  # via -r requirements/base.txt (line 15)
+edx-django-utils==3.0     # via -r requirements/base.txt (line 16), edx-drf-extensions
+edx-drf-extensions==2.4.6  # via -r requirements/base.txt (line 17)
+edx-lint==0.6.0           # via -r requirements/test.in (line 8)
+edx-opaque-keys==2.0.1    # via -r requirements/base.txt (line 18), edx-drf-extensions
 enum34==1.1.6             # via astroid
-factory-boy==2.12.0
-faker==3.0.1              # via factory-boy
+factory-boy==2.12.0       # via -r requirements/test.in (line 9)
+faker==3.0.1              # via -c requirements/constraints.txt (line 19), factory-boy
 filelock==3.0.12          # via tox, virtualenv
-future==0.18.2
-futures==3.3.0 ; python_version == "2.7"  # via isort
-httpretty==0.9.7
-idna==2.8
+future==0.18.2            # via -r requirements/base.txt (line 19), pyjwkest
+futures==3.3.0 ; python_version == "2.7"  # via -c requirements/constraints.txt (line 12), isort
+httpretty==0.9.7          # via -r requirements/test.in (line 10)
+idna==2.9                 # via -r requirements/base.txt (line 20), requests
 importlib-metadata==1.5.0  # via pluggy, tox, virtualenv
 importlib-resources==1.0.2  # via virtualenv
 ipaddress==1.0.23         # via faker
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
-newrelic==5.6.0.135
-nose==1.3.7
+newrelic==5.6.0.135       # via -r requirements/base.txt (line 21), edx-django-utils
+nose==1.3.7               # via -r requirements/test.in (line 11), django-nose
 packaging==20.1           # via tox
 pathlib2==2.3.5           # via importlib-metadata, importlib-resources, virtualenv
-pbr==5.4.4
-pep8==1.7.1
-pillow==6.2.2
+pbr==5.4.4                # via -r requirements/base.txt (line 22), stevedore
+pep8==1.7.1               # via -r requirements/test.in (line 12)
+pillow==6.2.2             # via -r requirements/base.txt (line 23)
 pluggy==0.13.1            # via tox
-psutil==1.2.1
+psutil==1.2.1             # via -r requirements/base.txt (line 24), edx-django-utils, edx-drf-extensions
 py==1.8.1                 # via tox
-pycryptodomex==3.9.6
-pyjwkest==1.3.2
-pyjwt==1.7.1
+pycryptodomex==3.9.7      # via -r requirements/base.txt (line 25), pyjwkest
+pyjwkest==1.3.2           # via -r requirements/base.txt (line 26), edx-drf-extensions
+pyjwt==1.7.1              # via -r requirements/base.txt (line 27), djangorestframework-jwt
 pylint-celery==0.3        # via edx-lint
 pylint-django==0.7.2      # via edx-lint
 pylint-plugin-utils==0.6  # via pylint-celery, pylint-django
 pylint==1.7.6             # via edx-lint, pylint-celery, pylint-django, pylint-plugin-utils
-pymongo==3.10.1
+pymongo==3.10.1           # via -r requirements/base.txt (line 28), edx-opaque-keys
 pyparsing==2.4.6          # via packaging
-python-dateutil==2.8.1
-pytz==2019.3
-requests==2.22.0
-rest-condition==1.0.3
+python-dateutil==2.8.1    # via -r requirements/base.txt (line 29), edx-drf-extensions, faker
+pytz==2019.3              # via -r requirements/base.txt (line 30), django
+requests==2.23.0          # via -r requirements/base.txt (line 31), edx-drf-extensions, pyjwkest
+rest-condition==1.0.3     # via -r requirements/base.txt (line 32), edx-drf-extensions
 scandir==1.10.0           # via pathlib2
-semantic-version==2.8.4
-shortuuid==0.5.0
+semantic-version==2.8.4   # via -r requirements/base.txt (line 33), edx-drf-extensions
+shortuuid==0.5.0          # via -r requirements/base.txt (line 34), edx-django-oauth2-provider
 singledispatch==3.4.0.3   # via astroid, pylint
-six==1.14.0
-stevedore==1.32.0
+six==1.14.0               # via -r requirements/base.txt (line 35), astroid, django-simple-history, django-waffle, edx-drf-extensions, edx-lint, edx-opaque-keys, faker, httpretty, packaging, pathlib2, pyjwkest, pylint, python-dateutil, singledispatch, stevedore, tox, virtualenv
+stevedore==1.32.0         # via -r requirements/base.txt (line 36), edx-opaque-keys
 text-unidecode==1.3       # via faker
 toml==0.10.0              # via tox
-tox==3.14.4
+tox==3.14.5               # via -r requirements/test.in (line 13)
 typing==3.7.4.1           # via importlib-resources
-urllib3==1.25.8
-virtualenv==20.0.4        # via tox
-wrapt==1.11.2             # via astroid
-zipp==1.1.0               # via importlib-metadata
+urllib3==1.25.8           # via -r requirements/base.txt (line 37), requests
+virtualenv==20.0.5        # via tox
+wrapt==1.12.0             # via astroid
+zipp==1.2.0               # via importlib-metadata
