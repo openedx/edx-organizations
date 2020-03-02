@@ -6,21 +6,21 @@
 #
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
-django-model-utils==3.2.0  # via -c requirements/constraints.txt (line 16), -r requirements/base.in (line 4)
-django-simple-history==2.8.0  # via -r requirements/base.in (line 5)
+django-model-utils==3.2.0  # via -c requirements/constraints.txt, -r requirements/base.in
+django-simple-history==2.8.0  # via -r requirements/base.in
 django-waffle==0.20.0     # via edx-django-utils, edx-drf-extensions
-django==1.11.28           # via -r requirements/base.in (line 3), django-model-utils, edx-django-oauth2-provider, edx-django-utils, edx-drf-extensions, rest-condition
+django==1.11.28           # via -r requirements/base.in, django-model-utils, edx-django-oauth2-provider, edx-django-utils, edx-drf-extensions, rest-condition
 djangorestframework-jwt==1.11.0  # via edx-drf-extensions
-djangorestframework==3.9.4  # via -r requirements/base.in (line 6), edx-drf-extensions, rest-condition
-edx-django-oauth2-provider==1.3.5  # via -r requirements/base.in (line 7)
+djangorestframework==3.9.4  # via -r requirements/base.in, edx-drf-extensions, rest-condition
+edx-django-oauth2-provider==1.3.5  # via -r requirements/base.in
 edx-django-utils==3.0     # via edx-drf-extensions
-edx-drf-extensions==2.4.6  # via -r requirements/base.in (line 8)
-edx-opaque-keys==2.0.1    # via -r requirements/base.in (line 9), edx-drf-extensions
+edx-drf-extensions==3.0.0  # via -r requirements/base.in
+edx-opaque-keys==2.0.1    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.9                 # via requests
-newrelic==5.6.0.135       # via edx-django-utils
+newrelic==5.8.0.136       # via edx-django-utils
 pbr==5.4.4                # via stevedore
-pillow==6.2.2             # via -r requirements/base.in (line 10)
+pillow==6.2.2             # via -r requirements/base.in
 psutil==1.2.1             # via edx-django-utils, edx-drf-extensions
 pycryptodomex==3.9.7      # via pyjwkest
 pyjwkest==1.3.2           # via edx-drf-extensions
