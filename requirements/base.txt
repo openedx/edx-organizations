@@ -9,21 +9,21 @@ chardet==3.0.4            # via requests
 django-model-utils==3.2.0  # via -c requirements/constraints.txt, -r requirements/base.in
 django-simple-history==2.8.0  # via -r requirements/base.in
 django-waffle==0.20.0     # via edx-django-utils, edx-drf-extensions
-django==1.11.29           # via -r requirements/base.in, django-model-utils, edx-django-utils, edx-drf-extensions, rest-condition
-djangorestframework-jwt==1.11.0  # via edx-drf-extensions
-djangorestframework==3.9.4  # via -r requirements/base.in, edx-drf-extensions, rest-condition
+django==1.11.29           # via -r requirements/base.in, django-model-utils, drf-jwt, edx-django-utils, edx-drf-extensions, rest-condition
+djangorestframework==3.9.4  # via -r requirements/base.in, drf-jwt, edx-drf-extensions, rest-condition
+drf-jwt==1.15.1           # via edx-drf-extensions
 edx-django-utils==3.0     # via edx-drf-extensions
-edx-drf-extensions==4.0.0  # via -r requirements/base.in
+edx-drf-extensions==4.0.2  # via -r requirements/base.in
 edx-opaque-keys==2.0.1    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.9                 # via requests
-newrelic==5.8.0.136       # via edx-django-utils
+newrelic==5.10.0.138      # via edx-django-utils
 pbr==5.4.4                # via stevedore
 pillow==6.2.2             # via -r requirements/base.in
 psutil==1.2.1             # via edx-django-utils
 pycryptodomex==3.9.7      # via pyjwkest
-pyjwkest==1.3.2           # via edx-drf-extensions
-pyjwt==1.7.1              # via djangorestframework-jwt
+pyjwkest==1.4.2           # via edx-drf-extensions
+pyjwt==1.7.1              # via drf-jwt
 pymongo==3.10.1           # via edx-opaque-keys
 python-dateutil==2.8.1    # via edx-drf-extensions
 pytz==2019.3              # via django
