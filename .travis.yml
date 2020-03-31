@@ -2,18 +2,24 @@ language: python
 
 cache: pip
 python:
-  - 3.6
+  - 2.7
+  - 3.5
 env:
-- TOXENV=django111-drf37
-- TOXENV=django111-drf38
 - TOXENV=django111-drf39
 - TOXENV=django111-drflatest
 
 
 matrix:
   include:
-  - python: 3.6
+  - python: 3.5
     env: TOXENV=quality
+  - python: 3.5
+    env: TOXENV=django20-drflatest
+  - python: 3.5
+    env: TOXENV=django21-drflatest
+  - python: 3.5
+    env: TOXENV=django22-drflatest
+
 
 # Set Travis builds to use docker container
 sudo: false

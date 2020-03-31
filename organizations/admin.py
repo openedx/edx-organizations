@@ -19,7 +19,8 @@ class OrganizationAdmin(admin.ModelAdmin):
         actions = super(OrganizationAdmin, self).get_actions(request)
 
         # Remove the delete action.
-        del actions['delete_selected']
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
 
         return actions
 
