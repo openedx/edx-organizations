@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-certifi==2019.11.28       # via requests
+certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 django-model-utils==3.2.0  # via -c requirements/constraints.txt, -r requirements/base.in
 django-simple-history==2.8.0  # via -r requirements/base.in
