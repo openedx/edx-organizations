@@ -23,7 +23,7 @@ django-nose==1.4.6        # via -r requirements/test.in
 django-simple-history==2.8.0  # via -r requirements/base.txt
 django-waffle==0.20.0     # via -r requirements/base.txt, edx-django-utils, edx-drf-extensions
 drf-jwt==1.14.0           # via -r requirements/base.txt, edx-drf-extensions
-edx-django-utils==3.2.0   # via -r requirements/base.txt, edx-drf-extensions
+edx-django-utils==3.2.1   # via -r requirements/base.txt, edx-drf-extensions
 edx-drf-extensions==5.0.2  # via -r requirements/base.txt
 edx-lint==0.6.0           # via -r requirements/test.in
 edx-opaque-keys==2.0.2    # via -r requirements/base.txt, edx-drf-extensions
@@ -78,8 +78,8 @@ text-unidecode==1.3       # via faker
 toml==0.10.0              # via tox
 tox==3.14.6               # via -r requirements/test.in
 typing==3.7.4.1           # via importlib-resources
-urllib3==1.25.8           # via -r requirements/base.txt, requests
-virtualenv==20.0.17       # via tox
+urllib3==1.25.9           # via -r requirements/base.txt, requests
+virtualenv==20.0.18       # via tox
 wcwidth==0.1.9            # via pytest
 wrapt==1.12.1             # via astroid
 zipp==1.2.0               # via importlib-metadata, importlib-resources
