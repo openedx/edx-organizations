@@ -20,7 +20,6 @@ upgrade: ## update the requirements text files based on the requirements/*.in fi
 	pip-compile --upgrade -o test-requirements.txt requirements/test.in
 	# Let tox control the Django version for tests
 	sed -i.tmp '/^django==/d' test-requirements.txt
-	sed -i.tmp '/^djangorestframework==/d' test-requirements.txt
 	rm test-requirements.txt.tmp
 
 test:

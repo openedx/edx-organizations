@@ -37,14 +37,14 @@ class TestOrganizationsView(TestCase):
         OrganizationFactory.create()
         response = self.client.get(self.organization_list_url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 2)  # pylint: disable=no-member
+        self.assertEqual(len(response.data['results']), 2)
 
     def test_single_organization(self):
         """verify single organization data could be fetched using short name"""
         url = self._get_organization_url(self.organization)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, OrganizationSerializer(self.organization).data)  # pylint: disable=no-member
+        self.assertEqual(response.data, OrganizationSerializer(self.organization).data)
 
     def test_inactive_organization(self):
         """ Verify inactive organization are filtered out."""
@@ -100,7 +100,7 @@ class TestOrganizationsView(TestCase):
     def test_create_as_only_staff_user(self):
         self.user.is_staff = True
         self.user.is_superuser = False
-        self.user.save()
+        self.user.save()  # pylint: disable=no-member
 
         data = {
             'name': 'example-name',
@@ -113,7 +113,7 @@ class TestOrganizationsView(TestCase):
 
     def test_create_as_non_staff_and_non_admin_user(self):
         self.user.is_superuser = False
-        self.user.save()
+        self.user.save()  # pylint: disable=no-member
 
         data = {
             'name': 'example-name',

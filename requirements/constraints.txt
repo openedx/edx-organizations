@@ -8,12 +8,5 @@
 # pin when possible.  Writing an issue against the offending project and
 # linking to it here is good.
 
-# This package is a backport from python 3 that can only be installed in python 2.7
-futures ; python_version == "2.7"
-
-
-# starting from version 4.0.0, the library no longer supports django 1.11
-django-model-utils<4.0.0
-
-# does not support python2.7
-faker<4.0.0
+# Stay on an LTS release
+django<2.3

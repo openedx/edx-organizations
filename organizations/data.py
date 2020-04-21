@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-# pylint: disable=no-member,expression-not-assigned
+# pylint: disable=expression-not-assigned
 """
 Application data management/abstraction layer.  Responsible for:
 

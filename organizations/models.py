@@ -57,7 +57,7 @@ class OrganizationCourse(TimeStampedModel):
     organization = models.ForeignKey(Organization, db_index=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
-    class Meta(object):
+    class Meta:
         """ Meta class for this Django model """
         unique_together = (('course_id', 'organization'),)
         verbose_name = _('Link Course')

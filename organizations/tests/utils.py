@@ -1,4 +1,3 @@
-# pylint: disable=too-many-public-methods
 """
 Utility module for Organizations test cases
 """

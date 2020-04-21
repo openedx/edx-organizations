@@ -2,24 +2,11 @@ language: python
 
 cache: pip
 python:
-  - 2.7
   - 3.5
+  - 3.8
 env:
-- TOXENV=django111-drf39
-- TOXENV=django111-drflatest
-
-
-matrix:
-  include:
-  - python: 3.5
-    env: TOXENV=quality
-  - python: 3.5
-    env: TOXENV=django20-drflatest
-  - python: 3.5
-    env: TOXENV=django21-drflatest
-  - python: 3.5
-    env: TOXENV=django22-drflatest
-
+- TOXENV=django22
+- TOXENV=quality
 
 # Set Travis builds to use docker container
 sudo: false
@@ -30,7 +17,7 @@ install:
     - pip install coveralls
 
 script:
-    - tox
+    - tox -e $TOXENV
 
 after_success: coveralls
 
