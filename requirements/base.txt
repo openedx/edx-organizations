@@ -7,7 +7,7 @@
 certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 django-model-utils==3.2.0  # via -c requirements/constraints.txt, -r requirements/base.in
-django-simple-history==2.8.0  # via -r requirements/base.in
+django-simple-history==2.10.0  # via -r requirements/base.in
 django-waffle==0.20.0     # via edx-django-utils, edx-drf-extensions
 django==1.11.29           # via -r requirements/base.in, django-model-utils, drf-jwt, edx-django-utils, edx-drf-extensions, rest-condition
 djangorestframework==3.9.4  # via -r requirements/base.in, drf-jwt, edx-drf-extensions, rest-condition
@@ -26,7 +26,7 @@ pyjwkest==1.4.2           # via edx-drf-extensions
 pyjwt==1.7.1              # via drf-jwt
 pymongo==3.10.1           # via edx-opaque-keys
 python-dateutil==2.8.1    # via edx-drf-extensions
-pytz==2019.3              # via django
+pytz==2020.1              # via django
 requests==2.23.0          # via edx-drf-extensions, pyjwkest
 rest-condition==1.0.3     # via edx-drf-extensions
 semantic-version==2.8.4   # via edx-drf-extensions
