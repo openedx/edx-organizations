@@ -23,7 +23,7 @@ drf-jwt==1.14.0           # via -r requirements/base.txt, edx-drf-extensions
 edx-django-utils==3.2.1   # via -r requirements/base.txt, edx-drf-extensions
 edx-drf-extensions==5.0.2  # via -r requirements/base.txt
 edx-lint==1.4.1           # via -r requirements/test.in
-edx-opaque-keys==2.0.2    # via -r requirements/base.txt, edx-drf-extensions
+edx-opaque-keys==2.1.0    # via -r requirements/base.txt, edx-drf-extensions
 factory-boy==2.12.0       # via -r requirements/test.in
 faker==4.0.3              # via factory-boy
 filelock==3.0.12          # via tox, virtualenv
