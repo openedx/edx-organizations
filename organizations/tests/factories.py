@@ -1,7 +1,6 @@
 """
 Provides factory for User.
 """
-# pylint: disable=too-few-public-methods
 from django.contrib.auth.models import User
 import factory
 from factory.django import DjangoModelFactory
@@ -11,7 +10,7 @@ from organizations.models import Organization
 
 class UserFactory(DjangoModelFactory):
     """ User creation factory."""
-    class Meta(object):  # pylint: disable=missing-docstring
+    class Meta:
         model = User
         django_get_or_create = ('email', 'username')
 
@@ -27,7 +26,7 @@ class UserFactory(DjangoModelFactory):
 
 class OrganizationFactory(DjangoModelFactory):
     """ Organization creation factory."""
-    class Meta(object):  # pylint: disable=missing-docstring
+    class Meta:
         model = Organization
 
     name = factory.Sequence(u'organization name {}'.format)

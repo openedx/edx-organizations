@@ -1,4 +1,3 @@
-# pylint: disable=too-many-ancestors
 """
 Views for organizations end points.
 """
@@ -22,7 +21,7 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
         - fetch list organization data or single organization using organization short name.
         - create or update an organization via the PUT endpoint.
     """
-    queryset = Organization.objects.filter(active=True)  # pylint: disable=no-member
+    queryset = Organization.objects.filter(active=True)
     serializer_class = OrganizationSerializer
     lookup_field = 'short_name'
     authentication_classes = (JwtAuthentication, SessionAuthentication)
