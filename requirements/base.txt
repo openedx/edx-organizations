@@ -12,12 +12,12 @@ django-waffle==0.20.0     # via edx-django-utils, edx-drf-extensions
 django==2.2.12            # via -c requirements/constraints.txt, -r requirements/base.in, django-model-utils, djangorestframework, drf-jwt, edx-django-utils, edx-drf-extensions, rest-condition
 djangorestframework==3.11.0  # via -r requirements/base.in, drf-jwt, edx-drf-extensions, rest-condition
 drf-jwt==1.14.0           # via edx-drf-extensions
-edx-django-utils==3.2.1   # via edx-drf-extensions
-edx-drf-extensions==5.0.2  # via -r requirements/base.in
+edx-django-utils==3.2.2   # via edx-drf-extensions
+edx-drf-extensions==5.1.0  # via -r requirements/base.in
 edx-opaque-keys==2.1.0    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.9                 # via requests
-newrelic==5.12.0.140      # via edx-django-utils
+newrelic==5.12.1.141      # via edx-django-utils
 pbr==5.4.5                # via stevedore
 pillow==7.1.2             # via -r requirements/base.in
 psutil==1.2.1             # via edx-django-utils
