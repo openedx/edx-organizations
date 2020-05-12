@@ -13,7 +13,7 @@ django==2.2.12            # via -c requirements/constraints.txt, -r requirements
 djangorestframework==3.11.0  # via -r requirements/base.in, drf-jwt, edx-drf-extensions, rest-condition
 drf-jwt==1.14.0           # via edx-drf-extensions
 edx-django-utils==3.2.2   # via edx-drf-extensions
-edx-drf-extensions==5.1.0  # via -r requirements/base.in
+edx-drf-extensions==6.0.0  # via -r requirements/base.in
 edx-opaque-keys==2.1.0    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.9                 # via requests
