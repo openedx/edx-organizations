@@ -2,7 +2,7 @@
 """
 Organizations API Module Test Cases
 """
-from __future__ import unicode_literals
+
 import organizations.api as api
 import organizations.exceptions as exceptions
 import organizations.tests.utils as utils

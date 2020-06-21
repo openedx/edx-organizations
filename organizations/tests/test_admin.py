@@ -1,7 +1,7 @@
 """
 Organizations Admin Module Test Cases
 """
-from __future__ import unicode_literals
+
 from django.contrib.admin.sites import AdminSite
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.test import RequestFactory
