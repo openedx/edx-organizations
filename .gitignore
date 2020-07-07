@@ -48,11 +48,9 @@ Desktop.ini
 
 # Test Artifacts
 .coverage
-nosetests.xml
+coverage.xml
 reports/
 coverage/
 htmlcov/
 acceptance_tests/*.png
 .tox/
-
-

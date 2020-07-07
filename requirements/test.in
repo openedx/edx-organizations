@@ -4,11 +4,9 @@
 
 ddt
 coverage
-django_nose
 edx-lint
 factory-boy
 httpretty>=0.8.14,<1.0.0
-nose
 pycodestyle
 pytest-cov                # pytest extension for code coverage statistics
 pytest-django             # pytest extension for better Django support

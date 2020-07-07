@@ -1,5 +1,3 @@
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
 SECRET_KEY = 'insecure-secret-key'
 
 DATABASES = {
@@ -21,7 +19,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'organizations',
-    'django_nose',
 )
 
 MIDDLEWARE = (
