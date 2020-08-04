@@ -11,7 +11,7 @@ cryptography==3.0         # via pyjwt
 django-model-utils==4.0.0  # via -r requirements/base.in
 django-simple-history==2.11.0  # via -r requirements/base.in
 django-waffle==1.0.0      # via edx-django-utils, edx-drf-extensions
-django==2.2.14            # via -c requirements/constraints.txt, -r requirements/base.in, django-model-utils, djangorestframework, drf-jwt, edx-django-utils, edx-drf-extensions, rest-condition
+django==2.2.15            # via -c requirements/constraints.txt, -r requirements/base.in, django-model-utils, djangorestframework, drf-jwt, edx-django-utils, edx-drf-extensions, rest-condition
 djangorestframework==3.11.0  # via -r requirements/base.in, drf-jwt, edx-drf-extensions, rest-condition
 drf-jwt==1.16.2           # via edx-drf-extensions
 edx-django-utils==3.5.0   # via edx-drf-extensions
@@ -27,7 +27,7 @@ pycparser==2.20           # via cffi
 pycryptodomex==3.9.8      # via pyjwkest
 pyjwkest==1.4.2           # via edx-drf-extensions
 pyjwt[crypto]==1.7.1      # via drf-jwt
-pymongo==3.10.1           # via edx-opaque-keys
+pymongo==3.11.0           # via edx-opaque-keys
 python-dateutil==2.8.1    # via edx-drf-extensions
 pytz==2020.1              # via django
 requests==2.24.0          # via edx-drf-extensions, pyjwkest
