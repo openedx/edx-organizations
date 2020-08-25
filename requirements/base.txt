@@ -19,7 +19,7 @@ edx-drf-extensions==6.1.1  # via -r requirements/base.in
 edx-opaque-keys==2.1.1    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.10                # via requests
-newrelic==5.16.1.146      # via edx-django-utils
+newrelic==5.16.2.147      # via edx-django-utils
 pbr==5.4.5                # via stevedore
 pillow==7.2.0             # via -r requirements/base.in
 psutil==5.7.2             # via edx-django-utils
