@@ -100,7 +100,7 @@ class TestOrganizationsView(TestCase):
     def test_create_as_only_staff_user(self):
         self.user.is_staff = True
         self.user.is_superuser = False
-        self.user.save()  # pylint: disable=no-member
+        self.user.save()
 
         data = {
             'name': 'example-name',
@@ -113,7 +113,7 @@ class TestOrganizationsView(TestCase):
 
     def test_create_as_non_staff_and_non_admin_user(self):
         self.user.is_superuser = False
-        self.user.save()  # pylint: disable=no-member
+        self.user.save()
 
         data = {
             'name': 'example-name',

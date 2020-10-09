@@ -7,13 +7,11 @@ offers one programmatic API -- api.py for direct Python integration.
 import re
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 from simple_history.models import HistoricalRecords
 
 
-@python_2_unicode_compatible
 class Organization(TimeStampedModel):
     """
     An Organization is a representation of an entity which publishes/provides
