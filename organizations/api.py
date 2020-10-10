@@ -7,9 +7,16 @@ In the current incarnation of this particular application, the API
 operations are equivalent to the orchestration layer, which manages
 the application's workflows.
 """
+import logging
+
+from django.conf import settings
+
 from . import data
 from . import exceptions
 from . import validators
+
+
+log = logging.getLogger(__name__)
 
 
 # PRIVATE/INTERNAL FUNCTIONS
@@ -122,6 +129,27 @@ def get_course_organizations(course_key):
     return data.fetch_course_organizations(course_key=course_key)
 
 
+def get_course_organization(course_key):
+    """
+    Returns the first organization linked to a given course,
+    or None if the course is not linked to any organizations.
+    """
+    _validate_course_key(course_key)
+    course_organization = get_course_organizations(course_key)
+    if course_organization:
+        return course_organization[0]
+    return None
+
+
+def get_course_organization_id(course_key):
+    """
+    Returns the id of the first organization linked to a given course,
+    or None if the course is not linked to any organizations.
+    """
+    course_org = get_course_organization(course_key)
+    return course_org["id"] if course_org else None
+
+
 def remove_course_references(course_key):
     """
     Removes course references from application state
@@ -129,3 +157,60 @@ def remove_course_references(course_key):
     """
     _validate_course_key(course_key)
     data.delete_course_references(course_key)
+
+
+def ensure_organization(organization_short_name):
+    """
+    Ensure that an organization with the given short name exists.
+
+    If the organization exists, then return it.
+    If the organization does not exist, then:
+        (a) If auto-create is enabled, create & return a new organization.
+        (b) If auto-create is disabled, raise an InvalidOrganizationException.
+
+    Arguments:
+        organization_short_name (str)
+
+    Returns: dict
+        dictionary containing organization data
+
+    Raises:
+        InvalidOrganizationException (only if auto-create is disabled)
+    """
+    try:
+        return get_organization_by_short_name(organization_short_name)
+    except exceptions.InvalidOrganizationException:
+        if not is_autocreate_enabled():
+            raise
+    log.info("Automatically creating new organization '%s'.", organization_short_name)
+    return add_organization({
+        "short_name": organization_short_name,
+        "name": organization_short_name,
+    })
+
+
+def is_autocreate_enabled():
+    """
+    Return whether automatic organization creation is enabled.
+
+    If True (default), calls to ``ensure_organization`` will auto-create organizations
+    that do not already exist in the database.
+
+    If False, calls to ``ensure_organization`` will fail for organizations that are not
+    already in the database.
+    """
+    try:
+        return bool(settings.ORGANIZATIONS_AUTOCREATE)
+    except AttributeError:
+        pass
+    # TODO DEPR-117
+    # ORGANIZATIONS_APP is the (soon-to-be-)deprecated feature flag
+    # that enabled edx-organizations in edx-platform.
+    # To ease migration, we accept the enabling of the old feature flag as a way of
+    # disabling automatic organization creation.
+    try:
+        features = settings.FEATURES
+    except AttributeError:
+        features = {}
+    old_organizations_flag_enabled = bool(features.get('ORGANIZATIONS_APP', False))
+    return not old_organizations_flag_enabled
