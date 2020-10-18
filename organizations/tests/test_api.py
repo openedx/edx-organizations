@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import ddt
 from django.test import override_settings
+from opaque_keys.edx.keys import CourseKey
 
 import organizations.api as api
 import organizations.exceptions as exceptions
@@ -437,3 +438,252 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         disabling automatic organization creation.
         """
         assert not api.is_autocreate_enabled()
+
+
+class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
+    """
+    Tests for `api.bulk_add_organizations`.
+    """
+
+    def test_validation_errors(self):
+        """
+        Test the `bulk_add_organizations` raises validation errors on bad input,
+        and no organizations are created.
+        """
+        with self.assertRaises(exceptions.InvalidOrganizationException):
+            api.bulk_add_organizations([
+                self.make_organization_data("valid_org"),
+                {"description": "org with no short_name!"},
+            ])
+        assert len(api.get_organizations()) == 0
+
+    def test_add_no_organizations(self):
+        """
+        Test that `bulk_add_organizations` is a no-op when given an empty list.
+        """
+        api.bulk_add_organizations([])
+        assert len(api.get_organizations()) == 0
+
+    def test_edge_cases(self):
+        """
+        Test that bulk_add_organizations handles a few edge cases as expected.
+        """
+        # Add three orgs, and remove all but the first.
+        api.add_organization(self.make_organization_data("existing_org"))
+        api.remove_organization(
+            api.add_organization(
+                self.make_organization_data("org_to_reactivate")
+            )["id"]
+        )
+        api.remove_organization(
+            api.add_organization(
+                self.make_organization_data("org_to_leave_inactive")
+            )["id"]
+        )
+
+        # 1 query to load list of existing orgs, 1 query for create, and 1 query for update.
+        with self.assertNumQueries(3):
+            api.bulk_add_organizations([
+
+                # New organization.
+                self.make_organization_data("org_X"),
+
+                # Modify existing active organization; should be no-op.
+                {
+                    **self.make_organization_data("existing_org"),
+                    "description": "this name should be ignored"
+                },
+
+                # Deleted organizations are still stored in the DB as "inactive".
+                # Bulk-adding should reactivate it.
+                self.make_organization_data("org_to_reactivate"),
+
+                # Another new organizaiton.
+                self.make_organization_data("org_Y"),
+
+                # Another org with same short name (case-insensitively)
+                # as first new organization; should be ignored.
+                {**self.make_organization_data("ORG_x"), "name": "this name should be ignored"}
+            ])
+
+        # There should exist the already-existing org, the org that existed as inactive
+        # but is not activated, and the two new orgs.
+        # This should not include `org_to_leave_inactive`.
+        organizations = api.get_organizations()
+        assert {
+            organization["short_name"] for organization in organizations
+        } == {
+            "existing_org", "org_to_reactivate", "org_X", "org_Y"
+        }
+
+        # Organization dicts with already-taken short_names shouldn't have modified
+        # the existing orgs.
+        assert "this name should be ignored" not in {
+            organization["name"] for organization in organizations
+        }
+
+    def test_add_several_organizations(self):
+        """
+        Test that the query_count of bulk_add_organizations does not increase
+        when given more organizations.
+        """
+        existing_org = api.add_organization(self.make_organization_data("existing_org"))
+
+        # 1 query to load list of existing orgs,
+        # 1 query for activate-existing, and 1 query for create-new.
+        with self.assertNumQueries(3):
+            api.bulk_add_organizations([
+                existing_org,
+                existing_org,
+                existing_org,
+                self.make_organization_data("new_org_1"),
+                self.make_organization_data("new_org_2"),
+                self.make_organization_data("new_org_3"),
+                self.make_organization_data("new_org_4"),
+                self.make_organization_data("new_org_5"),
+                self.make_organization_data("new_org_6"),
+                self.make_organization_data("new_org_7"),
+                self.make_organization_data("new_org_8"),
+                self.make_organization_data("new_org_9"),
+                self.make_organization_data("new_org_9"),  # Redundant.
+                self.make_organization_data("new_org_9"),  # Redundant.
+            ])
+        assert len(api.get_organizations()) == 10
+
+
+class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
+    """
+    Tests for `api.bulk_add_organization_courses`.
+    """
+
+    def test_validation_errors(self):
+        """
+        Test the `bulk_add_organization_courses` raises validation errors on bad input,
+        and no organization-course linkages are created.
+        """
+        valid_org = self.make_organization_data("valid_org")
+        invalid_org = {"description": "org with no short_name!"}
+        valid_course_key = "course-v1:a+b+c"
+        invalid_course_key = "NOT-A-COURSE-KEY"
+
+        # Any bad org data or bad course key should cause the bulk-add to raise.
+        with self.assertRaises(exceptions.InvalidCourseKeyException):
+            api.bulk_add_organization_courses([
+                (valid_org, valid_course_key),
+                (valid_org, invalid_course_key),
+            ])
+        with self.assertRaises(exceptions.InvalidOrganizationException):
+            api.bulk_add_organization_courses([
+                (valid_org, valid_course_key),
+                (invalid_org, valid_course_key),
+            ])
+
+        # In either case, no data should've been written for `valid_org`.
+        assert len(api.get_organization_courses(valid_org)) == 0
+
+    def test_add_no_organizations(self):
+        """
+        Test that `bulk_add_organization_courses` works given an an empty list.
+        """
+        # 1 query to load list of existing org-courses.
+        with self.assertNumQueries(1):
+            api.bulk_add_organization_courses([])
+
+    def test_edge_cases(self):
+        """
+        Test that bulk_add_organization_courses handles a few edge cases as expected.
+        """
+        org_a = api.add_organization(self.make_organization_data("org_a"))
+        org_b = api.add_organization(self.make_organization_data("org_b"))
+        course_key_x = CourseKey.from_string("course-v1:x+x+x")
+        course_key_y = CourseKey.from_string("course-v1:y+y+y")
+        course_key_z = CourseKey.from_string("course-v1:z+z+z")
+
+        # Add linkage A->X
+        api.add_organization_course(org_a, course_key_x)
+
+        # Add and then remove (under the hood: deactivate) linkage between A->Y.
+        api.add_organization_course(org_a, course_key_y)
+        api.remove_organization_course(org_a, course_key_y)
+
+        # Add and then remove (under the hood: deactivate) linkage between A->Z.
+        api.add_organization_course(org_a, course_key_z)
+        api.remove_organization_course(org_a, course_key_z)
+
+        # 1 query to load list of existing org-courses,
+        # 1 query for activate-existing, and 1 query for create-new.
+        with self.assertNumQueries(3):
+            api.bulk_add_organization_courses([
+
+                # A->X: Existing linkage, should be a no-op.
+                (org_a, course_key_x),
+
+                # B->Y: Should create new linkage.
+                (org_b, course_key_y),
+
+                # A->Y: Is an inactive linkage; should be re-activated.
+                (org_a, course_key_y),
+
+                # B->Y: Is already in this list; shouldn't affect anything.
+                (org_b, course_key_y),
+
+                # B->Z: Adding with a stringified course id; should work as if we
+                #       used the course key object.
+                (org_b, str(course_key_z)),
+
+                # B->Z: Adding again with the course key object; should be a no-op.
+                (org_b, course_key_z),
+            ])
+
+        # Org A was linked to courses X and Y.
+        # Org A also has an inactive link to course Z that we never re-activated.
+        org_a_courses = api.get_organization_courses(org_a)
+        assert {
+            org_course["course_id"] for org_course in org_a_courses
+        } == {
+            "course-v1:x+x+x", "course-v1:y+y+y"
+        }
+
+        # Org B was linked to courses Y and Z.
+        org_b_courses = api.get_organization_courses(org_b)
+        assert {
+            org_course["course_id"] for org_course in org_b_courses
+        } == {
+            "course-v1:y+y+y", "course-v1:z+z+z"
+        }
+
+    def test_add_several_organization_courses(self):
+        """
+        Test that the query_count of bulk_add_organization_courses does not increase
+        when given more organization-course linkages to add.
+        """
+        org_a = api.add_organization(self.make_organization_data("org_a"))
+        org_b = api.add_organization(self.make_organization_data("org_b"))
+        org_c = api.add_organization(self.make_organization_data("org_c"))
+        course_key_x = CourseKey.from_string("course-v1:x+x+x")
+        course_key_y = CourseKey.from_string("course-v1:y+y+y")
+        course_key_z = CourseKey.from_string("course-v1:z+z+z")
+
+        # Add linkage A->X.
+        api.add_organization_course(org_a, course_key_x)
+
+        # 1 query to load list of existing org-courses,
+        # 1 query for activate-existing, and 1 query for create-new.
+        with self.assertNumQueries(3):
+            api.bulk_add_organization_courses([
+                (org_a, course_key_x),  # Already existing.
+                (org_a, course_key_x),  # Already existing.
+                (org_a, course_key_y),  # The rest are new.
+                (org_a, course_key_z),
+                (org_b, course_key_x),
+                (org_b, course_key_y),
+                (org_b, course_key_z),
+                (org_c, course_key_x),
+                (org_c, course_key_y),
+                (org_c, course_key_z),
+                (org_c, course_key_z),  # Redundant.
+                (org_c, course_key_z),  # Redundant.
+            ])
+        assert len(api.get_organization_courses(org_a)) == 3
+        assert len(api.get_organization_courses(org_b)) == 3
+        assert len(api.get_organization_courses(org_c)) == 3

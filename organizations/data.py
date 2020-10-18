@@ -105,6 +105,10 @@ def create_organization(organization):
         'description': string (optional),
         'logo': string (optional),
     }
+
+    If an organization with the given `short_name` already exists, we will just
+    activate that organization, but not update it.
+
     Returns an updated dictionary including a new 'id': integer field/value
     """
     if not (organization.get('name') and organization.get('short_name')):
@@ -126,6 +130,64 @@ def create_organization(organization):
             active=True
         )
     return serializers.serialize_organization(organization)
+
+
+def bulk_create_organizations(organizations):
+    """
+    Efficiently insert multiple organizations into the database.
+
+    Arguments:
+
+        organizations (iterable[dict]):
+
+            An iterable of `organization` dictionaries, each in the following format:
+            {
+                'name': string,
+                'short_name': string (optional),
+                'description': string (optional),
+                'logo': string (optional),
+            }
+
+            Organizations that do not already exist (by short_name) will be created.
+            Organizations that already exist (by short_name) will be activated,
+            but their name, description, and logo will be left as-is in the database.
+
+            If multiple organizations share a `short_name`, the first organization
+            in `organizations` will be used, and the latter ones ignored.
+    """
+    # Collect organizations by short name, dropping conflicts as necessary.
+    organization_objs = [
+        # This deserializes the dictionaries into Organization instances that
+        # have not yet been saved to the db. By default, they all have `active=True`.
+        serializers.deserialize_organization(organization_dict)
+        for organization_dict in organizations
+    ]
+    organizations_by_short_name = {}
+    for organization in organization_objs:
+        # Purposefully drop short_names we've already seen, as noted in docstring.
+        # Also, make sure to lowercase short_name because MySQL UNIQUE is
+        # case-insensitive.
+        if organization.short_name.lower() not in organizations_by_short_name:
+            organizations_by_short_name[organization.short_name.lower()] = organization
+
+    # Find out which organizations we need to create vs. activate.
+    organizations_to_activate = internal.Organization.objects.filter(
+        short_name__in=organizations_by_short_name.keys()
+    )
+    organization_short_names_to_activate = {
+        short_name.lower()
+        for short_name
+        in organizations_to_activate.values_list("short_name", flat=True)
+    }
+    organizations_to_create = [
+        organization
+        for short_name, organization in organizations_by_short_name.items()
+        if short_name.lower() not in organization_short_names_to_activate
+    ]
+
+    # Activate existing organizations, and create the new ones.
+    organizations_to_activate.update(active=True)
+    internal.Organization.objects.bulk_create(organizations_to_create)
 
 
 def update_organization(organization):
@@ -215,6 +277,87 @@ def create_organization_course(organization, course_key):
             course_id=str(course_key),
             active=True
         )
+
+
+def bulk_create_organization_courses(organization_course_pairs):
+    """
+    Efficiently insert multiple organization-course relationships into the database.
+
+    Arguments:
+
+        organization_course_pairs (iterable[tuple[dict, CourseKey]]):
+
+            An iterable of (organization_data, course_key) pairs.
+
+            Organization-course linkages that DO NOT already exist will be created.
+            Organization-course linkages that DO already exist will be activated, if inactive.
+
+            Assumption: All provided organizations already exist in the DB.
+    """
+    # For sake of having sane variable names, please understand
+    #   * "orgslug" to mean "lowercase organization short name" and
+    #   * "courseid" to mean "stringified course run key"
+    # in the context of this function.
+    # We normalize short_names to lowercase because MySQL UNIQUE is case-insensitive.
+
+    # Build set of pairs: (lowercased org short name, course key string).
+    orgslug_courseid_pairs = {
+        (organization_data["short_name"].lower(), str(course_key))
+        for organization_data, course_key
+        in organization_course_pairs
+    }
+
+    # Grab all existing (lowercased org short name, course key string) pairs from db,
+    # filtering for the ones requested for creation in `organization_course_pairs`, and
+    # indexing by db `id` of org_course object (we need this later for the bulk update).
+    orgslug_courseid_pairs_to_activate_by_id = {
+        org_course_id: (short_name.lower(), course_id)
+        for org_course_id, short_name, course_id
+        in internal.OrganizationCourse.objects.values_list(
+            "id", "organization__short_name", "course_id"
+        )
+        if (short_name.lower(), course_id) in orgslug_courseid_pairs
+    }
+
+    # Working backwards from the set of pairs we need to *activate*,
+    # find the set of pairs we need to *create*.
+    orgslug_courseid_pairs_to_activate = set(
+        orgslug_courseid_pairs_to_activate_by_id.values()
+    )
+    orgslug_courseid_pairs_to_create = {
+        (orgslug, courseid)
+        for orgslug, courseid in orgslug_courseid_pairs
+        if (orgslug, courseid) not in orgslug_courseid_pairs_to_activate
+    }
+
+    # Activate existing organization-course linkages.
+    ids_of_org_courses_to_activate = set(orgslug_courseid_pairs_to_activate_by_id.keys())
+    internal.OrganizationCourse.objects.filter(
+        id__in=ids_of_org_courses_to_activate
+    ).update(
+        active=True
+    )
+
+    # Create new organization-course linkages.
+    organization_data_by_orgslug = {
+        # This keeps the `organization_data` for each unique short name;
+        # that is fine. We just need ae way to recover `organization_data` dicts
+        # from orglugs.
+        organization_data["short_name"].lower(): organization_data
+        for organization_data, course_key
+        in organization_course_pairs
+    }
+    internal.OrganizationCourse.objects.bulk_create([
+        internal.OrganizationCourse(
+            organization=serializers.deserialize_organization(
+                organization_data_by_orgslug[orgslug]
+            ),
+            course_id=courseid,
+            active=True,
+        )
+        for orgslug, courseid
+        in orgslug_courseid_pairs_to_create
+    ])
 
 
 def delete_organization_course(organization, course_key):

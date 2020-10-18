@@ -17,3 +17,16 @@ class OrganizationsTestCaseBase(TestCase):
         """
         super(OrganizationsTestCaseBase, self).setUp()
         self.test_course_key = CourseKey.from_string('the/course/key')
+
+    @staticmethod
+    def make_organization_data(short_name):
+        """
+        Make a fake organization dictionary, distinguished by a `short_name`.
+
+        The `short_name` should be a valid short_name string, i.e. [0-9a-z_-].
+        """
+        return {
+            'short_name': short_name,
+            'name': "Name of {}".format(short_name),
+            'description': "Description of {}".format(short_name),
+        }
