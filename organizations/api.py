@@ -51,6 +51,46 @@ def add_organization(organization_data):
     return organization
 
 
+def bulk_add_organizations(organization_data_items):
+    """
+    Efficiently store multiple organizations.
+
+    Note: No `pre_save` or `post_save` signals for `Organization` will be
+    triggered. This is due to the underlying Django implementation of `bulk_create`:
+    https://docs.djangoproject.com/en/2.2/ref/models/querysets/#bulk-create
+
+    Arguments:
+
+        organizations (iterable[dict]):
+
+            An iterable of `organization` dictionaries, each in the following format:
+            {
+                'short_name': string,
+                'name': string,
+                'description': string (optional),
+                'logo': string (optional),
+            }
+
+            Organizations that do not already exist (by short_name) will be created.
+            Organizations that already exist (by short_name) will be activated,
+            but their name, description, and logo will be left as-is in the database.
+
+            If multiple organizations share a `short_name`, the first organization
+            in `organization_data_items` will be used, and the latter ones ignored.
+
+    Raises:
+        InvalidOrganizationException: One or more organization dictionaries
+            have missing or invalid data; no organizations were created.
+    """
+    for organization_data in organization_data_items:
+        _validate_organization_data(organization_data)
+        if "short_name" not in organization_data:
+            raise exceptions.InvalidOrganizationException(
+                "Organization is missing short_name: {}".format(organization_data)
+            )
+    data.bulk_create_organizations(organization_data_items)
+
+
 def edit_organization(organization_data):
     """
     Passes an updated organization to the data layer for storage
@@ -100,6 +140,40 @@ def add_organization_course(organization_data, course_key):
         organization=organization_data,
         course_key=course_key
     )
+
+
+def bulk_add_organization_courses(organization_course_pairs):
+    """
+    Efficiently store multiple organization-course relationships.
+
+    Note: No `pre_save` or `post_save` signals for `OrganizationCourse` will be
+    triggered. This is due to the underlying Django implementation of `bulk_create`:
+    https://docs.djangoproject.com/en/2.2/ref/models/querysets/#bulk-create
+
+    Arguments:
+
+        organization_course_pairs (iterable[tuple[dict, CourseKey]]):
+
+            An iterable of (organization_data, course_key) pairs.
+
+            We will ensure that these organization-course linkages exist.
+
+            Assumption: All provided organizations already exist in storage.
+
+    Raises:
+        InvalidOrganizationException: One or more organization dictionaries
+            have missing or invalid data.
+        InvalidCourseKeyException: One or more course keys could not be parsed.
+        (in case of either exception, no org-course linkages are created).
+    """
+    for organization_data, course_key in organization_course_pairs:
+        _validate_organization_data(organization_data)
+        if "short_name" not in organization_data:
+            raise exceptions.InvalidOrganizationException(
+                "Organization is missing short_name: {}".format(organization_data)
+            )
+        _validate_course_key(course_key)
+    data.bulk_create_organization_courses(organization_course_pairs)
 
 
 def get_organization_courses(organization_data):
