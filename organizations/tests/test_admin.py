@@ -12,12 +12,13 @@ from organizations.models import Organization, OrganizationCourse
 from organizations.tests.factories import UserFactory
 
 
-def create_organization(active=True):
+def create_organization(index, active=True):
     """
     Create an organization.
     """
     Organization.objects.create(
-        name='test organization',
+        short_name='test_org_{}'.format(index),
+        name='test organization {}'.format(index),
         description='test organization description',
         active=active
     )
@@ -57,7 +58,7 @@ class OrganizationsAdminTestCase(utils.OrganizationsTestCaseBase):
         """
         Test: action deactivate_selected should deactivate an activated organization.
         """
-        create_organization(active=True)
+        create_organization(1, active=True)
         queryset = Organization.objects.filter(pk=1)
         self.org_admin.deactivate_selected(self.request, queryset)
         self.assertFalse(Organization.objects.get(pk=1).active)
@@ -66,8 +67,8 @@ class OrganizationsAdminTestCase(utils.OrganizationsTestCaseBase):
         """
         Test: action deactivate_selected should deactivate the multiple activated organization.
         """
-        for __ in range(2):
-            create_organization(active=True)
+        for i in range(2):
+            create_organization(i, active=True)
         queryset = Organization.objects.all()
         self.org_admin.deactivate_selected(self.request, queryset)
         self.assertFalse(Organization.objects.get(pk=1).active)
@@ -77,7 +78,7 @@ class OrganizationsAdminTestCase(utils.OrganizationsTestCaseBase):
         """
         Test: action activate_selected should activate an deactivated organization.
         """
-        create_organization(active=False)
+        create_organization(1, active=False)
         queryset = Organization.objects.filter(pk=1)
         self.org_admin.activate_selected(self.request, queryset)
         self.assertTrue(Organization.objects.get(pk=1).active)
@@ -86,8 +87,8 @@ class OrganizationsAdminTestCase(utils.OrganizationsTestCaseBase):
         """
         Test: action activate_selected should activate the multiple deactivated organization.
         """
-        for __ in range(2):
-            create_organization(active=True)
+        for i in range(2):
+            create_organization(i, active=True)
         queryset = Organization.objects.all()
         self.org_admin.activate_selected(self.request, queryset)
         self.assertTrue(Organization.objects.get(pk=1).active)
@@ -108,17 +109,17 @@ class OrganizationCourseAdminTestCase(utils.OrganizationsTestCaseBase):
         """
         Test: organization course foreignkey widget has active organization choices.
         """
-        create_organization(active=True)
+        create_organization(1, active=True)
         self.assertEqual(
             list(self.org_course_admin.get_form(self.request).base_fields['organization'].widget.choices),
-            [('', '---------'), (1, 'test organization ()')]
+            [('', '---------'), (1, 'test organization 1 (test_org_1)')]
         )
 
     def test_foreign_key_field_inactive_choices(self):
         """
         Test: organization course foreignkey widget has not inactive organization choices.
         """
-        create_organization(active=False)
+        create_organization(1, active=False)
         self.assertEqual(
             list(self.org_course_admin.get_form(self.request).base_fields['organization'].widget.choices),
             [('', '---------')]

@@ -20,9 +20,14 @@ class Organization(TimeStampedModel):
     """
     name = models.CharField(max_length=255, db_index=True)
     short_name = models.CharField(
-        max_length=255, db_index=True, verbose_name=u'Short Name',
-        help_text=_('Please do not use spaces or special characters. Only allowed special characters '
-                    'are period (.), hyphen (-) and underscore (_).')
+        max_length=255,
+        unique=True,
+        verbose_name=u'Short Name',
+        help_text=_(
+            'Unique, short string identifier for organization. '
+            'Please do not use spaces or special characters. '
+            'Only allowed special characters are period (.), hyphen (-) and underscore (_).'
+        ),
     )
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
