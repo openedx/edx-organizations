@@ -4,6 +4,7 @@ Organizations API Module Test Cases
 """
 from unittest.mock import patch
 
+import ddt
 from django.test import override_settings
 
 import organizations.api as api
@@ -11,6 +12,7 @@ import organizations.exceptions as exceptions
 import organizations.tests.utils as utils
 
 
+@ddt.ddt
 class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
     """
     Main Test Case module for Organizations API
@@ -21,6 +23,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """
         super(OrganizationsApiTestCase, self).setUp()
         self.test_organization = api.add_organization({
+            'short_name': 'test_organization',
             'name': 'test_organizationßßß',
             'description': 'Test Organization Descriptionßßß'
         })
@@ -29,6 +32,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """ Unit Test: test_add_organization"""
         with self.assertNumQueries(3):
             organization = api.add_organization({
+                'short_name': 'local_organization',
                 'name': 'local_organizationßßß',
                 'description': 'Local Organization Descriptionßßß'
             })
@@ -37,6 +41,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
     def test_add_organization_active_exists(self):
         """ Unit Test: test_add_organization_active_exists"""
         organization_data = {
+            'short_name': 'local_organization',
             'name': 'local_organizationßßß',
             'description': 'Local Organization Descriptionßßß'
         }
@@ -48,6 +53,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
     def test_add_organization_inactive_to_active(self):
         """ Unit Test: test_add_organization_inactive_to_active"""
         organization_data = {
+            'short_name': 'local_organization',
             'name': 'local_organizationßßß',
             'description': 'Local Organization Descriptionßßß'
         }
@@ -65,6 +71,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
     def test_add_organization_inactive_organization_with_relationships(self):
         """ Unit Test: test_add_organization_inactive_organization_with_relationships"""
         organization_data = {
+            'short_name': 'local_organization',
             'name': 'local_organizationßßß',
             'description': 'Local Organization Descriptionßßß'
         }
@@ -77,21 +84,35 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         with self.assertNumQueries(1):
             organization = api.add_organization(organization_data)
 
-    def test_add_organization_invalid_data_throws_exceptions(self):
-        """ Unit Test: test_add_organization_invalid_namespaces_throw_exceptions"""
+    @ddt.data(
+        # Empty short name
+        {
+            'short_name': '',
+            'name': 'local_organizationßßß',
+            'description': 'Local Organization Description 2ßßß'
+        },
+        # Empty name
+        {
+            'short_name': 'local_organization',
+            'name': '',
+            'description': 'Local Organization Description 2ßßß'
+        },
+        # Missing short name
+        {
+            'name': 'local_organizationßßß',
+            'description': 'Local Organization Description 2ßßß'
+        },
+        # Missing name
+        {
+            'short_name': 'local_organization',
+            'description': 'Local Organization Description 2ßßß'
+        },
+    )
+    def test_add_organization_invalid_data_throws_exceptions(self, organization_data):
+        """ Unit Test: test_add_organization_invalid_data_throws_exceptions"""
         with self.assertNumQueries(0):
             with self.assertRaises(exceptions.InvalidOrganizationException):
-                api.add_organization({
-                    'name': '',  # Empty name should throw an exception on create
-                    'description': 'Local Organization Description 2ßßß'
-                })
-
-        with self.assertNumQueries(0):
-            with self.assertRaises(exceptions.InvalidOrganizationException):
-                api.add_organization({
-                    # Missing name should throw exception
-                    'description': 'Local Organization Description 2ßßß'
-                })
+                api.add_organization(organization_data)
 
     def test_edit_organization(self):
         """ Unit Test: test_edit_organization"""
@@ -159,10 +180,12 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """ Unit Test: test_get_organizations """
         api.add_organization({
             'name': 'local_organization_1ßßß',
+            'short_name': 'Orgx1',
             'description': 'Local Organization 1 Descriptionßßß'
         })
         api.add_organization({
             'name': 'local_organization_2ßßß',
+            'short_name': 'Orgx2',
             'description': 'Local Organization 2 Descriptionßßß'
         })
         with self.assertNumQueries(1):
