@@ -20,7 +20,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
                   'active', 'logo_url',)
 
     def update_logo(self, obj, logo_url):
-        if logo_url:
+        if logo_url:  # pragma: no cover
             logo = requests.get(logo_url)
             obj.logo.save(logo_url.split('/')[-1], ContentFile(logo.content))
 
