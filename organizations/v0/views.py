@@ -31,12 +31,11 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
         """ We perform both Update and Create action via the PUT method. """
         try:
             return super(OrganizationsViewSet, self).update(request, *args, **kwargs)
-        except Exception as e:  # pylint: disable=broad-except, invalid-name
-            if isinstance(e, Http404):
-                serializer = OrganizationSerializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
-                return Response(serializer.data)
+        except Http404:
+            serializer = OrganizationSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
 
     def partial_update(self, request, *args, **kwargs):
         """ We disable PATCH because all updates and creates should use the PUT action above. """
