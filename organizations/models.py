@@ -7,7 +7,7 @@ offers one programmatic API -- api.py for direct Python integration.
 import re
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 from simple_history.models import HistoricalRecords
 
