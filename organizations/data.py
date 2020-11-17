@@ -23,9 +23,14 @@ if getattr(settings, 'TEST_MODE', False):
 else:
     import organizations.resources as remote
 """
+import logging
+
 from . import exceptions
 from . import models as internal
 from . import serializers
+
+
+log = logging.getLogger(__name__)
 
 
 # PRIVATE/INTERNAL METHODS (public methods located further down)
@@ -142,8 +147,8 @@ def bulk_create_organizations(organizations):
 
             An iterable of `organization` dictionaries, each in the following format:
             {
+                'short_name': string,
                 'name': string,
-                'short_name': string (optional),
                 'description': string (optional),
                 'logo': string (optional),
             }
@@ -164,15 +169,24 @@ def bulk_create_organizations(organizations):
     ]
     organizations_by_short_name = {}
     for organization in organization_objs:
-        # Purposefully drop short_names we've already seen, as noted in docstring.
-        # Also, make sure to lowercase short_name because MySQL UNIQUE is
-        # case-insensitive.
-        if organization.short_name.lower() not in organizations_by_short_name:
-            organizations_by_short_name[organization.short_name.lower()] = organization
+        # Make sure to lowercase short_name because MySQL UNIQUE is case-insensitive.
+        short_name_lower = organization.short_name.lower()
+        # Purposefully drop lowered short_names we've already seen, as noted in docstring.
+        org_with_same_short_name = organizations_by_short_name.get(short_name_lower)
+        if org_with_same_short_name:
+            log.info(
+                "Dropping organization from bulk_create batch, "
+                "as an organization with the same short_name is already being "
+                "created in this batch. Dropped data: %r. Kept data: %r.",
+                serializers.serialize_organization(organization),
+                serializers.serialize_organization(org_with_same_short_name),
+            )
+            continue
+        organizations_by_short_name[short_name_lower] = organization
 
     # Find out which organizations we need to create vs. activate.
     organizations_to_activate = internal.Organization.objects.filter(
-        short_name__in=organizations_by_short_name.keys()
+        short_name__in=organizations_by_short_name
     )
     organization_short_names_to_activate = {
         short_name.lower()
@@ -184,6 +198,12 @@ def bulk_create_organizations(organizations):
         for short_name, organization in organizations_by_short_name.items()
         if short_name.lower() not in organization_short_names_to_activate
     ]
+    log.info(
+        "Organizations to be bulk-reactivated: %r. "
+        "Organizations to be bulk-created: %r.",
+        organization_short_names_to_activate,
+        {org.short_name for org in organizations_to_create},
+    )
 
     # Activate existing organizations, and create the new ones.
     organizations_to_activate.update(active=True)
@@ -329,9 +349,15 @@ def bulk_create_organization_courses(organization_course_pairs):
         for orgslug, courseid in orgslug_courseid_pairs
         if (orgslug, courseid) not in orgslug_courseid_pairs_to_activate
     }
+    log.info(
+        "Organization-course linkages to be bulk-reactivated: %r. "
+        "Organization-course linkages to be bulk-created: %r.",
+        orgslug_courseid_pairs_to_activate,
+        orgslug_courseid_pairs_to_create,
+    )
 
     # Activate existing organization-course linkages.
-    ids_of_org_courses_to_activate = set(orgslug_courseid_pairs_to_activate_by_id.keys())
+    ids_of_org_courses_to_activate = set(orgslug_courseid_pairs_to_activate_by_id)
     internal.OrganizationCourse.objects.filter(
         id__in=ids_of_org_courses_to_activate
     ).update(
