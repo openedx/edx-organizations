@@ -477,7 +477,8 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         )
 
         assert api.get_organizations() == []
-        assert mock_log_info.call_count == 1
+        # One for reactivations, one for creations.
+        assert mock_log_info.call_count == 2
 
     def test_edge_cases(self):
         """
@@ -625,7 +626,8 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         api.bulk_add_organization_courses([(org_a, course_key_x)], dry_run=True)
 
         assert api.get_organization_courses(org_a) == []
-        assert mock_log_info.call_count == 1
+        # One for reactivations, one for creations.
+        assert mock_log_info.call_count == 2
 
     def test_edge_cases(self):
         """

@@ -214,10 +214,12 @@ def bulk_create_organizations(organizations, dry_run=False):
         org.short_name for org in organizations_to_create
     ]
     log.info(
-        "Organizations to be bulk-reactivated (n=%i): %r. "
-        "Organizations to be bulk-created (n=%i): %r.",
+        "Organizations to be bulk-reactivated (n=%i): %r. ",
         len(short_names_of_organizations_to_reactivate),
         short_names_of_organizations_to_reactivate,
+    )
+    log.info(
+        "Organizations to be bulk-created (n=%i): %r.",
         len(short_names_of_organizations_to_create),
         short_names_of_organizations_to_create,
     )
@@ -393,12 +395,14 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
     # Log what we're about to do.
     # If this is a dry run, return before applying any changes to the db.
     log.info(
-        "Organization-course linkages to be bulk-reactivated (n=%i): %r. "
-        "Organization-course linkages to be bulk-created (n=%i): %r.",
+        "Organization-course linkages to be bulk-reactivated (n=%i): %r. ",
         len(orgslug_courseid_pairs_to_reactivate),
-        orgslug_courseid_pairs_to_reactivate,
+        list(orgslug_courseid_pairs_to_reactivate),
+    )
+    log.info(
+        "Organization-course linkages to be bulk-created (n=%i): %r.",
         len(orgslug_courseid_pairs_to_create),
-        orgslug_courseid_pairs_to_create,
+        list(orgslug_courseid_pairs_to_create),
     )
     if dry_run:
         return
