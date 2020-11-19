@@ -137,7 +137,7 @@ def create_organization(organization):
     return serializers.serialize_organization(organization)
 
 
-def bulk_create_organizations(organizations):
+def bulk_create_organizations(organizations, dry_run=False):
     """
     Efficiently insert multiple organizations into the database.
 
@@ -159,6 +159,11 @@ def bulk_create_organizations(organizations):
 
             If multiple organizations share a `short_name`, the first organization
             in `organizations` will be used, and the latter ones ignored.
+
+        dry_run (bool):
+            Optional, defaulting to False.
+            If True, log organizations that would be created or activated,
+            but do not actually apply the changes to the database.
     """
     # Collect organizations by short name, dropping conflicts as necessary.
     organization_objs = [
@@ -184,29 +189,43 @@ def bulk_create_organizations(organizations):
             continue
         organizations_by_short_name[short_name_lower] = organization
 
-    # Find out which organizations we need to create vs. activate.
-    organizations_to_activate = internal.Organization.objects.filter(
+    # Find out which organizations we need to reactivate vs. create.
+    existing_organizations = internal.Organization.objects.filter(
         short_name__in=organizations_by_short_name
     )
-    organization_short_names_to_activate = {
+    existing_organization_short_names = {
         short_name.lower()
         for short_name
-        in organizations_to_activate.values_list("short_name", flat=True)
+        in existing_organizations.values_list("short_name", flat=True)
     }
     organizations_to_create = [
         organization
         for short_name, organization in organizations_by_short_name.items()
-        if short_name.lower() not in organization_short_names_to_activate
+        if short_name.lower() not in existing_organization_short_names
+    ]
+    organizations_to_reactivate = existing_organizations.filter(active=False)
+
+    # Log what we're about to do.
+    # If this is a dry run, return before applying any changes to the db.
+    short_names_of_organizations_to_reactivate = list(
+        organizations_to_reactivate.values_list("short_name", flat=True)
+    )
+    short_names_of_organizations_to_create = [
+        org.short_name for org in organizations_to_create
     ]
     log.info(
-        "Organizations to be bulk-reactivated: %r. "
-        "Organizations to be bulk-created: %r.",
-        organization_short_names_to_activate,
-        {org.short_name for org in organizations_to_create},
+        "Organizations to be bulk-reactivated (n=%i): %r. "
+        "Organizations to be bulk-created (n=%i): %r.",
+        len(short_names_of_organizations_to_reactivate),
+        short_names_of_organizations_to_reactivate,
+        len(short_names_of_organizations_to_create),
+        short_names_of_organizations_to_create,
     )
+    if dry_run:
+        return
 
     # Activate existing organizations, and create the new ones.
-    organizations_to_activate.update(active=True)
+    organizations_to_reactivate.update(active=True)
     internal.Organization.objects.bulk_create(organizations_to_create)
 
 
@@ -299,7 +318,7 @@ def create_organization_course(organization, course_key):
         )
 
 
-def bulk_create_organization_courses(organization_course_pairs):
+def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
     """
     Efficiently insert multiple organization-course relationships into the database.
 
@@ -313,6 +332,11 @@ def bulk_create_organization_courses(organization_course_pairs):
             Organization-course linkages that DO already exist will be activated, if inactive.
 
             Assumption: All provided organizations already exist in the DB.
+
+        dry_run (bool):
+            Optional, defaulting to False.
+            If True, log organizations-course linkaages that would be created or
+            activated, but do not actually apply the changes to the database.
     """
     # For sake of having sane variable names, please understand
     #   * "orgslug" to mean "lowercase organization short name" and
@@ -327,39 +351,62 @@ def bulk_create_organization_courses(organization_course_pairs):
         in organization_course_pairs
     }
 
-    # Grab all existing (lowercased org short name, course key string) pairs from db,
-    # filtering for the ones requested for creation in `organization_course_pairs`, and
-    # indexing by db `id` of org_course object (we need this later for the bulk update).
-    orgslug_courseid_pairs_to_activate_by_id = {
-        org_course_id: (short_name.lower(), course_id)
-        for org_course_id, short_name, course_id
+    # Grab all existing (lowercased org short name, course key string, is_active) triples
+    # from db, filtering for the ones requested for creation in `organization_course_pairs`,
+    # and indexing by db `id` of org_course object (we need this later for the bulk update).
+    existing_orgslug_courseid_triples_by_id = {
+        org_course_id: (short_name.lower(), course_id, is_active)
+        for org_course_id, short_name, course_id, is_active
         in internal.OrganizationCourse.objects.values_list(
-            "id", "organization__short_name", "course_id"
+            "id", "organization__short_name", "course_id", "active"
         )
         if (short_name.lower(), course_id) in orgslug_courseid_pairs
     }
-
-    # Working backwards from the set of pairs we need to *activate*,
-    # find the set of pairs we need to *create*.
-    orgslug_courseid_pairs_to_activate = set(
-        orgslug_courseid_pairs_to_activate_by_id.values()
+    existing_orgslug_courseid_triples = set(
+        existing_orgslug_courseid_triples_by_id.values()
     )
+
+    # Now that we have the set of orgslug/courseid linkages that *already exist*,
+    # determine which ones need to be *reactivated*
+    # and which linkages from our original set we still need to *create*.
     orgslug_courseid_pairs_to_create = {
         (orgslug, courseid)
         for orgslug, courseid in orgslug_courseid_pairs
-        if (orgslug, courseid) not in orgslug_courseid_pairs_to_activate
+        if not (
+            # If an organization-course linkage already exists as either
+            # active OR inactive, we do not need to create it.
+            (orgslug, courseid, True) in existing_orgslug_courseid_triples or (
+                (orgslug, courseid, False) in existing_orgslug_courseid_triples
+            )
+        )
     }
-    log.info(
-        "Organization-course linkages to be bulk-reactivated: %r. "
-        "Organization-course linkages to be bulk-created: %r.",
-        orgslug_courseid_pairs_to_activate,
-        orgslug_courseid_pairs_to_create,
+    orgslug_courseid_pairs_to_reactivate_by_id = {
+        org_course_id: (orgslug, courseid)
+        for org_course_id, (orgslug, courseid, is_active)
+        in existing_orgslug_courseid_triples_by_id.items()
+        if not is_active
+    }
+    orgslug_courseid_pairs_to_reactivate = set(
+        orgslug_courseid_pairs_to_reactivate_by_id.values()
     )
 
+    # Log what we're about to do.
+    # If this is a dry run, return before applying any changes to the db.
+    log.info(
+        "Organization-course linkages to be bulk-reactivated (n=%i): %r. "
+        "Organization-course linkages to be bulk-created (n=%i): %r.",
+        len(orgslug_courseid_pairs_to_reactivate),
+        orgslug_courseid_pairs_to_reactivate,
+        len(orgslug_courseid_pairs_to_create),
+        orgslug_courseid_pairs_to_create,
+    )
+    if dry_run:
+        return
+
     # Activate existing organization-course linkages.
-    ids_of_org_courses_to_activate = set(orgslug_courseid_pairs_to_activate_by_id)
+    ids_of_org_courses_to_reactivate = set(orgslug_courseid_pairs_to_reactivate_by_id)
     internal.OrganizationCourse.objects.filter(
-        id__in=ids_of_org_courses_to_activate
+        id__in=ids_of_org_courses_to_reactivate
     ).update(
         active=True
     )

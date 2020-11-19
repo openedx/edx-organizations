@@ -51,7 +51,7 @@ def add_organization(organization_data):
     return organization
 
 
-def bulk_add_organizations(organization_data_items):
+def bulk_add_organizations(organization_data_items, dry_run=False):
     """
     Efficiently store multiple organizations.
 
@@ -78,6 +78,11 @@ def bulk_add_organizations(organization_data_items):
             If multiple organizations share a `short_name`, the first organization
             in `organization_data_items` will be used, and the latter ones ignored.
 
+        dry_run (bool):
+            Optional, defaulting to False.
+            If True, log organizations that would be created or activated,
+            but do not actually apply the changes to the database.
+
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data; no organizations were created.
@@ -88,7 +93,7 @@ def bulk_add_organizations(organization_data_items):
             raise exceptions.InvalidOrganizationException(
                 "Organization is missing short_name: {}".format(organization_data)
             )
-    data.bulk_create_organizations(organization_data_items)
+    data.bulk_create_organizations(organization_data_items, dry_run)
 
 
 def edit_organization(organization_data):
@@ -142,7 +147,7 @@ def add_organization_course(organization_data, course_key):
     )
 
 
-def bulk_add_organization_courses(organization_course_pairs):
+def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
     """
     Efficiently store multiple organization-course relationships.
 
@@ -160,6 +165,11 @@ def bulk_add_organization_courses(organization_course_pairs):
 
             Assumption: All provided organizations already exist in storage.
 
+        dry_run (bool):
+            Optional, defaulting to False.
+            If True, log organizations-course linkages that would be created or
+            activated, but do not actually apply the changes to the database.
+
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data.
@@ -173,7 +183,7 @@ def bulk_add_organization_courses(organization_course_pairs):
                 "Organization is missing short_name: {}".format(organization_data)
             )
         _validate_course_key(course_key)
-    data.bulk_create_organization_courses(organization_course_pairs)
+    data.bulk_create_organization_courses(organization_course_pairs, dry_run)
 
 
 def get_organization_courses(organization_data):
