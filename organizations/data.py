@@ -340,100 +340,107 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
             If True, log organizations-course linkaages that would be created or
             activated, but do not actually apply the changes to the database.
     """
-    # For sake of having sane variable names, please understand
-    #   * "orgslug" to mean "lowercase organization short name" and
-    #   * "courseid" to mean "stringified course run key"
-    # in the context of this function.
-    # We normalize short_names to lowercase because MySQL UNIQUE is case-insensitive.
+    def linkage_to_pair(linkage):
+        """
+        Given a `OrganizationCourse` (aka org-course linkage) instance,
+        return a pair of strings:
+        (lowercased organization short name, stringified course key)
 
-    # Build set of pairs: (lowercased org short name, course key string).
-    orgslug_courseid_pairs = {
+        We normalize short_names to lowercase because MySQL UNIQUE is case-insensitive.
+        """
+        return linkage.organization.short_name.lower(), linkage.course_id
+
+    # Grab all org-course linkages from db (whether active or inactive).
+    db_linkages = list(
+        internal.OrganizationCourse.objects.all().prefetch_related(
+            'organization'
+        )
+    )
+
+    # For the organizations that have been requested for creation,
+    # build a set of (lowered org shortname, course key string) linkage pairs.
+    # This will remove any duplicates.
+    requested_linkage_pairs = {
         (organization_data["short_name"].lower(), str(course_key))
         for organization_data, course_key
         in organization_course_pairs
     }
 
-    # Grab all existing (lowercased org short name, course key string, is_active) triples
-    # from db, filtering for the ones requested for creation in `organization_course_pairs`,
-    # and indexing by db `id` of org_course object (we need this later for the bulk update).
-    existing_orgslug_courseid_triples_by_id = {
-        org_course_id: (short_name.lower(), course_id, is_active)
-        for org_course_id, short_name, course_id, is_active
-        in internal.OrganizationCourse.objects.values_list(
-            "id", "organization__short_name", "course_id", "active"
-        )
-        if (short_name.lower(), course_id) in orgslug_courseid_pairs
-    }
-    existing_orgslug_courseid_triples = set(
-        existing_orgslug_courseid_triples_by_id.values()
+    # Build the same set of pairs for linkages already in the db.
+    db_linkage_pairs = set(
+        linkage_to_pair(linkage) for linkage in db_linkages
     )
 
-    # Now that we have the set of orgslug/courseid linkages that *already exist*,
-    # determine which ones need to be *reactivated*
-    # and which linkages from our original set we still need to *create*.
-    orgslug_courseid_pairs_to_create = {
-        (orgslug, courseid)
-        for orgslug, courseid in orgslug_courseid_pairs
-        if not (
-            # If an organization-course linkage already exists as either
-            # active OR inactive, we do not need to create it.
-            (orgslug, courseid, True) in existing_orgslug_courseid_triples or (
-                (orgslug, courseid, False) in existing_orgslug_courseid_triples
-            )
-        )
-    }
-    orgslug_courseid_pairs_to_reactivate_by_id = {
-        org_course_id: (orgslug, courseid)
-        for org_course_id, (orgslug, courseid, is_active)
-        in existing_orgslug_courseid_triples_by_id.items()
-        if not is_active
-    }
-    orgslug_courseid_pairs_to_reactivate = set(
-        orgslug_courseid_pairs_to_reactivate_by_id.values()
+    # The set of org-course linkages that we must CREATE
+    # is the set of linkages that were REQUESTED
+    # minus the set of linkages in the DATABASE.
+    linkage_pairs_to_create = requested_linkage_pairs - db_linkage_pairs
+
+    # The set of org-course linkages that we must ENSURE ARE ACTIVE
+    # is the set of linkages that were REQUESTED
+    # minus the set of linkages that WILL BE CREATED.
+    linkage_pairs_to_ensure_active = (
+        requested_linkage_pairs - linkage_pairs_to_create
     )
+
+    # The linkages we must REACTIVATE
+    # are those that we must ENSURE ARE ACTIVE
+    # and are currently INACTIVE.
+    linkages_to_reactivate = [
+        linkage
+        for linkage in db_linkages
+        if (
+            linkage_to_pair(linkage) in linkage_pairs_to_ensure_active
+            and not linkage.active
+        )
+    ]
 
     # Log what we're about to do.
     # If this is a dry run, return before applying any changes to the db.
+    linkage_pairs_to_reactivate = {
+        linkage_to_pair(linkage)
+        for linkage in linkages_to_reactivate
+    }
     log.info(
         "Organization-course linkages to be bulk-reactivated (n=%i): %r. ",
-        len(orgslug_courseid_pairs_to_reactivate),
-        list(orgslug_courseid_pairs_to_reactivate),
+        len(linkage_pairs_to_reactivate),
+        list(linkage_pairs_to_reactivate),
     )
     log.info(
         "Organization-course linkages to be bulk-created (n=%i): %r.",
-        len(orgslug_courseid_pairs_to_create),
-        list(orgslug_courseid_pairs_to_create),
+        len(linkage_pairs_to_create),
+        list(linkage_pairs_to_create),
     )
     if dry_run:
         return
 
-    # Activate existing organization-course linkages.
-    ids_of_org_courses_to_reactivate = set(orgslug_courseid_pairs_to_reactivate_by_id)
+    # Bulk-reactivate existing organization-course linkages.
+    ids_of_linkages_to_reactivate = {linkage.id for linkage in linkages_to_reactivate}
     internal.OrganizationCourse.objects.filter(
-        id__in=ids_of_org_courses_to_reactivate
+        id__in=ids_of_linkages_to_reactivate
     ).update(
         active=True
     )
 
-    # Create new organization-course linkages.
-    organization_data_by_orgslug = {
-        # This keeps the `organization_data` for each unique short name;
-        # that is fine. We just need ae way to recover `organization_data` dicts
-        # from orglugs.
+    # Bulk-create new organization-course linkages.
+    organization_data_by_short_name = {
+        # This keeps just one `organization_data` for each unique short name;
+        # that is fine. We just need a way to recover `organization_data` dicts
+        # from the org short names that we've been using throughout this function.
         organization_data["short_name"].lower(): organization_data
-        for organization_data, course_key
+        for organization_data, _course_key
         in organization_course_pairs
     }
     internal.OrganizationCourse.objects.bulk_create([
         internal.OrganizationCourse(
             organization=serializers.deserialize_organization(
-                organization_data_by_orgslug[orgslug]
+                organization_data_by_short_name[org_short_name]
             ),
-            course_id=courseid,
+            course_id=course_id,
             active=True,
         )
-        for orgslug, courseid
-        in orgslug_courseid_pairs_to_create
+        for org_short_name, course_id
+        in linkage_pairs_to_create
     ])
 
 

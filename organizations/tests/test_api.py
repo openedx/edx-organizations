@@ -651,8 +651,10 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         api.remove_organization_course(org_a, course_key_z)
 
         # 1 query to load list of existing org-courses,
-        # 1 query for activate-existing, and 1 query for create-new.
-        with self.assertNumQueries(3):
+        # 1 query to fetch related organizations,
+        # 1 query for activate-existing,
+        # 1 query for create-new.
+        with self.assertNumQueries(4):
             api.bulk_add_organization_courses([
 
                 # A->X: Existing linkage, should be a no-op.
@@ -712,8 +714,10 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         api.remove_organization_course(org_a, course_key_y)
 
         # 1 query to load list of existing org-courses,
-        # 1 query for activate-existing, and 1 query for create-new.
-        with self.assertNumQueries(3):
+        # 1 query to fetch related organizations,
+        # 1 query for activate-existing,
+        # 1 query for create-new.
+        with self.assertNumQueries(4):
             api.bulk_add_organization_courses([
                 (org_a, course_key_x),  # Already existing.
                 (org_a, course_key_x),  # Already existing.
