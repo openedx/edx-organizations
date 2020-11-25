@@ -11,6 +11,7 @@ from opaque_keys.edx.keys import CourseKey
 import organizations.api as api
 import organizations.exceptions as exceptions
 import organizations.tests.utils as utils
+from organizations.data import log as data_module_logger
 
 
 @ddt.ddt
@@ -464,7 +465,23 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         api.bulk_add_organizations([])
         assert len(api.get_organizations()) == 0
 
-    def test_edge_cases(self):
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_dry_run(self, mock_log_info):
+        """
+        Test that `bulk_add_organizations` does nothing when `dry_run` is
+        specified (except logging).
+        """
+        api.bulk_add_organizations(
+            [self.make_organization_data("org_a")],
+            dry_run=True,
+        )
+
+        assert api.get_organizations() == []
+        # One for reactivations, one for creations.
+        assert mock_log_info.call_count == 2
+
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_edge_cases(self, mock_log_info):
         """
         Test that bulk_add_organizations handles a few edge cases as expected.
         """
@@ -481,8 +498,10 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
             )["id"]
         )
 
-        # 1 query to load list of existing orgs, 1 query for create, and 1 query for update.
-        with self.assertNumQueries(3):
+        # 1 query to load list of existing orgs,
+        # 1 query to filter for only inactive existing orgs,
+        # 1 query for create, and 1 query for update.
+        with self.assertNumQueries(4):
             api.bulk_add_organizations([
 
                 # New organization.
@@ -522,20 +541,51 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
             organization["name"] for organization in organizations
         }
 
+        # Based on logging messages, make sure we dropped the appropriate
+        # organization dict from the bulk-add batch.
+        logging_of_drop_from_batch = mock_log_info.call_args_list[0][0]
+        assert logging_of_drop_from_batch[1]["short_name"] == (
+            # We dropped this org data:
+            self.make_organization_data("ORG_x")["short_name"]
+        )
+        assert logging_of_drop_from_batch[2]["short_name"] == (
+            # in favor of this org data, which came earlier in the batch.
+            self.make_organization_data("org_X")["short_name"]
+        )
+
+        # Based on logging messages, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is true for the organizations passed to `bulk_add_organizations`.
+        logged_orgs_to_reactivate = mock_log_info.call_args_list[1][0][2]
+        assert set(logged_orgs_to_reactivate) == {
+            "org_to_reactivate"
+        }
+        logged_orgs_to_create = mock_log_info.call_args_list[2][0][2]
+        assert set(logged_orgs_to_create) == {
+            "org_X", "org_Y"
+        }
+
     def test_add_several_organizations(self):
         """
         Test that the query_count of bulk_add_organizations does not increase
         when given more organizations.
         """
         existing_org = api.add_organization(self.make_organization_data("existing_org"))
+        api.remove_organization(
+            api.add_organization(
+                self.make_organization_data("org_to_reactivate")
+            )["id"]
+        )
 
         # 1 query to load list of existing orgs,
+        # 1 query to filter for only inactive existing orgs,
         # 1 query for activate-existing, and 1 query for create-new.
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             api.bulk_add_organizations([
                 existing_org,
                 existing_org,
                 existing_org,
+                self.make_organization_data("org_to_reactivate"),
                 self.make_organization_data("new_org_1"),
                 self.make_organization_data("new_org_2"),
                 self.make_organization_data("new_org_3"),
@@ -548,7 +598,7 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
                 self.make_organization_data("new_org_9"),  # Redundant.
                 self.make_organization_data("new_org_9"),  # Redundant.
             ])
-        assert len(api.get_organizations()) == 10
+        assert len(api.get_organizations()) == 11
 
 
 class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
@@ -581,7 +631,7 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         # In either case, no data should've been written for `valid_org`.
         assert len(api.get_organization_courses(valid_org)) == 0
 
-    def test_add_no_organizations(self):
+    def test_add_no_organization_courses(self):
         """
         Test that `bulk_add_organization_courses` works given an an empty list.
         """
@@ -589,7 +639,23 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         with self.assertNumQueries(1):
             api.bulk_add_organization_courses([])
 
-    def test_edge_cases(self):
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_dry_run(self, mock_log_info):
+        """
+        Test that `bulk_add_organization_courses` does nothing when `dry_run` is
+        specified (except logging).
+        """
+        org_a = api.add_organization(self.make_organization_data("org_a"))
+        course_key_x = CourseKey.from_string("course-v1:x+x+x")
+
+        api.bulk_add_organization_courses([(org_a, course_key_x)], dry_run=True)
+
+        assert api.get_organization_courses(org_a) == []
+        # One for reactivations, one for creations.
+        assert mock_log_info.call_count == 2
+
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_edge_cases(self, mock_log_info):
         """
         Test that bulk_add_organization_courses handles a few edge cases as expected.
         """
@@ -607,12 +673,15 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         api.remove_organization_course(org_a, course_key_y)
 
         # Add and then remove (under the hood: deactivate) linkage between A->Z.
+        # This should NOT be reactivated, as we don't include it in the bulk_add call.
         api.add_organization_course(org_a, course_key_z)
         api.remove_organization_course(org_a, course_key_z)
 
         # 1 query to load list of existing org-courses,
-        # 1 query for activate-existing, and 1 query for create-new.
-        with self.assertNumQueries(3):
+        # 1 query to fetch related organizations,
+        # 1 query for activate-existing,
+        # 1 query for create-new.
+        with self.assertNumQueries(4):
             api.bulk_add_organization_courses([
 
                 # A->X: Existing linkage, should be a no-op.
@@ -652,6 +721,19 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
             "course-v1:y+y+y", "course-v1:z+z+z"
         }
 
+        # Based on logging messages, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is true for the org-course linkages passed to `bulk_add_organization_courses`.
+        logged_linkages_to_reactivate = mock_log_info.call_args_list[0][0][2]
+        assert set(logged_linkages_to_reactivate) == {
+            ("org_a", str(course_key_y)),
+        }
+        logged_linkages_to_create = mock_log_info.call_args_list[1][0][2]
+        assert set(logged_linkages_to_create) == {
+            ("org_b", str(course_key_y)),
+            ("org_b", str(course_key_z)),
+        }
+
     def test_add_several_organization_courses(self):
         """
         Test that the query_count of bulk_add_organization_courses does not increase
@@ -667,14 +749,20 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         # Add linkage A->X.
         api.add_organization_course(org_a, course_key_x)
 
+        # Add linkage A->Y, and then remove (actually: deactivate).
+        api.add_organization_course(org_a, course_key_y)
+        api.remove_organization_course(org_a, course_key_y)
+
         # 1 query to load list of existing org-courses,
-        # 1 query for activate-existing, and 1 query for create-new.
-        with self.assertNumQueries(3):
+        # 1 query to fetch related organizations,
+        # 1 query for activate-existing,
+        # 1 query for create-new.
+        with self.assertNumQueries(4):
             api.bulk_add_organization_courses([
                 (org_a, course_key_x),  # Already existing.
                 (org_a, course_key_x),  # Already existing.
-                (org_a, course_key_y),  # The rest are new.
-                (org_a, course_key_z),
+                (org_a, course_key_y),  # Reactivation.
+                (org_a, course_key_z),  # The rest are new.
                 (org_b, course_key_x),
                 (org_b, course_key_y),
                 (org_b, course_key_z),
