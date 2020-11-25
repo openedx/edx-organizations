@@ -465,7 +465,7 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         api.bulk_add_organizations([])
         assert len(api.get_organizations()) == 0
 
-    @patch.object(data_module_logger, 'info')
+    @patch.object(data_module_logger, 'info', autospec=True)
     def test_dry_run(self, mock_log_info):
         """
         Test that `bulk_add_organizations` does nothing when `dry_run` is
@@ -480,7 +480,8 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         # One for reactivations, one for creations.
         assert mock_log_info.call_count == 2
 
-    def test_edge_cases(self):
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_edge_cases(self, mock_log_info):
         """
         Test that bulk_add_organizations handles a few edge cases as expected.
         """
@@ -538,6 +539,30 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         # the existing orgs.
         assert "this name should be ignored" not in {
             organization["name"] for organization in organizations
+        }
+
+        # Based on logging messages, make sure we dropped the appropriate
+        # organization dict from the bulk-add batch.
+        logging_of_drop_from_batch = mock_log_info.call_args_list[0][0]
+        assert logging_of_drop_from_batch[1]["short_name"] == (
+            # We dropped this org data:
+            self.make_organization_data("ORG_x")["short_name"]
+        )
+        assert logging_of_drop_from_batch[2]["short_name"] == (
+            # in favor of this org data, which came earlier in the batch.
+            self.make_organization_data("org_X")["short_name"]
+        )
+
+        # Based on logging messages, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is true for the organizations passed to `bulk_add_organizations`.
+        logged_orgs_to_reactivate = mock_log_info.call_args_list[1][0][2]
+        assert set(logged_orgs_to_reactivate) == {
+            "org_to_reactivate"
+        }
+        logged_orgs_to_create = mock_log_info.call_args_list[2][0][2]
+        assert set(logged_orgs_to_create) == {
+            "org_X", "org_Y"
         }
 
     def test_add_several_organizations(self):
@@ -614,7 +639,7 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         with self.assertNumQueries(1):
             api.bulk_add_organization_courses([])
 
-    @patch.object(data_module_logger, 'info')
+    @patch.object(data_module_logger, 'info', autospec=True)
     def test_dry_run(self, mock_log_info):
         """
         Test that `bulk_add_organization_courses` does nothing when `dry_run` is
@@ -629,7 +654,8 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         # One for reactivations, one for creations.
         assert mock_log_info.call_count == 2
 
-    def test_edge_cases(self):
+    @patch.object(data_module_logger, 'info', autospec=True)
+    def test_edge_cases(self, mock_log_info):
         """
         Test that bulk_add_organization_courses handles a few edge cases as expected.
         """
@@ -647,6 +673,7 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
         api.remove_organization_course(org_a, course_key_y)
 
         # Add and then remove (under the hood: deactivate) linkage between A->Z.
+        # This should NOT be reactivated, as we don't include it in the bulk_add call.
         api.add_organization_course(org_a, course_key_z)
         api.remove_organization_course(org_a, course_key_z)
 
@@ -692,6 +719,19 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
             org_course["course_id"] for org_course in org_b_courses
         } == {
             "course-v1:y+y+y", "course-v1:z+z+z"
+        }
+
+        # Based on logging messages, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is true for the org-course linkages passed to `bulk_add_organization_courses`.
+        logged_linkages_to_reactivate = mock_log_info.call_args_list[0][0][2]
+        assert set(logged_linkages_to_reactivate) == {
+            ("org_a", str(course_key_y)),
+        }
+        logged_linkages_to_create = mock_log_info.call_args_list[1][0][2]
+        assert set(logged_linkages_to_create) == {
+            ("org_b", str(course_key_y)),
+            ("org_b", str(course_key_z)),
         }
 
     def test_add_several_organization_courses(self):
