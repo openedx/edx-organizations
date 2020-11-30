@@ -25,6 +25,8 @@ else:
 """
 import logging
 
+from django.db.models.functions import Lower
+
 from . import exceptions
 from . import models as internal
 from . import serializers
@@ -190,9 +192,7 @@ def bulk_create_organizations(organizations, dry_run=False):
         organizations_by_short_name[short_name_lower] = organization
 
     # Find out which organizations we need to reactivate vs. create.
-    existing_organizations = internal.Organization.objects.filter(
-        short_name__in=organizations_by_short_name
-    )
+    existing_organizations = query_organizations_by_short_name(organizations_by_short_name)
     existing_organization_short_names = {
         short_name.lower()
         for short_name
@@ -442,6 +442,29 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         for org_short_name, course_id
         in linkage_pairs_to_create
     ])
+
+
+def query_organizations_by_short_name(short_names):
+    """
+    Get a queryset of organizations from an iterable of organiztion short names.
+
+    This is meant as a utility function for the bulk-create functions.
+    It is not currently exposed through the API, but it could be.
+
+    Canonicalize short names to lowercase due to case-insensitivity of
+    MySQL UNIQUE constraint on `short_name`.
+
+    Arguments:
+        short_names (Iterable[str])
+
+    Returns: QuerySet[Organization]
+    """
+    unique_short_names = {short_name.lower() for short_name in short_names}
+    return internal.Organization.objects.annotate(
+        short_name_lowered=Lower("short_name")
+    ).filter(
+        short_name_lowered__in=unique_short_names,
+    )
 
 
 def delete_organization_course(organization, course_key):
