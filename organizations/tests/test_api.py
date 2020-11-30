@@ -486,7 +486,9 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         Test that bulk_add_organizations handles a few edge cases as expected.
         """
         # Add three orgs, and remove all but the first.
-        api.add_organization(self.make_organization_data("existing_org"))
+        # Use capitalized name to confirm case insensitivity when checking
+        # for existing orgs.
+        api.add_organization(self.make_organization_data("EXISTING_ORG"))
         api.remove_organization(
             api.add_organization(
                 self.make_organization_data("org_to_reactivate")
@@ -532,7 +534,7 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
         assert {
             organization["short_name"] for organization in organizations
         } == {
-            "existing_org", "org_to_reactivate", "org_X", "org_Y"
+            "EXISTING_ORG", "org_to_reactivate", "org_X", "org_Y"
         }
 
         # Organization dicts with already-taken short_names shouldn't have modified
