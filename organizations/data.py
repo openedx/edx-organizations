@@ -422,20 +422,21 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         active=True
     )
 
-    # Bulk-create new organization-course linkages.
-    organization_data_by_short_name = {
-        # This keeps just one `organization_data` for each unique short name;
-        # that is fine. We just need a way to recover `organization_data` dicts
-        # from the org short names that we've been using throughout this function.
-        organization_data["short_name"].lower(): organization_data
-        for organization_data, _course_key
-        in organization_course_pairs
+    # Load up a dict: (org short names, Organization model instances).
+    # We need these Organizations so we can create linkages against them in the
+    # next step.
+    organizations_for_create = query_organizations_by_short_name(
+        org for org, _ in linkage_pairs_to_create
+    )
+    organizations_for_create_by_short_name = {
+        organization.short_name.lower(): organization
+        for organization in organizations_for_create
     }
+
+    # Bulk-create new organization-course linkages.
     internal.OrganizationCourse.objects.bulk_create([
         internal.OrganizationCourse(
-            organization=serializers.deserialize_organization(
-                organization_data_by_short_name[org_short_name]
-            ),
+            organization=organizations_for_create_by_short_name[org_short_name],
             course_id=course_id,
             active=True,
         )
