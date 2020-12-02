@@ -286,15 +286,4 @@ def is_autocreate_enabled():
     try:
         return bool(settings.ORGANIZATIONS_AUTOCREATE)
     except AttributeError:
-        pass
-    # TODO DEPR-117
-    # ORGANIZATIONS_APP is the (soon-to-be-)deprecated feature flag
-    # that enabled edx-organizations in edx-platform.
-    # To ease migration, we accept the enabling of the old feature flag as a way of
-    # disabling automatic organization creation.
-    try:
-        features = settings.FEATURES
-    except AttributeError:
-        features = {}
-    old_organizations_flag_enabled = bool(features.get('ORGANIZATIONS_APP', False))
-    return not old_organizations_flag_enabled
+        return True
