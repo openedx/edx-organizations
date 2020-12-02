@@ -17,7 +17,7 @@ cryptography==3.2.1       # via -r requirements/base.txt, pyjwt
 ddt==1.4.1                # via -r requirements/test.in
 distlib==0.3.1            # via virtualenv
 django-crum==0.7.9        # via -r requirements/base.txt, edx-django-utils
-django-model-utils==4.1.0  # via -r requirements/base.txt
+django-model-utils==4.1.1  # via -r requirements/base.txt
 django-simple-history==2.12.0  # via -r requirements/base.txt
 django-waffle==2.0.0      # via -r requirements/base.txt, edx-django-utils, edx-drf-extensions
 djangorestframework==3.12.2  # via -r requirements/base.txt, drf-jwt, edx-drf-extensions, rest-condition
@@ -32,7 +32,7 @@ filelock==3.0.12          # via tox, virtualenv
 future==0.18.2            # via -r requirements/base.txt, pyjwkest
 httpretty==0.9.7          # via -r requirements/test.in
 idna==2.10                # via -r requirements/base.txt, requests
-importlib-metadata==2.1.0  # via pluggy, pytest, tox, virtualenv
+importlib-metadata==2.1.1  # via pluggy, pytest, tox, virtualenv
 importlib-resources==3.2.1  # via virtualenv
 iniconfig==1.1.1          # via pytest
 isort==4.3.21             # via pylint
