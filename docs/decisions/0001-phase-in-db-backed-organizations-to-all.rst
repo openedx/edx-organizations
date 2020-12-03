@@ -200,3 +200,9 @@ in `pull request 3456`_.
 
 .. _pull request 3456: https://github.com/edx/edx-internal/pull/3456
 
+See also
+--------
+
+There exists a distilled, less technical version of this ADR `on the edX wiki`_.
+
+.. _on the edX wiki: https://openedx.atlassian.net/wiki/spaces/AC/pages/2103083026/Global+roll-out+of+database-backed+Organizations
