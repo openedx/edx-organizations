@@ -432,14 +432,6 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """
         assert api.is_autocreate_enabled()
 
-    @override_settings(FEATURES={"ORGANIZATIONS_APP": True})
-    def test_autocreate_disabled_by_organizations_app(self):
-        """
-        Tests that enabling FEATURES['ORGANIZATIONS_APP'] has the effect of
-        disabling automatic organization creation.
-        """
-        assert not api.is_autocreate_enabled()
-
 
 class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
     """
