@@ -100,7 +100,7 @@ organization auto-creation is explicitly disabled.
 
 Finally, we will provide an **organization backfill management command**
 to auto-create all missing organizations and organization-course linkages.
-We will instruct operators to run it as part of the Koa upgrade.
+We will instruct operators to run it as part of the Lilac upgrade.
 
 
 Consequences
@@ -181,11 +181,11 @@ These changes will be made in `pull request 25153`_.
 Community
 ~~~~~~~~~
 
-The community will be informed of the change via both Discourse and the release notes for Koa.
+The community will be informed of the change via both Discourse and the release notes for Lilac.
 Instructions for migration will be included.
 
-`DEPR-117`_ is created to track the eventual removal of the ``FEATURES["ORGANIATIONS_APP"]``,
-ideally in Lilac.
+`DEPR-117`_ is created to track the eventual removal of the ``FEATURES["ORGANIATIONS_APP"]``, which
+will also be part of Lilac.
 
 .. _DEPR-117: https://openedx.atlassian.net/browse/DEPR-117
 
