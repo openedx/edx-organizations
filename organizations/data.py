@@ -164,8 +164,15 @@ def bulk_create_organizations(organizations, dry_run=False):
 
         dry_run (bool):
             Optional, defaulting to False.
-            If True, log organizations that would be created or activated,
-            but do not actually apply the changes to the database.
+            If True, don't apply changes, but still return organizations
+            that would have been created or reactivated.
+
+    Returns: tuple[set[str], set[str]]
+
+        A tuple in the form: (
+            short names of organizations that were newly created,
+            short names of organizations that we reactivated
+        )
     """
     # Collect organizations by short name, dropping conflicts as necessary.
     organization_objs = [
@@ -205,30 +212,25 @@ def bulk_create_organizations(organizations, dry_run=False):
     ]
     organizations_to_reactivate = existing_organizations.filter(active=False)
 
-    # Log what we're about to do.
-    # If this is a dry run, return before applying any changes to the db.
-    short_names_of_organizations_to_reactivate = list(
+    # Collect sets of orgs that will be reactivated and created,
+    # so that we can have an informative return value.
+    short_names_of_organizations_to_reactivate = set(
         organizations_to_reactivate.values_list("short_name", flat=True)
     )
-    short_names_of_organizations_to_create = [
+    short_names_of_organizations_to_create = {
         org.short_name for org in organizations_to_create
-    ]
-    log.info(
-        "Organizations to be bulk-reactivated (n=%i): %r. ",
-        len(short_names_of_organizations_to_reactivate),
+    }
+
+    # If not a dry run,
+    # re-activate existing organizations, and create the new ones.
+    if not dry_run:
+        organizations_to_reactivate.update(active=True)
+        internal.Organization.objects.bulk_create(organizations_to_create)
+
+    return (
+        short_names_of_organizations_to_create,
         short_names_of_organizations_to_reactivate,
     )
-    log.info(
-        "Organizations to be bulk-created (n=%i): %r.",
-        len(short_names_of_organizations_to_create),
-        short_names_of_organizations_to_create,
-    )
-    if dry_run:
-        return
-
-    # Activate existing organizations, and create the new ones.
-    organizations_to_reactivate.update(active=True)
-    internal.Organization.objects.bulk_create(organizations_to_create)
 
 
 def update_organization(organization):
@@ -337,8 +339,20 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
 
         dry_run (bool):
             Optional, defaulting to False.
-            If True, log organizations-course linkaages that would be created or
-            activated, but do not actually apply the changes to the database.
+            If True, don't apply changes, but still return organization-course
+            linkages that would have been created or reactivated.
+
+    Returns: tuple[
+                set[tuple[str, str]],
+                set[tuple[str, str]]
+             ]
+
+        A tuple in the form: (
+            organization-course linkages that we newly created,
+            organization-course linkages that we reactivated
+        )
+        where an "organization-course" linkage is a tuple in the form:
+            (organization short name, course key string).
     """
     def linkage_to_pair(linkage):
         """
@@ -395,24 +409,13 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         )
     ]
 
-    # Log what we're about to do.
     # If this is a dry run, return before applying any changes to the db.
     linkage_pairs_to_reactivate = {
         linkage_to_pair(linkage)
         for linkage in linkages_to_reactivate
     }
-    log.info(
-        "Organization-course linkages to be bulk-reactivated (n=%i): %r. ",
-        len(linkage_pairs_to_reactivate),
-        list(linkage_pairs_to_reactivate),
-    )
-    log.info(
-        "Organization-course linkages to be bulk-created (n=%i): %r.",
-        len(linkage_pairs_to_create),
-        list(linkage_pairs_to_create),
-    )
     if dry_run:
-        return
+        return linkage_pairs_to_create, linkage_pairs_to_reactivate
 
     # Bulk-reactivate existing organization-course linkages.
     ids_of_linkages_to_reactivate = {linkage.id for linkage in linkages_to_reactivate}
@@ -443,6 +446,7 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         for org_short_name, course_id
         in linkage_pairs_to_create
     ])
+    return linkage_pairs_to_create, linkage_pairs_to_reactivate
 
 
 def query_organizations_by_short_name(short_names):
