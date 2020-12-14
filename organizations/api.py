@@ -80,12 +80,23 @@ def bulk_add_organizations(organization_data_items, dry_run=False):
 
         dry_run (bool):
             Optional, defaulting to False.
-            If True, log organizations that would be created or activated,
-            but do not actually apply the changes to the database.
+            If True, don't apply changes, but still return organizations
+            that would have been created or reactivated.
 
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data; no organizations were created.
+
+    Returns: tuple[set[str], set[str]]
+
+        A tuple in the form: (
+            short names of organizations that were newly created,
+            short names of organizations that we reactivated
+        )
+        From an API layer point of view, the organizations that were "added"
+        is the union of the organizations that were *newly created* and those
+        that were *reactivated*. We distinguish between them in the return
+        value to allow for richer reporting by users of this function.
     """
     for organization_data in organization_data_items:
         _validate_organization_data(organization_data)
@@ -93,7 +104,7 @@ def bulk_add_organizations(organization_data_items, dry_run=False):
             raise exceptions.InvalidOrganizationException(
                 "Organization is missing short_name: {}".format(organization_data)
             )
-    data.bulk_create_organizations(organization_data_items, dry_run)
+    return data.bulk_create_organizations(organization_data_items, dry_run)
 
 
 def edit_organization(organization_data):
@@ -167,14 +178,31 @@ def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
 
         dry_run (bool):
             Optional, defaulting to False.
-            If True, log organizations-course linkages that would be created or
-            activated, but do not actually apply the changes to the database.
+            If True, don't apply changes, but still return organization-course
+            linkages that would have been created or reactivated.
 
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data.
         InvalidCourseKeyException: One or more course keys could not be parsed.
         (in case of either exception, no org-course linkages are created).
+
+    Returns: tuple[
+                set[tuple[str, CourseKey],
+                set[tuple[str, CourseKey]
+            ]
+
+        A tuple in the form: (
+            organization-course linkages that we newly created,
+            organization-course linkages that we reactivated
+        )
+        where the `str` objects are organization short names.
+
+        From an API layer point of view, the organization-
+        course linkages that were "added" is the union of the linkages that were
+        *newly created* and those that were *reactivated*.
+        We distinguish between them in the return value to allow for richer
+        reporting by users of this function.
     """
     for organization_data, course_key in organization_course_pairs:
         _validate_organization_data(organization_data)
@@ -183,7 +211,7 @@ def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
                 "Organization is missing short_name: {}".format(organization_data)
             )
         _validate_course_key(course_key)
-    data.bulk_create_organization_courses(organization_course_pairs, dry_run)
+    return data.bulk_create_organization_courses(organization_course_pairs, dry_run)
 
 
 def get_organization_courses(organization_data):
