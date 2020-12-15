@@ -21,7 +21,7 @@ django-model-utils==4.1.1  # via -r requirements/base.txt
 django-simple-history==2.12.0  # via -r requirements/base.txt
 django-waffle==2.0.0      # via -r requirements/base.txt, edx-django-utils, edx-drf-extensions
 djangorestframework==3.12.2  # via -r requirements/base.txt, drf-jwt, edx-drf-extensions, rest-condition
-drf-jwt==1.17.2           # via -r requirements/base.txt, edx-drf-extensions
+drf-jwt==1.17.3           # via -r requirements/base.txt, edx-drf-extensions
 edx-django-utils==3.13.0  # via -r requirements/base.txt, edx-drf-extensions
 edx-drf-extensions==6.2.0  # via -r requirements/base.txt
 edx-lint==1.5.2           # via -r requirements/test.in
@@ -39,13 +39,13 @@ isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
 newrelic==5.22.1.152      # via -r requirements/base.txt, edx-django-utils
-packaging==20.7           # via pytest, tox
+packaging==20.8           # via pytest, tox
 pathlib2==2.3.5           # via pytest
 pbr==5.5.1                # via -r requirements/base.txt, stevedore
 pillow==7.2.0             # via -r requirements/base.txt
 pluggy==0.13.1            # via pytest, tox
 psutil==5.7.3             # via -r requirements/base.txt, edx-django-utils
-py==1.9.0                 # via pytest, tox
+py==1.10.0                # via pytest, tox
 pycodestyle==2.6.0        # via -r requirements/test.in
 pycparser==2.20           # via -r requirements/base.txt, cffi
 pycryptodomex==3.9.9      # via -r requirements/base.txt, pyjwkest
