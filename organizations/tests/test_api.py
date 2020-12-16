@@ -2,6 +2,7 @@
 """
 Organizations API Module Test Cases
 """
+import itertools
 from unittest.mock import patch
 
 import ddt
@@ -10,6 +11,7 @@ from opaque_keys.edx.keys import CourseKey
 
 import organizations.api as api
 import organizations.exceptions as exceptions
+import organizations.models as models
 import organizations.tests.utils as utils
 from organizations.data import log as data_module_logger
 
@@ -528,9 +530,9 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
             "EXISTING_ORG", "org_to_reactivate", "org_X", "org_Y"
         }
 
-        # Based on the return value,
+        # Based on the return value, make sure the expected breakdown of
         #    created vs. reactivated vs. not touched
-        # is true for the organizations passed to `bulk_add_organizations`.
+        # is correct for the organizations passed to `bulk_add_organizations`.
         assert reactivated == {"org_to_reactivate"}
         assert created == {"org_X", "org_Y"}
 
@@ -551,6 +553,67 @@ class BulkAddOrganizationsTestCase(utils.OrganizationsTestCaseBase):
             # in favor of this org data, which came earlier in the batch.
             self.make_organization_data("org_X")["short_name"]
         )
+
+    def test_creation_of_inactive_organizations(self):
+        """
+        Test that the `activate` parameter can be set to `False`, which should
+        cause new organizations to be created as "inactive" and stop organizations
+        from being re-activated.
+        """
+        # Create one active and one inactive organization.
+        api.add_organization(self.make_organization_data("existing_active_org"))
+        api.remove_organization(
+            api.add_organization(
+                self.make_organization_data("existing_inactive_org")
+            )["id"]
+        )
+
+        # Bulk-add some organizations.
+        organizations_to_bulk_add = [
+            # New organization.
+            # Should be created as "inactive".
+            self.make_organization_data("new_org"),
+
+            # Existing active organization (with different description and capitalized
+            # short-name). This should have no effect; the org should remain active.
+            {
+                **self.make_organization_data("EXISTING_ACTIVE_ORG"),
+                "description": "this should be ignored"
+            },
+
+            # Existing inactive organization (with different description and capitalized
+            # short-name). This should have no effect; the org should remain inactive.
+            {
+                **self.make_organization_data("EXISTING_INACTIVE_ORG"),
+                "description": "this too should be ignored"
+            },
+        ]
+        created, reactivated = api.bulk_add_organizations(
+            organizations_to_bulk_add, activate=False
+        )
+
+        # Based on the return value, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is correct for the organizations passed to `bulk_add_organizations`.
+        assert reactivated == set()
+        assert created == {"new_org"}
+
+        # Check that there are a total of three organizations (including inactive ones).
+        assert models.Organization.objects.count() == 3
+
+        # Check that the new organization was created as inactive.
+        new_org = models.Organization.objects.get(short_name="new_org")
+        assert not new_org.active
+
+        # Check that the active organization is unmodified.
+        existing_active_org = models.Organization.objects.get(short_name="existing_active_org")
+        assert existing_active_org.active
+        assert existing_active_org.description == "Description of existing_active_org"
+
+        # Check that the inactive organization is unmodified.
+        existing_inactive_org = models.Organization.objects.get(short_name="existing_inactive_org")
+        assert not existing_inactive_org.active
+        assert existing_inactive_org.description == "Description of existing_inactive_org"
 
     def test_add_several_organizations(self):
         """
@@ -703,7 +766,7 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
 
         # Based on return value, make sure the expected breakdown of
         #    created vs. reactivated vs. not touched
-        # is true for the org-course linkages passed to `bulk_add_organization_courses`.
+        # is correct for the org-course linkages passed to `bulk_add_organization_courses`.
         assert created == {
             ("org_b", str(course_key_y)),
             ("org_b", str(course_key_z)),
@@ -718,6 +781,67 @@ class BulkAddOrganizationCoursesTestCase(utils.OrganizationsTestCaseBase):
             org_course["course_id"] for org_course in org_b_courses
         } == {
             "course-v1:y+y+y", "course-v1:z+z+z"
+        }
+
+    def test_creation_of_inactive_organization_courses(self):
+        """
+        Test that the `activate` parameter can be set to `False`, which should
+        cause new linkages to be created as "inactive" and stop organizations
+        from being re-activated.
+        """
+        # Create one active and one inactive organization.
+        active_org = api.add_organization(self.make_organization_data("active_org"))
+        inactive_org = api.add_organization(self.make_organization_data("inactive_org"))
+        api.remove_organization(inactive_org["id"])
+
+        # Course X starts with existing active linkages to both orgs.
+        course_key_x = CourseKey.from_string("course-v1:x+x+x")
+        api.add_organization_course(active_org, course_key_x)
+        api.add_organization_course(inactive_org, course_key_x)
+
+        # Course Y starts with existing inactive linkages to both orgs.
+        course_key_y = CourseKey.from_string("course-v1:y+y+y")
+        api.add_organization_course(active_org, course_key_y)
+        api.remove_organization_course(active_org, course_key_y)
+        api.add_organization_course(inactive_org, course_key_y)
+        api.remove_organization_course(inactive_org, course_key_y)
+
+        # Course Z starts with no linkages.
+        course_key_z = CourseKey.from_string("course-v1:z+z+z")
+
+        # Bulk-add inactive linkages from every org to every course (6 linkages total).
+        # This should be a no-op for existing linkages (whether active or inactive).
+        linkages_to_bulk_add = list(
+            itertools.product(
+                (active_org, inactive_org),
+                (course_key_x, course_key_y, course_key_z),
+            )
+        )
+        created, reactivated = api.bulk_add_organization_courses(
+            linkages_to_bulk_add, activate=False
+        )
+
+        # Based on the return value, make sure the expected breakdown of
+        #    created vs. reactivated vs. not touched
+        # is correct for the organizations passed to `bulk_add_organization_courses`.
+        assert reactivated == set()
+        assert created == {
+            ("active_org", str(course_key_z)),
+            ("inactive_org", str(course_key_z)),
+        }
+
+        # Check the final state of all existing linkages.
+        assert models.OrganizationCourse.objects.count() == 6
+        assert {
+            (linkage.organization.short_name, str(linkage.course_id), linkage.active)
+            for linkage in models.OrganizationCourse.objects.all()
+        } == {
+            ("active_org", "course-v1:x+x+x", True),
+            ("inactive_org", "course-v1:x+x+x", True),
+            ("active_org", "course-v1:y+y+y", False),
+            ("inactive_org", "course-v1:y+y+y", False),
+            ("active_org", "course-v1:z+z+z", False),
+            ("inactive_org", "course-v1:z+z+z", False),
         }
 
     def test_add_several_organization_courses(self):
