@@ -13,7 +13,7 @@ from organizations.tests.factories import OrganizationFactory
 class TestOrganizationSerializer(TestCase):
     """ OrganizationSerializer tests."""
     def setUp(self):
-        super(TestOrganizationSerializer, self).setUp()
+        super().setUp()
         self.organization = OrganizationFactory.create()
 
     def test_data(self):

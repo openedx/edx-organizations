@@ -14,7 +14,7 @@ class TestOrganizationsView(TestCase):
     """ Test Organizations View."""
 
     def setUp(self):
-        super(TestOrganizationsView, self).setUp()
+        super().setUp()
 
         self.user_password = 'test'
         self.user = UserFactory(password=self.user_password, is_superuser=True)

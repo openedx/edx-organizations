@@ -16,7 +16,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     search_fields = ('name', 'short_name',)
 
     def get_actions(self, request):
-        actions = super(OrganizationAdmin, self).get_actions(request)
+        actions = super().get_actions(request)
 
         # Remove the delete action.
         if 'delete_selected' in actions:  # pragma: no cover
@@ -66,4 +66,4 @@ class OrganizationCourseAdmin(admin.ModelAdmin):
         if db_field.name == 'organization':  # pragma: no branch
             kwargs['queryset'] = Organization.objects.filter(active=True).order_by('name')
 
-        return super(OrganizationCourseAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)

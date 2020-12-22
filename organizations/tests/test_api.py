@@ -23,7 +23,7 @@ class OrganizationsApiTestCase(utils.OrganizationsTestCaseBase):
         """
         Organizations API Test Case scaffolding
         """
-        super(OrganizationsApiTestCase, self).setUp()
+        super().setUp()
         self.test_organization = api.add_organization({
             'short_name': 'test_organization',
             'name': 'test_organizationßßß',

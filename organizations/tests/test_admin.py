@@ -30,7 +30,7 @@ class OrganizationsAdminTestCase(utils.OrganizationsTestCaseBase):
     """
 
     def setUp(self):
-        super(OrganizationsAdminTestCase, self).setUp()
+        super().setUp()
         self.org_admin = OrganizationAdmin(Organization, AdminSite())
         self.request = RequestFactory().get('/admin')
         self.admin_user = UserFactory(is_staff=True)
@@ -101,7 +101,7 @@ class OrganizationCourseAdminTestCase(utils.OrganizationsTestCaseBase):
     """
 
     def setUp(self):
-        super(OrganizationCourseAdminTestCase, self).setUp()
+        super().setUp()
         self.request = RequestFactory().get('')
         self.org_course_admin = OrganizationCourseAdmin(OrganizationCourse, AdminSite())
 
