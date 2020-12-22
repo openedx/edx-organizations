@@ -26,13 +26,13 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         logo_url = validated_data.pop('logo_url', None)
-        obj = super(OrganizationSerializer, self).create(validated_data)
+        obj = super().create(validated_data)
         self.update_logo(obj, logo_url)
         return obj
 
     def update(self, instance, validated_data):
         logo_url = validated_data.pop('logo_url', None)
-        super(OrganizationSerializer, self).update(instance, validated_data)
+        super().update(instance, validated_data)
         self.update_logo(instance, logo_url)
         return instance
 

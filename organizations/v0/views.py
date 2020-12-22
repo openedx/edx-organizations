@@ -30,7 +30,7 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
     def update(self, request, *args, **kwargs):
         """ We perform both Update and Create action via the PUT method. """
         try:
-            return super(OrganizationsViewSet, self).update(request, *args, **kwargs)
+            return super().update(request, *args, **kwargs)
         except Http404:
             serializer = OrganizationSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)

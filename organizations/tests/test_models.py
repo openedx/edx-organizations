@@ -13,7 +13,7 @@ from organizations.tests.factories import OrganizationFactory
 class TestOrganizationModel(TestCase):
     """ OrganizationModel tests. """
     def setUp(self):
-        super(TestOrganizationModel, self).setUp()
+        super().setUp()
         self.organization = OrganizationFactory.create()
 
     @ddt.data(
