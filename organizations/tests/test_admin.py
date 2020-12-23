@@ -17,8 +17,8 @@ def create_organization(index, active=True):
     Create an organization.
     """
     Organization.objects.create(
-        short_name='test_org_{}'.format(index),
-        name='test organization {}'.format(index),
+        short_name=f'test_org_{index}',
+        name=f'test organization {index}',
         description='test organization description',
         active=active
     )

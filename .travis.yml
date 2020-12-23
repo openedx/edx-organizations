@@ -2,22 +2,21 @@ language: python
 
 cache: pip
 python:
-  - 3.5
-  - 3.8
+  - '3.8'
 env:
-- TOXENV=django22
-- TOXENV=quality
-
-# Set Travis builds to use docker container
+  - TOXENV=quality
+  - TOXENV=django22
+  - TOXENV=django30
+  - TOXENV=django31
 sudo: false
 
 install:
-    - make requirements
-    - pip install tox-travis
-    - pip install coveralls
+  - make requirements
+  - pip install tox-travis
+  - pip install coveralls
 
 script:
-    - tox
+  - tox
 
 after_success: coveralls
 

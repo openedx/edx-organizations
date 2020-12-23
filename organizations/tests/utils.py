@@ -27,6 +27,6 @@ class OrganizationsTestCaseBase(TestCase):
         """
         return {
             'short_name': short_name,
-            'name': "Name of {}".format(short_name),
-            'description': "Description of {}".format(short_name),
+            'name': f"Name of {short_name}",
+            'description': f"Description of {short_name}",
         }

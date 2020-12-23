@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from django.db import migrations, models
 
 
@@ -14,11 +11,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='short_name',
-            field=models.CharField(max_length=255, verbose_name=u'Short Name', db_index=True),
+            field=models.CharField(max_length=255, verbose_name='Short Name', db_index=True),
         ),
         migrations.AlterField(
             model_name='organizationcourse',
             name='course_id',
-            field=models.CharField(max_length=255, verbose_name=u'Course ID', db_index=True),
+            field=models.CharField(max_length=255, verbose_name='Course ID', db_index=True),
         ),
     ]

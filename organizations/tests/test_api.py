@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Organizations API Module Test Cases
 """
