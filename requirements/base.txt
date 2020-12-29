@@ -20,7 +20,7 @@ edx-drf-extensions==6.2.0  # via -r requirements/base.in
 edx-opaque-keys==2.1.1    # via -r requirements/base.in, edx-drf-extensions
 future==0.18.2            # via pyjwkest
 idna==2.10                # via requests
-newrelic==5.22.1.152      # via edx-django-utils
+newrelic==5.24.0.153      # via edx-django-utils
 pbr==5.5.1                # via stevedore
 pillow==7.2.0             # via -r requirements/base.in
 psutil==5.8.0             # via edx-django-utils
@@ -30,7 +30,7 @@ pyjwkest==1.4.2           # via edx-drf-extensions
 pyjwt[crypto]==1.7.1      # via drf-jwt
 pymongo==3.11.2           # via edx-opaque-keys
 python-dateutil==2.8.1    # via edx-drf-extensions
-pytz==2020.4              # via django
+pytz==2020.5              # via django
 requests==2.25.1          # via edx-drf-extensions, pyjwkest
 rest-condition==1.0.3     # via edx-drf-extensions
 semantic-version==2.8.5   # via edx-drf-extensions
