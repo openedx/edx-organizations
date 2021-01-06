@@ -51,7 +51,7 @@ def add_organization(organization_data):
     return organization
 
 
-def bulk_add_organizations(organization_data_items, dry_run=False):
+def bulk_add_organizations(organization_data_items, dry_run=False, activate=True):
     """
     Efficiently store multiple organizations.
 
@@ -83,6 +83,13 @@ def bulk_add_organizations(organization_data_items, dry_run=False):
             If True, don't apply changes, but still return organizations
             that would have been created or reactivated.
 
+        activate (bool):
+            Optional, defaulting to True.
+            If True, missing organizations will be created with active=True,
+            and existing-but-inactive organizations will be reactivated.
+            If False, missing organizations will be created with active=False,
+            and existing-but-inactive organizations will be left as inactive.
+
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data; no organizations were created.
@@ -93,6 +100,9 @@ def bulk_add_organizations(organization_data_items, dry_run=False):
             short names of organizations that were newly created,
             short names of organizations that we reactivated
         )
+        If `activate` was supplied as False, the set of reactivated linkages will
+        always be empty.
+
         From an API layer point of view, the organizations that were "added"
         is the union of the organizations that were *newly created* and those
         that were *reactivated*. We distinguish between them in the return
@@ -104,7 +114,9 @@ def bulk_add_organizations(organization_data_items, dry_run=False):
             raise exceptions.InvalidOrganizationException(
                 "Organization is missing short_name: {}".format(organization_data)
             )
-    return data.bulk_create_organizations(organization_data_items, dry_run)
+    return data.bulk_create_organizations(
+        organization_data_items, dry_run=dry_run, activate=activate
+    )
 
 
 def edit_organization(organization_data):
@@ -158,7 +170,11 @@ def add_organization_course(organization_data, course_key):
     )
 
 
-def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
+def bulk_add_organization_courses(
+        organization_course_pairs,
+        dry_run=False,
+        activate=True,
+):
     """
     Efficiently store multiple organization-course relationships.
 
@@ -181,6 +197,13 @@ def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
             If True, don't apply changes, but still return organization-course
             linkages that would have been created or reactivated.
 
+        activate (bool):
+            Optional, defaulting to True.
+            If True, missing linkages will be created with active=True,
+            and existing-but-inactive linkages will be reactivated.
+            If False, missing linkages will be created with active=False,
+            and existing-but-inactive linkages will be left as inactive.
+
     Raises:
         InvalidOrganizationException: One or more organization dictionaries
             have missing or invalid data.
@@ -197,6 +220,8 @@ def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
             organization-course linkages that we reactivated
         )
         where the `str` objects are organization short names.
+        If `activate` was supplied as False, the set of reactivated linkages will
+        always be empty.
 
         From an API layer point of view, the organization-
         course linkages that were "added" is the union of the linkages that were
@@ -211,7 +236,9 @@ def bulk_add_organization_courses(organization_course_pairs, dry_run=False):
                 "Organization is missing short_name: {}".format(organization_data)
             )
         _validate_course_key(course_key)
-    return data.bulk_create_organization_courses(organization_course_pairs, dry_run)
+    return data.bulk_create_organization_courses(
+        organization_course_pairs, dry_run=dry_run, activate=activate
+    )
 
 
 def get_organization_courses(organization_data):

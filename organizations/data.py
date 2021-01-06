@@ -139,7 +139,7 @@ def create_organization(organization):
     return serializers.serialize_organization(organization)
 
 
-def bulk_create_organizations(organizations, dry_run=False):
+def bulk_create_organizations(organizations, dry_run=False, activate=True):
     """
     Efficiently insert multiple organizations into the database.
 
@@ -167,20 +167,32 @@ def bulk_create_organizations(organizations, dry_run=False):
             If True, don't apply changes, but still return organizations
             that would have been created or reactivated.
 
+        activate (bool):
+            Optional, defaulting to True.
+            If True, missing organizations will be created with active=True,
+            and existing-but-inactivate organizations will be reactivated.
+            If False, missing organizations will be created with active=False,
+            and existing-but-inactivate organizations will be left as inactivate.
+
     Returns: tuple[set[str], set[str]]
 
         A tuple in the form: (
             short names of organizations that were newly created,
             short names of organizations that we reactivated
         )
+        If `activate` was supplied as False, the set of reactivated organizations
+        will always be empty.
     """
     # Collect organizations by short name, dropping conflicts as necessary.
     organization_objs = [
         # This deserializes the dictionaries into Organization instances that
-        # have not yet been saved to the db. By default, they all have `active=True`.
+        # have not yet been saved to the db.
         serializers.deserialize_organization(organization_dict)
         for organization_dict in organizations
     ]
+    # Make sure `active` is set correctly on the deserialized organizations.
+    for organization_obj in organization_objs:
+        organization_obj.active = activate
     organizations_by_short_name = {}
     for organization in organization_objs:
         # Make sure to lowercase short_name because MySQL UNIQUE is case-insensitive.
@@ -210,7 +222,10 @@ def bulk_create_organizations(organizations, dry_run=False):
         for short_name, organization in organizations_by_short_name.items()
         if short_name.lower() not in existing_organization_short_names
     ]
-    organizations_to_reactivate = existing_organizations.filter(active=False)
+    if activate:
+        organizations_to_reactivate = existing_organizations.filter(active=False)
+    else:
+        organizations_to_reactivate = internal.Organization.objects.none()
 
     # Collect sets of orgs that will be reactivated and created,
     # so that we can have an informative return value.
@@ -223,6 +238,7 @@ def bulk_create_organizations(organizations, dry_run=False):
 
     # If not a dry run,
     # re-activate existing organizations, and create the new ones.
+    # If `activate==False`, then `organizations_to_reactivate` will be empty.
     if not dry_run:
         organizations_to_reactivate.update(active=True)
         internal.Organization.objects.bulk_create(organizations_to_create)
@@ -322,7 +338,11 @@ def create_organization_course(organization, course_key):
         )
 
 
-def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
+def bulk_create_organization_courses(
+        organization_course_pairs,
+        dry_run=False,
+        activate=True,
+):
     """
     Efficiently insert multiple organization-course relationships into the database.
 
@@ -342,6 +362,13 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
             If True, don't apply changes, but still return organization-course
             linkages that would have been created or reactivated.
 
+        activate (bool):
+            Optional, defaulting to True.
+            If True, missing linkages will be created with active=True,
+            and existing-but-inactive linkages will be reactivated.
+            If False, missing linkages will be created with active=False,
+            and existing-but-inactive linkages will be left as inactive.
+
     Returns: tuple[
                 set[tuple[str, str]],
                 set[tuple[str, str]]
@@ -353,6 +380,8 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         )
         where an "organization-course" linkage is a tuple in the form:
             (organization short name, course key string).
+        If `activate` was supplied as False, the set of reactivated linkages will
+        always be empty.
     """
     def linkage_to_pair(linkage):
         """
@@ -392,10 +421,12 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
 
     # The set of org-course linkages that we must ENSURE ARE ACTIVE
     # is the set of linkages that were REQUESTED
-    # minus the set of linkages that WILL BE CREATED.
-    linkage_pairs_to_ensure_active = (
-        requested_linkage_pairs - linkage_pairs_to_create
-    )
+    # minus the set of linkages that WILL BE CREATED,
+    # unless activate==False, in which case we won't ensure anything is active.
+    if activate:
+        linkage_pairs_to_ensure_active = requested_linkage_pairs - linkage_pairs_to_create
+    else:
+        linkage_pairs_to_ensure_active = set()
 
     # The linkages we must REACTIVATE
     # are those that we must ENSURE ARE ACTIVE
@@ -418,6 +449,7 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         return linkage_pairs_to_create, linkage_pairs_to_reactivate
 
     # Bulk-reactivate existing organization-course linkages.
+    # If `ids_of_linkages_to_reactivate` is an empty set, then this is a no-op.
     ids_of_linkages_to_reactivate = {linkage.id for linkage in linkages_to_reactivate}
     internal.OrganizationCourse.objects.filter(
         id__in=ids_of_linkages_to_reactivate
@@ -441,7 +473,7 @@ def bulk_create_organization_courses(organization_course_pairs, dry_run=False):
         internal.OrganizationCourse(
             organization=organizations_for_create_by_short_name[org_short_name],
             course_id=course_id,
-            active=True,
+            active=activate,
         )
         for org_short_name, course_id
         in linkage_pairs_to_create
