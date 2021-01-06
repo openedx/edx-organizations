@@ -222,11 +222,10 @@ def bulk_create_organizations(organizations, dry_run=False, activate=True):
         for short_name, organization in organizations_by_short_name.items()
         if short_name.lower() not in existing_organization_short_names
     ]
-    organizations_to_reactivate = (
-        existing_organizations.filter(active=False)
-        if activate
-        else internal.Organization.objects.none()
-    )
+    if activate:
+        organizations_to_reactivate = existing_organizations.filter(active=False)
+    else:
+        organizations_to_reactivate = internal.Organization.objects.none()
 
     # Collect sets of orgs that will be reactivated and created,
     # so that we can have an informative return value.
@@ -424,9 +423,10 @@ def bulk_create_organization_courses(
     # is the set of linkages that were REQUESTED
     # minus the set of linkages that WILL BE CREATED,
     # unless activate==False, in which case we won't ensure anything is active.
-    linkage_pairs_to_ensure_active = (
-        requested_linkage_pairs - linkage_pairs_to_create
-    ) if activate else set()
+    if activate:
+        linkage_pairs_to_ensure_active = requested_linkage_pairs - linkage_pairs_to_create
+    else:
+        linkage_pairs_to_ensure_active = set()
 
     # The linkages we must REACTIVATE
     # are those that we must ENSURE ARE ACTIVE
