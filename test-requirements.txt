@@ -249,7 +249,7 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tox==3.20.1
+tox==3.21.0
     # via -r requirements/test.in
 typed-ast==1.4.2
     # via astroid
@@ -257,7 +257,7 @@ urllib3==1.26.2
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.2.2
+virtualenv==20.3.0
     # via tox
 wrapt==1.12.1
     # via astroid
