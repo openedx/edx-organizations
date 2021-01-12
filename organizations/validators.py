@@ -1,4 +1,3 @@
-# This Python file uses the following encoding: utf-8
 """
 Validators confirm the integrity of inbound information prior to a data.py handoff
 """

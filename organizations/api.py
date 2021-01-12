@@ -1,4 +1,3 @@
-# This Python file uses the following encoding: utf-8
 """
 api.py is an interface module for Python-level integration with the
 edx-organizations app.
@@ -112,7 +111,7 @@ def bulk_add_organizations(organization_data_items, dry_run=False, activate=True
         _validate_organization_data(organization_data)
         if "short_name" not in organization_data:
             raise exceptions.InvalidOrganizationException(
-                "Organization is missing short_name: {}".format(organization_data)
+                f"Organization is missing short_name: {organization_data}"
             )
     return data.bulk_create_organizations(
         organization_data_items, dry_run=dry_run, activate=activate
@@ -233,7 +232,7 @@ def bulk_add_organization_courses(
         _validate_organization_data(organization_data)
         if "short_name" not in organization_data:
             raise exceptions.InvalidOrganizationException(
-                "Organization is missing short_name: {}".format(organization_data)
+                f"Organization is missing short_name: {organization_data}"
             )
         _validate_course_key(course_key)
     return data.bulk_create_organization_courses(

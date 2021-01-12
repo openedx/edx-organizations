@@ -34,7 +34,7 @@ coverage==5.3.1
     # via
     #   -r requirements/test.in
     #   pytest-cov
-cryptography==3.2.1
+cryptography==3.3.1
     # via
     #   -r requirements/base.txt
     #   pyjwt
@@ -87,9 +87,9 @@ edx-opaque-keys==2.1.1
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-factory-boy==3.1.0
+factory-boy==3.2.0
     # via -r requirements/test.in
-faker==5.0.0
+faker==5.5.0
     # via factory-boy
 filelock==3.0.12
     # via
@@ -105,17 +105,9 @@ idna==2.10
     # via
     #   -r requirements/base.txt
     #   requests
-importlib-metadata==2.1.1
-    # via
-    #   pluggy
-    #   pytest
-    #   tox
-    #   virtualenv
-importlib-resources==3.2.1
-    # via virtualenv
 iniconfig==1.1.1
     # via pytest
-isort==4.3.21
+isort==5.7.0
     # via pylint
 lazy-object-proxy==1.4.3
     # via astroid
@@ -129,13 +121,11 @@ packaging==20.8
     # via
     #   pytest
     #   tox
-pathlib2==2.3.5
-    # via pytest
 pbr==5.5.1
     # via
     #   -r requirements/base.txt
     #   stevedore
-pillow==7.2.0
+pillow==8.1.0
     # via -r requirements/base.txt
 pluggy==0.13.1
     # via
@@ -191,7 +181,7 @@ pytest-cov==2.10.1
     # via -r requirements/test.in
 pytest-django==4.1.0
     # via -r requirements/test.in
-pytest==6.1.2
+pytest==6.2.1
     # via
     #   pytest-cov
     #   pytest-django
@@ -227,17 +217,15 @@ six==1.15.0
     #   edx-lint
     #   edx-opaque-keys
     #   httpretty
-    #   pathlib2
     #   pyjwkest
     #   python-dateutil
-    #   stevedore
     #   tox
     #   virtualenv
 sqlparse==0.4.1
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==1.32.0
+stevedore==3.3.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -249,19 +237,13 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tox==3.20.1
+tox==3.21.0
     # via -r requirements/test.in
-typed-ast==1.4.2
-    # via astroid
 urllib3==1.26.2
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.2.2
+virtualenv==20.3.0
     # via tox
 wrapt==1.12.1
     # via astroid
-zipp==1.2.0
-    # via
-    #   importlib-metadata
-    #   importlib-resources

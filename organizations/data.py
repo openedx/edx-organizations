@@ -1,4 +1,3 @@
-# This Python file uses the following encoding: utf-8
 # pylint: disable=expression-not-assigned
 """
 Application data management/abstraction layer.  Responsible for:
@@ -410,9 +409,9 @@ def bulk_create_organization_courses(
     }
 
     # Build the same set of pairs for linkages already in the db.
-    db_linkage_pairs = set(
+    db_linkage_pairs = {
         linkage_to_pair(linkage) for linkage in db_linkages
-    )
+    }
 
     # The set of org-course linkages that we must CREATE
     # is the set of linkages that were REQUESTED

@@ -1,4 +1,3 @@
-# This Python file uses the following encoding: utf-8
 """
 Application-specific exception classes used throughout the implementation
 """
@@ -16,5 +15,5 @@ class InvalidOrganizationException(ValidationError):
 def raise_exception(entity_type, entity, exception):
     """ Exception helper """
     raise exception(
-        u'The {} you have provided is not valid: {}'.format(entity_type, entity).encode('utf-8')
+        f'The {entity_type} you have provided is not valid: {entity}'.encode('utf-8')
     )

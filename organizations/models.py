@@ -22,7 +22,7 @@ class Organization(TimeStampedModel):
     short_name = models.CharField(
         max_length=255,
         unique=True,
-        verbose_name=u'Short Name',
+        verbose_name='Short Name',
         help_text=_(
             'Unique, short string identifier for organization. '
             'Please do not use spaces or special characters. '
@@ -31,7 +31,7 @@ class Organization(TimeStampedModel):
     )
     description = models.TextField(null=True, blank=True)
     logo = models.ImageField(
-        upload_to=u'organization_logos',
+        upload_to='organization_logos',
         help_text=_('Please add only .PNG files for logo images. This logo will be used on certificates.'),
         null=True, blank=True, max_length=255
     )
@@ -40,7 +40,7 @@ class Organization(TimeStampedModel):
     history = HistoricalRecords()
 
     def __str__(self):
-        return u"{name} ({short_name})".format(name=self.name, short_name=self.short_name)
+        return f"{self.name} ({self.short_name})"
 
     def clean(self):
         if not re.match("^[a-zA-Z0-9._-]*$", self.short_name):
@@ -56,7 +56,7 @@ class OrganizationCourse(TimeStampedModel):
     (in the Django/ORM sense) the modeling and integrity is limited to that
     of specifying course identifier strings in this model.
     """
-    course_id = models.CharField(max_length=255, db_index=True, verbose_name=u'Course ID')
+    course_id = models.CharField(max_length=255, db_index=True, verbose_name='Course ID')
     organization = models.ForeignKey(Organization, db_index=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 

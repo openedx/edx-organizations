@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 Tests for Organization Model.
 """
@@ -25,7 +24,7 @@ class TestOrganizationModel(TestCase):
         consists of special characters or spaces.
         """
         for char in invalid_char_list:
-            self.organization.short_name = 'shortname{}'.format(char)
+            self.organization.short_name = f'shortname{char}'
             self.assertRaises(ValidationError, self.organization.clean)
 
     @ddt.data(
