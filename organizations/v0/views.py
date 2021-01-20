@@ -7,6 +7,7 @@ from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -21,14 +22,37 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
         - fetch list organization data or single organization using organization short name.
         - create or update an organization via the PUT endpoint.
     """
-    queryset = Organization.objects.filter(active=True)
+    queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
     lookup_field = 'short_name'
     authentication_classes = (JwtAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated, UserIsStaff)
 
+    def get_queryset(self):
+        """
+        Get the queryset to use in the request.
+
+        For listing and retieving organizations, we only want to include
+        active ones.
+
+        For creating and updating organizations, we want to include all of
+        them, which allows API users to "create" (i.e., reactivate)
+        organizations that exist internally but are inactive.
+        """
+        if self.request.method == "GET":
+            return self.queryset.filter(active=True)
+        return self.queryset
+
     def update(self, request, *args, **kwargs):
-        """ We perform both Update and Create action via the PUT method. """
+        """ We perform both Update and Create action via the PUT method.
+
+        Organizations may only be created/updated as Actve.
+        """
+        if 'active' in self.request.data:
+            raise ValidationError(
+                "Value of 'active' may not be specified via Organizations HTTP API."
+            )
+        self.request.data['active'] = True
         try:
             return super().update(request, *args, **kwargs)
         except Http404:
