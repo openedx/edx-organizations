@@ -76,7 +76,7 @@ class TestOrganizationsView(TestCase):
         self.assertEqual(len(orgs), 2)
 
     def test_update_organization(self):
-        """ Verify Organization can be updated via PUT endpoint. """
+        """ Verify Organizations can be updated via PUT endpoint. """
         org = OrganizationFactory()
         data = {
             'name': 'changed-name',
@@ -122,6 +122,18 @@ class TestOrganizationsView(TestCase):
         """ Verify PATCH endpoint returns 405 because we use PUT for create and update"""
         url = reverse('v0:organization-detail', kwargs={'short_name': 'dummy'})
         response = self.client.patch(url, json={})
+        self.assertEqual(response.status_code, 405)
+
+    def test_post_endpoint(self):
+        """ Verify POST endpoint returns 405 because we use PUT for create and update"""
+        url = reverse('v0:organization-detail', kwargs={'short_name': 'dummy'})
+        response = self.client.post(url, json={})
+        self.assertEqual(response.status_code, 405)
+
+    def test_delete_endpoint(self):
+        """ Verify DELETE endpoint returns 405 because we don't support it"""
+        url = reverse('v0:organization-detail', kwargs={'short_name': 'dummy'})
+        response = self.client.delete(url)
         self.assertEqual(response.status_code, 405)
 
     def test_create_as_only_staff_user(self):

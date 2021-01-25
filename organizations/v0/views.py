@@ -19,8 +19,9 @@ from organizations.serializers import OrganizationSerializer
 class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSet):
     """
     Organization view to:
-        - fetch list organization data or single organization using organization short name.
-        - create or update an organization via the PUT endpoint.
+        - list organization data (GET .../)
+        - retrieve single organization (GET .../<short_name>)
+        - create or update an organization via the PUT endpoint (PUT .../<short_name>)
     """
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
@@ -44,9 +45,14 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
         return self.queryset
 
     def update(self, request, *args, **kwargs):
-        """ We perform both Update and Create action via the PUT method.
+        """
+        We perform both Update and Create action via the PUT method.
 
-        Organizations may only be created/updated as Actve.
+        The 'active' field may not be specified via the HTTP API, since it
+        is always assumed to be True. So:
+            (1) new organizations created through the API are always Active, and
+            (2) existing organizations updated through the API always end up Active,
+                regardless of whether or not they were previously active.
         """
         if 'active' in self.request.data:
             raise ValidationError(
@@ -62,5 +68,7 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
             return Response(serializer.data)
 
     def partial_update(self, request, *args, **kwargs):
-        """ We disable PATCH because all updates and creates should use the PUT action above. """
+        """
+        We disable PATCH because all updates and creates should use the PUT action above.
+        """
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
