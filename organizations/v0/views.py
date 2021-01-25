@@ -7,6 +7,7 @@ from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -18,17 +19,46 @@ from organizations.serializers import OrganizationSerializer
 class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSet):
     """
     Organization view to:
-        - fetch list organization data or single organization using organization short name.
-        - create or update an organization via the PUT endpoint.
+        - list organization data (GET .../)
+        - retrieve single organization (GET .../<short_name>)
+        - create or update an organization via the PUT endpoint (PUT .../<short_name>)
     """
-    queryset = Organization.objects.filter(active=True)
+    queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
     lookup_field = 'short_name'
     authentication_classes = (JwtAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated, UserIsStaff)
 
+    def get_queryset(self):
+        """
+        Get the queryset to use in the request.
+
+        For listing and retieving organizations, we only want to include
+        active ones.
+
+        For creating and updating organizations, we want to include all of
+        them, which allows API users to "create" (i.e., reactivate)
+        organizations that exist internally but are inactive.
+        """
+        if self.request.method == "GET":
+            return self.queryset.filter(active=True)
+        return self.queryset
+
     def update(self, request, *args, **kwargs):
-        """ We perform both Update and Create action via the PUT method. """
+        """
+        We perform both Update and Create action via the PUT method.
+
+        The 'active' field may not be specified via the HTTP API, since it
+        is always assumed to be True. So:
+            (1) new organizations created through the API are always Active, and
+            (2) existing organizations updated through the API always end up Active,
+                regardless of whether or not they were previously active.
+        """
+        if 'active' in self.request.data:
+            raise ValidationError(
+                "Value of 'active' may not be specified via Organizations HTTP API."
+            )
+        self.request.data['active'] = True
         try:
             return super().update(request, *args, **kwargs)
         except Http404:
@@ -38,5 +68,7 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
             return Response(serializer.data)
 
     def partial_update(self, request, *args, **kwargs):
-        """ We disable PATCH because all updates and creates should use the PUT action above. """
+        """
+        We disable PATCH because all updates and creates should use the PUT action above.
+        """
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
