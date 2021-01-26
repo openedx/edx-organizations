@@ -2,9 +2,10 @@
 
 -r base.txt
 
+-e git+https://github.com/edx/edx-lint.git@188b70fdb9825ce2a76a60198723c6f9a5fec0b5#egg=edx-lint
+
 ddt
 coverage
-edx-lint
 factory-boy
 httpretty>=0.8.14,<1.0.0
 pycodestyle
