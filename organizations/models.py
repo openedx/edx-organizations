@@ -60,6 +60,8 @@ class OrganizationCourse(TimeStampedModel):
     organization = models.ForeignKey(Organization, db_index=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
+    history = HistoricalRecords()
+
     class Meta:
         """ Meta class for this Django model """
         unique_together = (('course_id', 'organization'),)
