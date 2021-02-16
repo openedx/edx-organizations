@@ -37,7 +37,7 @@ class ActivateDeactivateAdminMixin:
             message = _('1 {model_name} entry was successfully activated.')
         else:
             message = _('{count} {model_name} entries were successfully activated.')
-        message = message.format(count=count, model_name=model_name)
+        message = message.format(count=count, model_name=model_name)  # pylint: disable=no-member
         self.message_user(request, message)
         self.message_user(request, self.HISTORY_DISCLAIMER, level=messages.WARNING)
 
@@ -51,7 +51,7 @@ class ActivateDeactivateAdminMixin:
             message = _('1 {model_name} entry was successfully deactivated.')
         else:
             message = _('{count} {model_name} entries were successfully deactivated.')
-        message = message.format(count=count, model_name=model_name)
+        message = message.format(count=count, model_name=model_name)  # pylint: disable=no-member
         self.message_user(request, message)
         self.message_user(request, self.HISTORY_DISCLAIMER, level=messages.WARNING)
 
