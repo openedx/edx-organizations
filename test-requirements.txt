@@ -80,7 +80,7 @@ drf-jwt==1.17.3
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-django-utils==3.13.0
+edx-django-utils==3.15.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
@@ -94,7 +94,7 @@ edx-opaque-keys==2.2.0
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==6.5.0
+faker==6.5.2
     # via factory-boy
 filelock==3.0.12
     # via
@@ -134,7 +134,7 @@ pbr==5.5.1
     # via
     #   -r requirements/base.txt
     #   stevedore
-pillow==8.1.1
+pillow==8.1.2
     # via -r requirements/base.txt
 pluggy==0.13.1
     # via
@@ -250,7 +250,7 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tox==3.22.0
+tox==3.23.0
     # via -r requirements/test.in
 urllib3==1.26.3
     # via
