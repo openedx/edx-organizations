@@ -76,7 +76,7 @@ djangorestframework==3.12.2
     #   drf-jwt
     #   edx-drf-extensions
     #   rest-condition
-drf-jwt==1.17.3
+drf-jwt==1.18.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
@@ -86,7 +86,7 @@ edx-django-utils==3.15.0
     #   edx-drf-extensions
 edx-drf-extensions==6.5.0
     # via -r requirements/base.txt
-edx-lint==4.1.0
+edx-lint==5.0.0
     # via -r requirements/test.in
 edx-opaque-keys==2.2.0
     # via
@@ -94,7 +94,7 @@ edx-opaque-keys==2.2.0
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==6.6.1
+faker==6.6.2
     # via factory-boy
 filelock==3.0.12
     # via
@@ -112,11 +112,11 @@ idna==2.10
     #   requests
 iniconfig==1.1.1
     # via pytest
-isort==5.7.0
+isort==5.8.0
     # via pylint
 jinja2==2.11.3
     # via code-annotations
-lazy-object-proxy==1.5.2
+lazy-object-proxy==1.6.0
     # via astroid
 markupsafe==1.1.1
     # via jinja2
@@ -256,7 +256,7 @@ urllib3==1.26.4
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.4.2
+virtualenv==20.4.3
     # via tox
 wrapt==1.12.1
     # via astroid
