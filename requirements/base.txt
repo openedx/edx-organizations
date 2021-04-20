@@ -16,7 +16,7 @@ django-crum==0.7.9
     # via edx-django-utils
 django-model-utils==4.1.1
     # via -r requirements/base.in
-django-simple-history==2.12.0
+django-simple-history==3.0.0
     # via -r requirements/base.in
 django-waffle==2.1.0
     # via
@@ -85,7 +85,6 @@ semantic-version==2.8.5
     # via edx-drf-extensions
 six==1.15.0
     # via
-    #   django-simple-history
     #   edx-drf-extensions
     #   pyjwkest
     #   python-dateutil

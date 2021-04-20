@@ -51,7 +51,7 @@ django-crum==0.7.9
     #   edx-django-utils
 django-model-utils==4.1.1
     # via -r requirements/base.txt
-django-simple-history==2.12.0
+django-simple-history==3.0.0
     # via -r requirements/base.txt
 django-waffle==2.1.0
     # via
@@ -94,7 +94,7 @@ edx-opaque-keys==2.2.0
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.0.0
+faker==8.1.0
     # via factory-boy
 filelock==3.0.12
     # via
@@ -223,7 +223,6 @@ semantic-version==2.8.5
 six==1.15.0
     # via
     #   -r requirements/base.txt
-    #   django-simple-history
     #   edx-drf-extensions
     #   edx-lint
     #   httpretty
