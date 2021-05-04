@@ -80,7 +80,7 @@ drf-jwt==1.19.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-django-utils==3.16.0
+edx-django-utils==4.0.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
@@ -94,7 +94,7 @@ edx-opaque-keys==2.2.0
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.1.1
+faker==8.1.2
     # via factory-boy
 filelock==3.0.12
     # via
@@ -162,7 +162,7 @@ pyjwkest==1.4.2
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-pyjwt[crypto]==2.0.1
+pyjwt[crypto]==2.1.0
     # via
     #   -r requirements/base.txt
     #   drf-jwt
@@ -174,9 +174,8 @@ pylint-plugin-utils==0.6
     # via
     #   pylint-celery
     #   pylint-django
-pylint==2.7.4
+pylint==2.8.2
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   edx-lint
     #   pylint-celery
     #   pylint-django
@@ -200,7 +199,7 @@ python-dateutil==2.8.1
     #   -r requirements/base.txt
     #   edx-drf-extensions
     #   faker
-python-slugify==4.0.1
+python-slugify==5.0.0
     # via code-annotations
 pytz==2021.1
     # via
