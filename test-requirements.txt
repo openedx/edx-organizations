@@ -26,13 +26,12 @@ chardet==4.0.0
     #   requests
 click-log==0.3.2
     # via edx-lint
-click==7.1.2
+click==8.0.1
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   click-log
     #   code-annotations
     #   edx-lint
-code-annotations==1.1.1
+code-annotations==1.1.2
     # via edx-lint
 coverage[toml]==5.5
     # via
@@ -54,7 +53,7 @@ django-model-utils==4.1.1
     # via -r requirements/base.txt
 django-simple-history==3.0.0
     # via -r requirements/base.txt
-django-waffle==2.1.0
+django-waffle==2.2.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -62,7 +61,6 @@ django-waffle==2.1.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
-    #   code-annotations
     #   django-crum
     #   django-model-utils
     #   djangorestframework
@@ -79,6 +77,7 @@ djangorestframework==3.12.4
     #   rest-condition
 drf-jwt==1.19.0
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   edx-drf-extensions
 edx-django-utils==4.0.0
@@ -89,13 +88,13 @@ edx-drf-extensions==6.5.0
     # via -r requirements/base.txt
 edx-lint==5.0.0
     # via -r requirements/test.in
-edx-opaque-keys==2.2.0
+edx-opaque-keys==2.2.1
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.1.4
+faker==8.2.1
     # via factory-boy
 filelock==3.0.12
     # via
@@ -115,11 +114,11 @@ iniconfig==1.1.1
     # via pytest
 isort==5.8.0
     # via pylint
-jinja2==3.0.0
+jinja2==3.0.1
     # via code-annotations
 lazy-object-proxy==1.6.0
     # via astroid
-markupsafe==2.0.0
+markupsafe==2.0.1
     # via jinja2
 mccabe==0.6.1
     # via pylint
@@ -258,7 +257,7 @@ urllib3==1.26.4
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.4.6
+virtualenv==20.4.7
     # via tox
 wrapt==1.12.1
     # via astroid
