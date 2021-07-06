@@ -8,10 +8,10 @@ import ddt
 from django.test import override_settings
 from opaque_keys.edx.keys import CourseKey
 
-import organizations.api as api
-import organizations.exceptions as exceptions
-import organizations.models as models
-import organizations.tests.utils as utils
+from organizations import api
+from organizations import exceptions
+from organizations import models
+from organizations.tests import utils
 from organizations.data import log as data_module_logger
 
 
