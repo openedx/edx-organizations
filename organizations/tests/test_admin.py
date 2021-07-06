@@ -6,7 +6,7 @@ from django.contrib.admin.sites import AdminSite
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.test import RequestFactory
 
-import organizations.tests.utils as utils
+from organizations.tests import utils
 from organizations.admin import OrganizationAdmin, OrganizationCourseAdmin
 from organizations.models import Organization, OrganizationCourse
 from organizations.tests.factories import UserFactory

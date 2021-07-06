@@ -3,8 +3,8 @@ Organizations Data Module Test Cases
 
 Note: 'Unit Test: ' labels are output to the console during test runs
 """
-import organizations.data as data
-import organizations.tests.utils as utils
+from organizations import data
+from organizations.tests import utils
 
 from organizations.tests.factories import OrganizationFactory
 
