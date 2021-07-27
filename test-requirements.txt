@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.6.4
+astroid==2.6.5
     # via
     #   pylint
     #   pylint-celery
@@ -94,7 +94,7 @@ edx-opaque-keys==2.2.2
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.10.1
+faker==8.10.3
     # via factory-boy
 filelock==3.0.12
     # via
@@ -136,7 +136,7 @@ pbr==5.6.0
     #   stevedore
 pillow==8.3.1
     # via -r requirements/base.txt
-platformdirs==2.0.2
+platformdirs==2.1.0
     # via virtualenv
 pluggy==0.13.1
     # via
@@ -169,7 +169,7 @@ pyjwt[crypto]==1.7.1
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   drf-jwt
-pylint==2.9.3
+pylint==2.9.5
     # via
     #   edx-lint
     #   pylint-celery
