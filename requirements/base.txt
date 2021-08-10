@@ -46,7 +46,9 @@ drf-jwt==1.19.0
 edx-django-utils==4.2.0
     # via edx-drf-extensions
 edx-drf-extensions==6.6.0
-    # via -r requirements/base.in
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -r requirements/base.in
 edx-opaque-keys==2.2.2
     # via
     #   -r requirements/base.in
@@ -55,7 +57,7 @@ future==0.18.2
     # via pyjwkest
 idna==3.2
     # via requests
-newrelic==6.6.0.162
+newrelic==6.8.0.163
     # via edx-django-utils
 pbr==5.6.0
     # via stevedore

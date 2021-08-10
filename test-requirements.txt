@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.6.5
+astroid==2.6.6
     # via
     #   pylint
     #   pylint-celery
@@ -85,7 +85,9 @@ edx-django-utils==4.2.0
     #   -r requirements/base.txt
     #   edx-drf-extensions
 edx-drf-extensions==6.6.0
-    # via -r requirements/base.txt
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -r requirements/base.txt
 edx-lint==5.0.0
     # via -r requirements/test.in
 edx-opaque-keys==2.2.2
@@ -94,7 +96,7 @@ edx-opaque-keys==2.2.2
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.10.3
+faker==8.11.0
     # via factory-boy
 filelock==3.0.12
     # via
@@ -122,7 +124,7 @@ markupsafe==2.0.1
     # via jinja2
 mccabe==0.6.1
     # via pylint
-newrelic==6.6.0.162
+newrelic==6.8.0.163
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -259,7 +261,7 @@ urllib3==1.26.6
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.7.0
+virtualenv==20.7.1
     # via tox
 wrapt==1.12.1
     # via astroid
