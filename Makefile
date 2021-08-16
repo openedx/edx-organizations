@@ -10,7 +10,7 @@ quality:
 	tox -e quality
 
 requirements:
-    pip install -qr requirements/pip.txt
+	pip install -qr requirements/pip.txt
 	pip install -e .    # Install this package and its dependencies
 	pip install -r test-requirements.txt
 
