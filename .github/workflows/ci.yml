@@ -29,8 +29,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-      - make requirements
-      - pip install tox-travis
+        make requirements
+        pip install tox-travis
 
     - name: Run Tests
       env:
