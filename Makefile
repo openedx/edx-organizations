@@ -10,11 +10,13 @@ quality:
 	tox -e quality
 
 requirements:
+	pip install -qr requirements/pip.txt
 	pip install -e .    # Install this package and its dependencies
 	pip install -r test-requirements.txt
 
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: ## update the requirements text files based on the requirements/*.in files
+	pip-compile --upgrade --allow-unsafe --rebuild -o requirements/pip.txt requirements/pip.in
 	pip install -q pip-tools
 	pip-compile --upgrade -o requirements/base.txt requirements/base.in
 	pip-compile --upgrade -o test-requirements.txt requirements/test.in
