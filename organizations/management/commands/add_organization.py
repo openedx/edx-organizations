@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         org_options = {
-            key: options[key] for key in {'short_name', 'name'}
+            key: options[key] for key in ['short_name', 'name']
         }
 
         if len(org_options['short_name']) > len(org_options['name']):
