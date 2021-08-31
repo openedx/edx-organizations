@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.7.2
+astroid==2.7.3
     # via
     #   pylint
     #   pylint-celery
@@ -37,7 +37,7 @@ coverage==5.5
     # via
     #   -r requirements/test.in
     #   pytest-cov
-cryptography==3.4.7
+cryptography==3.4.8
     # via
     #   -r requirements/base.txt
     #   pyjwt
@@ -96,7 +96,7 @@ edx-opaque-keys==2.2.2
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.12.0
+faker==8.12.1
     # via factory-boy
 filelock==3.0.12
     # via
@@ -124,7 +124,7 @@ markupsafe==2.0.1
     # via jinja2
 mccabe==0.6.1
     # via pylint
-newrelic==6.8.0.163
+newrelic==6.8.1.164
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -138,12 +138,13 @@ pbr==5.6.0
     #   stevedore
 pillow==8.3.1
     # via -r requirements/base.txt
-platformdirs==2.2.0
+platformdirs==2.3.0
     # via
     #   pylint
     #   virtualenv
 pluggy==0.13.1
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   pytest
     #   tox
 psutil==5.8.0
@@ -193,7 +194,7 @@ pymongo==3.12.0
     #   edx-opaque-keys
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.4
+pytest==6.2.5
     # via
     #   pytest-cov
     #   pytest-django
