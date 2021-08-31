@@ -8,8 +8,8 @@ and publishing Courses. In the future the scope and responsibilty of the
 Organization may evolve to include other aspects, such as related
 learners.
 
-.. |Build Status| image:: https://travis-ci.com/edx/edx-organizations.svg?branch=master
-   :target: https://travis-ci.com/edx/edx-organizations
+.. |Build-status| image:: https://github.com/edx/edx-organizations/workflows/Python%20CI/badge.svg?branch=master
+   :target: https://github.com/edx/edx-organizations/actions?query=workflow%3A%22Python+CI%22
 .. |Coverage Status| image:: https://coveralls.io/repos/github/edx/edx-organizations/badge.svg?branch=master
    :target: https://coveralls.io/github/edx/edx-organizations?branch=master
 
