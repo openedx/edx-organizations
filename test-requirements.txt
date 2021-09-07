@@ -54,7 +54,6 @@ distlib==0.3.2
     #   drf-jwt
     #   edx-django-utils
     #   edx-drf-extensions
-    #   edx-lint
     #   rest-condition
 django-crum==0.7.9
     # via
@@ -80,7 +79,7 @@ drf-jwt==1.19.0
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-django-utils==4.3.0
+edx-django-utils==4.4.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
@@ -88,7 +87,7 @@ edx-drf-extensions==6.6.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
-edx-lint==5.0.0
+edx-lint==5.1.0
     # via -r requirements/test.in
 edx-opaque-keys==2.2.2
     # via
@@ -136,15 +135,14 @@ pbr==5.6.0
     # via
     #   -r requirements/base.txt
     #   stevedore
-pillow==8.3.1
+pillow==8.3.2
     # via -r requirements/base.txt
 platformdirs==2.3.0
     # via
     #   pylint
     #   virtualenv
-pluggy==0.13.1
+pluggy==1.0.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   pytest
     #   tox
 psutil==5.8.0
