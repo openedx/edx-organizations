@@ -236,7 +236,7 @@ six==1.16.0
     #   python-dateutil
     #   tox
     #   virtualenv
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
