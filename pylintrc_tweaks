@@ -4,3 +4,4 @@ ignore+= ,migrations, wsgi.py
 
 [BASIC]
 const-rgx = (([A-Z_][A-Z0-9_]*)|(__.*__)|log|urlpatterns|logger|User)$
+

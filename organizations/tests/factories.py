@@ -14,10 +14,10 @@ class UserFactory(DjangoModelFactory):
         model = User
         django_get_or_create = ('email', 'username')
 
-    username = factory.Sequence('robot{}'.format)
-    email = factory.Sequence('robot+test+{}@edx.org'.format)
+    username = factory.Sequence(lambda arg: f'robot{arg}')
+    email = factory.Sequence(lambda arg: f'robot+test+{arg}@edx.org')
     password = factory.PostGenerationMethodCall('set_password', 'test')
-    first_name = factory.Sequence('Robot{}'.format)
+    first_name = factory.Sequence(lambda arg: f'Robot{arg}')
     last_name = 'Test'
     is_staff = False
     is_active = True
@@ -29,8 +29,8 @@ class OrganizationFactory(DjangoModelFactory):
     class Meta:
         model = Organization
 
-    name = factory.Sequence('organization name {}'.format)
-    short_name = factory.Sequence('name{}'.format)
-    description = factory.Sequence('description{}'.format)
+    name = factory.Sequence(lambda arg: f'organization name {arg}')
+    short_name = factory.Sequence(lambda arg: f'name{arg}')
+    description = factory.Sequence(lambda arg: f'description{arg}')
     logo = None
     active = True
