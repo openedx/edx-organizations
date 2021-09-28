@@ -45,10 +45,8 @@ drf-jwt==1.19.0
     #   edx-drf-extensions
 edx-django-utils==4.4.0
     # via edx-drf-extensions
-edx-drf-extensions==6.6.0
-    # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r requirements/base.in
+edx-drf-extensions==7.0.1
+    # via -r requirements/base.in
 edx-opaque-keys==2.2.2
     # via
     #   -r requirements/base.in
@@ -57,7 +55,7 @@ future==0.18.2
     # via pyjwkest
 idna==3.2
     # via requests
-newrelic==6.10.0.165
+newrelic==7.0.0.166
     # via edx-django-utils
 pbr==5.6.0
     # via stevedore
@@ -67,14 +65,14 @@ psutil==5.8.0
     # via edx-django-utils
 pycparser==2.20
     # via cffi
-pycryptodomex==3.10.1
+pycryptodomex==3.10.4
     # via pyjwkest
 pyjwkest==1.4.2
     # via edx-drf-extensions
-pyjwt[crypto]==1.7.1
+pyjwt[crypto]==2.1.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   drf-jwt
+    #   edx-drf-extensions
 pymongo==3.12.0
     # via edx-opaque-keys
 python-dateutil==2.8.2
@@ -100,5 +98,5 @@ stevedore==3.4.0
     # via
     #   edx-django-utils
     #   edx-opaque-keys
-urllib3==1.26.6
+urllib3==1.26.7
     # via requests
