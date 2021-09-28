@@ -41,9 +41,9 @@ cryptography==3.4.8
     # via
     #   -r requirements/base.txt
     #   pyjwt
-ddt==1.4.2
+ddt==1.4.3
     # via -r requirements/test.in
-distlib==0.3.2
+distlib==0.3.3
     # via virtualenv
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -83,11 +83,9 @@ edx-django-utils==4.4.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-drf-extensions==6.6.0
-    # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r requirements/base.txt
-edx-lint==5.1.0
+edx-drf-extensions==7.0.1
+    # via -r requirements/base.txt
+edx-lint==5.2.0
     # via -r requirements/test.in
 edx-opaque-keys==2.2.2
     # via
@@ -95,9 +93,9 @@ edx-opaque-keys==2.2.2
     #   edx-drf-extensions
 factory-boy==3.2.0
     # via -r requirements/test.in
-faker==8.13.2
+faker==8.14.0
     # via factory-boy
-filelock==3.0.12
+filelock==3.1.0
     # via
     #   tox
     #   virtualenv
@@ -123,7 +121,7 @@ markupsafe==2.0.1
     # via jinja2
 mccabe==0.6.1
     # via pylint
-newrelic==6.10.0.165
+newrelic==7.0.0.166
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -137,7 +135,7 @@ pbr==5.6.0
     #   stevedore
 pillow==8.3.2
     # via -r requirements/base.txt
-platformdirs==2.3.0
+platformdirs==2.4.0
     # via
     #   pylint
     #   virtualenv
@@ -159,7 +157,7 @@ pycparser==2.20
     # via
     #   -r requirements/base.txt
     #   cffi
-pycryptodomex==3.10.1
+pycryptodomex==3.10.4
     # via
     #   -r requirements/base.txt
     #   pyjwkest
@@ -167,11 +165,11 @@ pyjwkest==1.4.2
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-pyjwt[crypto]==1.7.1
+pyjwt[crypto]==2.1.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   drf-jwt
+    #   edx-drf-extensions
 pylint==2.11.1
     # via
     #   edx-lint
@@ -262,11 +260,11 @@ typing-extensions==3.10.0.2
     # via
     #   astroid
     #   pylint
-urllib3==1.26.6
+urllib3==1.26.7
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.8.0
+virtualenv==20.8.1
     # via tox
 wrapt==1.12.1
     # via astroid
