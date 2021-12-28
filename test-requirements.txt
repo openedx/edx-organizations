@@ -94,9 +94,9 @@ edx-opaque-keys==2.2.2
     #   edx-drf-extensions
 factory-boy==3.2.1
     # via -r requirements/test.in
-faker==10.0.0
+faker==11.0.0
     # via factory-boy
-filelock==3.4.0
+filelock==3.4.2
     # via
     #   tox
     #   virtualenv
@@ -136,7 +136,7 @@ pbr==5.8.0
     #   stevedore
 pillow==8.4.0
     # via -r requirements/base.txt
-platformdirs==2.4.0
+platformdirs==2.4.1
     # via
     #   pylint
     #   virtualenv
