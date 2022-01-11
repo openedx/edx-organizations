@@ -10,7 +10,7 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via cryptography
-charset-normalizer==2.0.9
+charset-normalizer==2.0.10
     # via requests
 cryptography==36.0.1
     # via pyjwt
@@ -30,7 +30,7 @@ django-model-utils==4.2.0
     # via -r requirements/base.in
 django-simple-history==3.0.0
     # via -r requirements/base.in
-django-waffle==2.2.1
+django-waffle==2.3.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
@@ -39,7 +39,7 @@ djangorestframework==3.13.1
     #   -r requirements/base.in
     #   drf-jwt
     #   edx-drf-extensions
-drf-jwt==1.19.1
+drf-jwt==1.19.2
     # via edx-drf-extensions
 edx-django-utils==4.4.1
     # via edx-drf-extensions
@@ -79,7 +79,7 @@ pytz==2021.3
     # via
     #   django
     #   djangorestframework
-requests==2.27.0
+requests==2.27.1
     # via
     #   edx-drf-extensions
     #   pyjwkest
@@ -96,5 +96,5 @@ stevedore==3.5.0
     # via
     #   edx-django-utils
     #   edx-opaque-keys
-urllib3==1.26.7
+urllib3==1.26.8
     # via requests
