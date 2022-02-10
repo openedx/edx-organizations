@@ -92,7 +92,7 @@ edx-opaque-keys==2.3.0
     #   edx-drf-extensions
 factory-boy==3.2.1
     # via -r requirements/test.in
-faker==12.1.0
+faker==12.2.0
     # via factory-boy
 filelock==3.4.2
     # via
@@ -134,7 +134,7 @@ pbr==5.8.1
     #   stevedore
 pillow==9.0.1
     # via -r requirements/base.txt
-platformdirs==2.4.1
+platformdirs==2.5.0
     # via
     #   pylint
     #   virtualenv
@@ -246,7 +246,7 @@ toml==0.10.2
     # via
     #   pylint
     #   tox
-tomli==2.0.0
+tomli==2.0.1
     # via
     #   coverage
     #   pytest
