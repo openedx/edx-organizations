@@ -1,7 +1,7 @@
 """
 URLS for organizations
 """
-from django.conf.urls import re_path, include
+from django.urls import include, re_path
 
 app_name = 'organizations'  # pylint: disable=invalid-name
 urlpatterns = [
