@@ -92,7 +92,7 @@ edx-opaque-keys==2.3.0
     #   edx-drf-extensions
 factory-boy==3.2.1
     # via -r requirements/test.in
-faker==13.0.0
+faker==13.3.0
     # via factory-boy
 filelock==3.6.0
     # via
@@ -120,7 +120,7 @@ markupsafe==2.1.0
     # via jinja2
 mccabe==0.6.1
     # via pylint
-newrelic==7.4.0.172
+newrelic==7.6.0.173
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -202,7 +202,7 @@ python-dateutil==2.8.2
     #   -r requirements/base.txt
     #   edx-drf-extensions
     #   faker
-python-slugify==6.0.1
+python-slugify==6.1.1
     # via code-annotations
 pytz==2021.3
     # via
@@ -260,7 +260,7 @@ urllib3==1.26.8
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.13.1
+virtualenv==20.13.2
     # via tox
 wrapt==1.13.3
     # via astroid
