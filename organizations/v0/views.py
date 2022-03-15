@@ -25,6 +25,8 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
     """
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
+    # Include everything not a '+' - identical to discovery's COURSE_ID_REGEX.
+    lookup_value_regex = '[^/+]+'
     lookup_field = 'short_name'
     authentication_classes = (JwtAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated, UserIsStaff)
