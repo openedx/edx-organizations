@@ -2,6 +2,7 @@
 Organizations Views Test Cases.
 """
 import json
+import ddt
 from django.urls import reverse
 from django.test import TestCase
 
@@ -10,6 +11,7 @@ from organizations.serializers import OrganizationSerializer
 from organizations.tests.factories import UserFactory, OrganizationFactory
 
 
+@ddt.ddt
 class TestOrganizationsView(TestCase):
     """ Test Organizations View."""
 
@@ -59,19 +61,34 @@ class TestOrganizationsView(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
-    def test_create_organization(self):
-        """ Verify Organization can be created via PUT endpoint. """
-        data = {
+    @ddt.data(
+        # hyphen in short name
+        {
             'name': 'example-name',
             'short_name': 'example-short-name',
             'description': 'example-description',
+        },
+        # period in short name
+        {
+            'name': 'example.name',
+            'short_name': 'example.short.name',
+            'description': 'example_description',
+        },
+        # underscore in short name
+        {
+            'name': 'example_name',
+            'short_name': 'example_short_name',
+            'description': 'example_description',
         }
-        url = reverse('v0:organization-detail', kwargs={'short_name': data['short_name']})
-        response = self.client.put(url, json.dumps(data), content_type='application/json')
+    )
+    def test_create_organization(self, org_data):
+        """ Verify Organization can be created via PUT endpoint. """
+        url = reverse('v0:organization-detail', kwargs={'short_name': org_data['short_name']})
+        response = self.client.put(url, json.dumps(org_data), content_type='application/json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['name'], data['name'])
-        self.assertEqual(response.data['short_name'], data['short_name'])
-        self.assertEqual(response.data['description'], data['description'])
+        self.assertEqual(response.data['name'], org_data['name'])
+        self.assertEqual(response.data['short_name'], org_data['short_name'])
+        self.assertEqual(response.data['description'], org_data['description'])
         orgs = Organization.objects.all()
         self.assertEqual(len(orgs), 2)
 
