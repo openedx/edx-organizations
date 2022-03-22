@@ -12,7 +12,7 @@ cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cryptography==36.0.1
+cryptography==36.0.2
     # via pyjwt
 django==3.2.12
     # via
@@ -41,7 +41,7 @@ djangorestframework==3.13.1
     #   edx-drf-extensions
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==4.5.0
+edx-django-utils==4.6.0
     # via edx-drf-extensions
 edx-drf-extensions==8.0.1
     # via -r requirements/base.in
@@ -75,7 +75,7 @@ pymongo==3.12.3
     # via edx-opaque-keys
 python-dateutil==2.8.2
     # via edx-drf-extensions
-pytz==2021.3
+pytz==2022.1
     # via
     #   django
     #   djangorestframework
@@ -96,5 +96,5 @@ stevedore==3.5.0
     # via
     #   edx-django-utils
     #   edx-opaque-keys
-urllib3==1.26.8
+urllib3==1.26.9
     # via requests
