@@ -136,7 +136,7 @@ pbr==5.8.1
     #   stevedore
 pillow==9.1.0
     # via -r requirements/base.txt
-platformdirs==2.5.1
+platformdirs==2.5.2
     # via
     #   pylint
     #   virtualenv
@@ -253,7 +253,7 @@ tomli==2.0.1
     #   pytest
 tox==3.25.0
     # via -r requirements/test.in
-typing-extensions==4.1.1
+typing-extensions==4.2.0
     # via
     #   astroid
     #   pylint
