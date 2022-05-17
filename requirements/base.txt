@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.5.1
+asgiref==3.5.2
     # via django
 certifi==2021.10.8
     # via requests
@@ -33,7 +33,9 @@ django-crum==0.7.9
 django-model-utils==4.2.0
     # via -r requirements/base.in
 django-simple-history==3.0.0
-    # via -r requirements/base.in
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -r requirements/base.in
 django-waffle==2.4.1
     # via
     #   edx-django-utils
@@ -71,7 +73,7 @@ pycryptodomex==3.14.1
     # via pyjwkest
 pyjwkest==1.4.2
     # via edx-drf-extensions
-pyjwt[crypto]==2.3.0
+pyjwt[crypto]==2.4.0
     # via
     #   drf-jwt
     #   edx-drf-extensions
