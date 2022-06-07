@@ -36,7 +36,7 @@ django-simple-history==3.0.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
-django-waffle==2.4.1
+django-waffle==2.5.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
