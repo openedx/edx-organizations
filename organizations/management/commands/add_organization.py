@@ -39,4 +39,4 @@ class Command(BaseCommand):
             "Created or activated organization: id={id}, "
             "short_name={short_name}, name='{name}'"
         )
-        logger.info(log_fmt.format(**created_org))
+        logger.info(log_fmt.format(**created_org))  # pylint: disable=logging-format-interpolation
