@@ -14,7 +14,7 @@ astroid==2.11.6
     #   pylint-celery
 attrs==21.4.0
     # via pytest
-certifi==2022.5.18.1
+certifi==2022.6.15
     # via
     #   -r requirements/base.txt
     #   requests
@@ -176,7 +176,7 @@ pyjwt[crypto]==2.4.0
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==2.14.1
+pylint==2.14.3
     # via
     #   edx-lint
     #   pylint-celery
