@@ -12,7 +12,7 @@ astroid==2.11.7
     # via
     #   pylint
     #   pylint-celery
-attrs==21.4.0
+attrs==22.1.0
     # via pytest
 certifi==2022.6.15
     # via
@@ -157,7 +157,7 @@ py==1.11.0
     # via
     #   pytest
     #   tox
-pycodestyle==2.8.0
+pycodestyle==2.9.0
     # via -r requirements/test.in
 pycparser==2.21
     # via
@@ -271,7 +271,7 @@ urllib3==1.26.11
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.16.0
+virtualenv==20.16.2
     # via tox
 wrapt==1.14.1
     # via astroid
