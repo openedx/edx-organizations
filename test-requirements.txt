@@ -8,7 +8,7 @@ asgiref==3.5.2
     # via
     #   -r requirements/base.txt
     #   django
-astroid==2.11.7
+astroid==2.12.5
     # via
     #   pylint
     #   pylint-celery
@@ -50,7 +50,7 @@ ddt==1.6.0
     # via -r requirements/test.in
 dill==0.3.5.1
     # via pylint
-distlib==0.3.5
+distlib==0.3.6
     # via virtualenv
     # via
     #   -c requirements/common_constraints.txt
@@ -89,7 +89,7 @@ edx-django-utils==5.0.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-drf-extensions==8.0.1
+edx-drf-extensions==8.2.0
     # via -r requirements/base.txt
 edx-lint==5.2.4
     # via -r requirements/test.in
@@ -176,7 +176,7 @@ pyjwt[crypto]==2.4.0
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==2.14.5
+pylint==2.15.0
     # via
     #   edx-lint
     #   pylint-celery
@@ -275,6 +275,3 @@ virtualenv==20.16.3
     # via tox
 wrapt==1.14.1
     # via astroid
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

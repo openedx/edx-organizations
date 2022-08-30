@@ -49,7 +49,7 @@ drf-jwt==1.19.2
     # via edx-drf-extensions
 edx-django-utils==5.0.0
     # via edx-drf-extensions
-edx-drf-extensions==8.0.1
+edx-drf-extensions==8.2.0
     # via -r requirements/base.in
 edx-opaque-keys==2.3.0
     # via
