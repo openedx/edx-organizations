@@ -36,7 +36,7 @@ django-simple-history==3.0.0
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.in
-django-waffle==2.7.0
+django-waffle==3.0.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
@@ -49,7 +49,7 @@ drf-jwt==1.19.2
     # via edx-drf-extensions
 edx-django-utils==5.0.0
     # via edx-drf-extensions
-edx-drf-extensions==8.0.1
+edx-drf-extensions==8.2.0
     # via -r requirements/base.in
 edx-opaque-keys==2.3.0
     # via
@@ -65,7 +65,7 @@ pbr==5.10.0
     # via stevedore
 pillow==9.2.0
     # via -r requirements/base.in
-psutil==5.9.1
+psutil==5.9.2
     # via edx-django-utils
 pycparser==2.21
     # via cffi
