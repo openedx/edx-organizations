@@ -21,7 +21,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     def update_logo(self, obj, logo_url):
         if logo_url:  # pragma: no cover
-            logo = requests.get(logo_url)
+            logo = requests.get(logo_url)  # pylint: disable=missing-timeout
             obj.logo.save(logo_url.split('/')[-1], ContentFile(logo.content))
 
     def create(self, validated_data):
