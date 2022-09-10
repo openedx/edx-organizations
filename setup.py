@@ -51,7 +51,7 @@ setup(
     description='Organization management module for Open edX',
     long_description=open('README.rst').read(),
     author='edX',
-    url='https://github.com/edx/edx-organizations',
+    url='https://github.com/openedx/edx-organizations',
     license='AGPL',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
