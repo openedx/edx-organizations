@@ -6,7 +6,7 @@
 #
 asgiref==3.5.2
     # via django
-certifi==2022.6.15
+certifi==2022.6.15.1
     # via requests
 cffi==1.15.1
     # via
@@ -16,7 +16,7 @@ charset-normalizer==2.1.1
     # via requests
 click==8.1.3
     # via edx-django-utils
-cryptography==37.0.4
+cryptography==38.0.1
     # via pyjwt
 django==3.2.15
     # via
@@ -47,9 +47,9 @@ djangorestframework==3.13.1
     #   edx-drf-extensions
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==5.0.0
+edx-django-utils==5.0.1
     # via edx-drf-extensions
-edx-drf-extensions==8.2.0
+edx-drf-extensions==8.3.1
     # via -r requirements/base.in
 edx-opaque-keys==2.3.0
     # via
@@ -59,7 +59,7 @@ future==0.18.2
     # via pyjwkest
 idna==3.3
     # via requests
-newrelic==8.0.0.179
+newrelic==8.1.0.180
     # via edx-django-utils
 pbr==5.10.0
     # via stevedore
