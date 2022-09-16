@@ -147,7 +147,7 @@ the lack of breaking changes.
 
 These changes will be made in `pull request 137`_.
 
-.. _pull request 137: https://github.com/edx/edx-organizations/pull/137
+.. _pull request 137: https://github.com/openedx/edx-organizations/pull/137
 
 After one edx-platform release, Version 6.0.0 of this package can be released,
 which would remove the now-unnecessary check for ``FEATURES["ORGANIZATIONS_APP"]``.
@@ -176,7 +176,7 @@ references will be updated to use ``organizations.api`` directly.
 
 These changes will be made in `pull request 25153`_.
 
-.. _pull request 25153: https://github.com/edx/edx-platform/pull/25153
+.. _pull request 25153: https://github.com/openedx/edx-platform/pull/25153
 
 Community
 ~~~~~~~~~
@@ -198,7 +198,7 @@ For edx.org and stage.edx.org, the ``FEATURES["ORGANIATIONS_APP"] = True``
 overrides will be updated to be ``ORGANIZATIONS_AUTOCREATE = False``
 in `pull request 3456`_.
 
-.. _pull request 3456: https://github.com/edx/edx-internal/pull/3456
+.. _pull request 3456: https://github.com/openedx/edx/pull/3456
 
 See also
 --------

@@ -8,8 +8,8 @@ and publishing Courses. In the future the scope and responsibilty of the
 Organization may evolve to include other aspects, such as related
 learners.
 
-.. |Build Status| image:: https://github.com/edx/edx-organizations/workflows/Python%20CI/badge.svg?branch=master
-   :target: https://github.com/edx/edx-organizations/actions?query=workflow%3A%22Python+CI%22
+.. |Build Status| image:: https://github.com/openedx/edx-organizations/workflows/Python%20CI/badge.svg?branch=master
+   :target: https://github.com/openedx/edx-organizations/actions?query=workflow%3A%22Python+CI%22
 .. |Coverage Status| image:: https://coveralls.io/repos/github/edx/edx-organizations/badge.svg?branch=master
    :target: https://coveralls.io/github/edx/edx-organizations?branch=master
 
@@ -52,7 +52,7 @@ work-in-progress and is changing frequently at this time.
 See our `CONTRIBUTING`_ file for more information – it also contains guidelines for how to
 maintain high code quality, which will make your contribution more likely to be accepted.
 
-.. _CONTRIBUTING: https://github.com/edx/edx-platform/blob/master/CONTRIBUTING.rst
+.. _CONTRIBUTING: https://github.com/openedx/edx-platform/blob/master/CONTRIBUTING.rst
 
 Reporting Security Issues
 -------------------------
