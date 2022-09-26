@@ -8,13 +8,13 @@ asgiref==3.5.2
     # via
     #   -r requirements/base.txt
     #   django
-astroid==2.12.9
+astroid==2.12.10
     # via
     #   pylint
     #   pylint-celery
 attrs==22.1.0
     # via pytest
-certifi==2022.6.15.1
+certifi==2022.9.24
     # via
     #   -r requirements/base.txt
     #   requests
@@ -76,7 +76,7 @@ django-waffle==3.0.0
     #   -r requirements/base.txt
     #   edx-django-utils
     #   edx-drf-extensions
-djangorestframework==3.13.1
+djangorestframework==3.14.0
     # via
     #   -r requirements/base.txt
     #   drf-jwt
@@ -85,13 +85,13 @@ drf-jwt==1.19.2
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-django-utils==5.0.1
+edx-django-utils==5.1.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
 edx-drf-extensions==8.3.1
     # via -r requirements/base.txt
-edx-lint==5.2.5
+edx-lint==5.3.0
     # via -r requirements/test.in
 edx-opaque-keys==2.3.0
     # via
@@ -99,7 +99,7 @@ edx-opaque-keys==2.3.0
     #   edx-drf-extensions
 factory-boy==3.2.1
     # via -r requirements/test.in
-faker==14.2.0
+faker==14.2.1
     # via factory-boy
 filelock==3.8.0
     # via
@@ -111,7 +111,7 @@ future==0.18.2
     #   pyjwkest
 httpretty==0.9.7
     # via -r requirements/test.in
-idna==3.3
+idna==3.4
     # via
     #   -r requirements/base.txt
     #   requests
@@ -171,12 +171,12 @@ pyjwkest==1.4.2
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-pyjwt[crypto]==2.4.0
+pyjwt[crypto]==2.5.0
     # via
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==2.15.2
+pylint==2.15.3
     # via
     #   edx-lint
     #   pylint-celery
@@ -240,7 +240,7 @@ six==1.16.0
     #   pyjwkest
     #   python-dateutil
     #   tox
-sqlparse==0.4.2
+sqlparse==0.4.3
     # via
     #   -r requirements/base.txt
     #   django
@@ -262,6 +262,10 @@ tomlkit==0.11.4
     # via pylint
 tox==3.26.0
     # via -r requirements/test.in
+types-cryptography==3.3.23
+    # via
+    #   -r requirements/base.txt
+    #   pyjwt
 typing-extensions==4.3.0
     # via
     #   astroid
