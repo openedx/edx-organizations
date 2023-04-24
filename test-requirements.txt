@@ -105,7 +105,7 @@ filelock==3.8.0
     # via
     #   tox
     #   virtualenv
-future==0.18.2
+future==0.18.3
     # via
     #   -r requirements/base.txt
     #   pyjwkest
