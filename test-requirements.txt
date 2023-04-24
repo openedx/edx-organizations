@@ -139,7 +139,7 @@ pbr==5.10.0
     # via
     #   -r requirements/base.txt
     #   stevedore
-pillow==9.2.0
+pillow==9.3.0
     # via -r requirements/base.txt
 platformdirs==2.5.2
     # via
