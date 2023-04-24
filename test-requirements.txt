@@ -14,7 +14,7 @@ astroid==2.12.9
     #   pylint-celery
 attrs==22.1.0
     # via pytest
-certifi==2022.6.15.1
+certifi==2022.12.7
     # via
     #   -r requirements/base.txt
     #   requests
