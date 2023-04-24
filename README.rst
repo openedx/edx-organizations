@@ -52,7 +52,7 @@ work-in-progress and is changing frequently at this time.
 See our `CONTRIBUTING`_ file for more information – it also contains guidelines for how to
 maintain high code quality, which will make your contribution more likely to be accepted.
 
-.. _CONTRIBUTING: https://github.com/openedx/edx-platform/blob/master/CONTRIBUTING.rst
+.. _CONTRIBUTING: https://github.com/openedx/.github/blob/master/CONTRIBUTING.md
 
 Reporting Security Issues
 -------------------------
