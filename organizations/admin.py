@@ -61,8 +61,6 @@ class ActivateDeactivateAdminMixin:
         self.message_user(request, message)
         self.message_user(request, self.HISTORY_DISCLAIMER, level=messages.WARNING)
 
-
-
 @admin.register(Organization)
 class OrganizationAdmin(ActivateDeactivateAdminMixin, admin.ModelAdmin):
     """ Admin for the Organization model. """
@@ -72,7 +70,6 @@ class OrganizationAdmin(ActivateDeactivateAdminMixin, admin.ModelAdmin):
     ordering = ('name', 'short_name',)
     readonly_fields = ('created',)
     search_fields = ('name', 'short_name',)
-
 
 @admin.register(OrganizationCourse)
 class OrganizationCourseAdmin(ActivateDeactivateAdminMixin, admin.ModelAdmin):
