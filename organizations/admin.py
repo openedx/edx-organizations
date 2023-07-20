@@ -27,6 +27,9 @@ class ActivateDeactivateAdminMixin:
 
         return actions
 
+    @admin.action(
+        description=_('Activate selected entries')
+    )
     def activate_selected(self, request, queryset):
         """ Activate the selected entries. """
         count = queryset.count()
@@ -41,6 +44,9 @@ class ActivateDeactivateAdminMixin:
         self.message_user(request, message)
         self.message_user(request, self.HISTORY_DISCLAIMER, level=messages.WARNING)
 
+    @admin.action(
+        description=_('Deactivate selected entries')
+    )
     def deactivate_selected(self, request, queryset):
         """ Deactivate the selected entries. """
         count = queryset.count()
@@ -54,9 +60,6 @@ class ActivateDeactivateAdminMixin:
         message = message.format(count=count, model_name=model_name)  # pylint: disable=no-member
         self.message_user(request, message)
         self.message_user(request, self.HISTORY_DISCLAIMER, level=messages.WARNING)
-
-    deactivate_selected.short_description = _('Deactivate selected entries')
-    activate_selected.short_description = _('Activate selected entries')
 
 
 @admin.register(Organization)
