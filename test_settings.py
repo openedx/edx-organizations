@@ -49,3 +49,6 @@ TEMPLATES = [
         }
     },
 ]
+
+# disable indexing on date field via django-simple-history.
+SIMPLE_HISTORY_DATE_INDEX = False
