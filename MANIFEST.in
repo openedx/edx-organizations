@@ -3,3 +3,4 @@ include README.rst
 graft organizations
 recursive-include requirements *.in *.txt
 global-exclude *.pyc
+include requirements/constraints.txt
