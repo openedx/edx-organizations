@@ -261,3 +261,6 @@ urllib3==2.2.1
     #   requests
 virtualenv==20.25.1
     # via tox
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
