@@ -7,3 +7,4 @@ djangorestframework
 edx-drf-extensions
 edx-opaque-keys>=0.1.2
 Pillow
+setuptools
