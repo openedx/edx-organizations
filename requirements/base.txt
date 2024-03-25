@@ -97,3 +97,6 @@ typing-extensions==4.10.0
     #   edx-opaque-keys
 urllib3==2.2.1
     # via requests
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
