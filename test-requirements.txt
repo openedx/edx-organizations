@@ -187,7 +187,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==3.13.0
+pymongo==4.6.3
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
