@@ -5,10 +5,6 @@ kind: Component
 metadata:
   name: 'edx-organizations'
   description: "Django application responsible for managing the concept of Organizations in the Open edX platform"
-  links:
-    - url: "https://github.com/openedx/edx-organizations"
-      title: "Source Code"
-      icon: "Code"
   annotations:
     openedx.org/arch-interest-groups: "felipemontoya"
 spec:
