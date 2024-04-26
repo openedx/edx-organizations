@@ -224,7 +224,7 @@ six==1.16.0
     #   edx-lint
     #   httpretty
     #   python-dateutil
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements/base.txt
     #   django
