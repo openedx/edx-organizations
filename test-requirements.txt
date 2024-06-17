@@ -255,7 +255,7 @@ typing-extensions==4.11.0
     #   edx-opaque-keys
     #   faker
     #   pylint
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   -r requirements/base.txt
     #   requests
