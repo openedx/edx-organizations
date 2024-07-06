@@ -20,7 +20,7 @@ backports-zoneinfo==0.2.1 ; python_version < "3.9"
     #   djangorestframework
 cachetools==5.3.3
     # via tox
-certifi==2024.2.2
+certifi==2024.7.4
     # via
     #   -r requirements/base.txt
     #   requests
