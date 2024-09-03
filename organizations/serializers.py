@@ -25,12 +25,21 @@ class OrganizationSerializer(serializers.ModelSerializer):
             obj.logo.save(logo_url.split('/')[-1], ContentFile(logo.content))
 
     def create(self, validated_data):
+        """
+        New organizations created through the API are always Active
+        """
+        validated_data.update({'active': True})
         logo_url = validated_data.pop('logo_url', None)
         obj = super().create(validated_data)
         self.update_logo(obj, logo_url)
         return obj
 
     def update(self, instance, validated_data):
+        """
+        Existing organizations updated through the API always end up Active,
+        regardless of whether or not they were previously active
+        """
+        validated_data.update({'active': True})
         logo_url = validated_data.pop('logo_url', None)
         super().update(instance, validated_data)
         self.update_logo(instance, logo_url)
