@@ -60,7 +60,6 @@ class OrganizationsViewSet(mixins.UpdateModelMixin, viewsets.ReadOnlyModelViewSe
             raise ValidationError(
                 "Value of 'active' may not be specified via Organizations HTTP API."
             )
-        self.request.data['active'] = True
         try:
             return super().update(request, *args, **kwargs)
         except Http404:
