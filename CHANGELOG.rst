@@ -19,6 +19,11 @@ _____
 
 * Added the changelog file
 
+Removed
+_____
+
+* Dropped support for python 3.8
+
 
 [v6.13.0] - 2024-04-02
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
