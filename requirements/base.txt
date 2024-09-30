@@ -60,7 +60,7 @@ edx-opaque-keys==2.11.0
     #   edx-drf-extensions
 idna==3.10
     # via requests
-newrelic==9.13.0
+newrelic==10.0.0
     # via edx-django-utils
 pbr==6.1.0
     # via stevedore
