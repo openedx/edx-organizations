@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-astroid==3.3.3
+astroid==3.3.4
     # via
     #   pylint
     #   pylint-celery
@@ -52,7 +52,7 @@ cryptography==43.0.1
     #   pyjwt
 ddt==1.7.2
     # via -r requirements/test.in
-dill==0.3.8
+dill==0.3.9
     # via pylint
 distlib==0.3.8
     # via virtualenv
@@ -108,7 +108,7 @@ edx-opaque-keys==2.11.0
     #   edx-drf-extensions
 factory-boy==3.3.1
     # via -r requirements/test.in
-faker==29.0.0
+faker==30.0.0
     # via factory-boy
 filelock==3.16.1
     # via
@@ -130,7 +130,7 @@ markupsafe==2.1.5
     # via jinja2
 mccabe==0.7.0
     # via pylint
-newrelic==9.13.0
+newrelic==10.0.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -169,7 +169,7 @@ pyjwt[crypto]==2.9.0
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==3.3.0
+pylint==3.3.1
     # via
     #   edx-lint
     #   pylint-celery
@@ -244,7 +244,7 @@ urllib3==2.2.3
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.26.5
+virtualenv==20.26.6
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
