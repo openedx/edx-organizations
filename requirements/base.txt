@@ -16,7 +16,7 @@ charset-normalizer==3.4.0
     # via requests
 click==8.1.7
     # via edx-django-utils
-cryptography==43.0.1
+cryptography==43.0.3
     # via pyjwt
 django==4.2.16
     # via
@@ -37,7 +37,7 @@ django-simple-history==3.1.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-django-waffle==4.1.0
+django-waffle==4.2.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
@@ -50,9 +50,9 @@ dnspython==2.7.0
     # via pymongo
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==6.0.0
+edx-django-utils==7.0.0
     # via edx-drf-extensions
-edx-drf-extensions==10.4.0
+edx-drf-extensions==10.5.0
     # via -r requirements/base.in
 edx-opaque-keys==2.11.0
     # via
@@ -60,17 +60,17 @@ edx-opaque-keys==2.11.0
     #   edx-drf-extensions
 idna==3.10
     # via requests
-newrelic==10.1.0
+newrelic==10.2.0
     # via edx-django-utils
 pbr==6.1.0
     # via stevedore
-pillow==10.4.0
+pillow==11.0.0
     # via -r requirements/base.in
-psutil==6.0.0
+psutil==6.1.0
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pyjwt[crypto]==2.9.0
+pyjwt[crypto]==2.10.0
     # via
     #   drf-jwt
     #   edx-drf-extensions
@@ -82,7 +82,7 @@ requests==2.32.3
     # via edx-drf-extensions
 semantic-version==2.10.0
     # via edx-drf-extensions
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via django
 stevedore==5.3.0
     # via
@@ -94,5 +94,5 @@ urllib3==2.2.3
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==75.1.0
+setuptools==75.5.0
     # via -r requirements/base.in
