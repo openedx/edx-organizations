@@ -124,7 +124,7 @@ iniconfig==2.0.0
     # via pytest
 isort==5.13.2
     # via pylint
-jinja2==3.1.4
+jinja2==3.1.5
     # via code-annotations
 markupsafe==3.0.2
     # via jinja2
