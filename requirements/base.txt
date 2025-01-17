@@ -6,15 +6,15 @@
 #
 asgiref==3.8.1
     # via django
-certifi==2024.8.30
+certifi==2024.12.14
     # via requests
 cffi==1.17.1
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.0
+charset-normalizer==3.4.1
     # via requests
-click==8.1.7
+click==8.1.8
     # via edx-django-utils
 cryptography==44.0.0
     # via pyjwt
@@ -60,13 +60,13 @@ edx-opaque-keys==2.11.0
     #   edx-drf-extensions
 idna==3.10
     # via requests
-newrelic==10.3.1
+newrelic==10.4.0
     # via edx-django-utils
 pbr==6.1.0
     # via stevedore
-pillow==11.0.0
+pillow==11.1.0
     # via -r requirements/base.in
-psutil==6.1.0
+psutil==6.1.1
     # via edx-django-utils
 pycparser==2.22
     # via cffi
@@ -82,7 +82,7 @@ requests==2.32.3
     # via edx-drf-extensions
 semantic-version==2.10.0
     # via edx-drf-extensions
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via django
 stevedore==5.4.0
     # via
@@ -91,8 +91,10 @@ stevedore==5.4.0
 typing-extensions==4.12.2
     # via edx-opaque-keys
 urllib3==2.2.3
-    # via requests
+    # via
+    #   -c requirements/common_constraints.txt
+    #   requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==75.6.0
+setuptools==75.8.0
     # via -r requirements/base.in
