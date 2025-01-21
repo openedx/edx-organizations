@@ -38,7 +38,7 @@ click==8.1.8
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via edx-lint
 colorama==0.4.6
     # via tox
@@ -246,7 +246,7 @@ urllib3==2.2.3
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.28.1
+virtualenv==20.29.1
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
