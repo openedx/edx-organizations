@@ -12,9 +12,9 @@ astroid==3.3.8
     # via
     #   pylint
     #   pylint-celery
-cachetools==5.5.0
+cachetools==5.5.1
     # via tox
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/base.txt
     #   requests
@@ -42,11 +42,11 @@ code-annotations==2.2.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage[toml]==7.6.10
+coverage[toml]==7.6.12
     # via
     #   -r requirements/test.in
     #   pytest-cov
-cryptography==44.0.0
+cryptography==44.0.1
     # via
     #   -r requirements/base.txt
     #   pyjwt
@@ -100,17 +100,17 @@ edx-django-utils==7.1.0
     #   edx-drf-extensions
 edx-drf-extensions==10.5.0
     # via -r requirements/base.txt
-edx-lint==5.4.1
+edx-lint==5.6.0
     # via -r requirements/test.in
 edx-opaque-keys==2.11.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-factory-boy==3.3.1
+factory-boy==3.3.3
     # via -r requirements/test.in
-faker==33.3.1
+faker==36.1.1
     # via factory-boy
-filelock==3.16.1
+filelock==3.17.0
     # via
     #   tox
     #   virtualenv
@@ -122,7 +122,7 @@ idna==3.10
     #   requests
 iniconfig==2.0.0
     # via pytest
-isort==5.13.2
+isort==6.0.0
     # via pylint
 jinja2==3.1.5
     # via code-annotations
@@ -130,7 +130,7 @@ markupsafe==3.0.2
     # via jinja2
 mccabe==0.7.0
     # via pylint
-newrelic==10.4.0
+newrelic==10.6.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -139,7 +139,7 @@ packaging==24.2
     #   pyproject-api
     #   pytest
     #   tox
-pbr==6.1.0
+pbr==6.1.1
     # via
     #   -r requirements/base.txt
     #   stevedore
@@ -154,7 +154,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-psutil==6.1.1
+psutil==7.0.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -169,7 +169,7 @@ pyjwt[crypto]==2.10.1
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -183,7 +183,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.10.1
+pymongo==4.11.1
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -191,7 +191,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pyproject-api==1.8.0
+pyproject-api==1.9.0
     # via tox
 pytest==8.3.4
     # via
@@ -199,10 +199,8 @@ pytest==8.3.4
     #   pytest-django
 pytest-cov==6.0.0
     # via -r requirements/test.in
-pytest-django==4.9.0
+pytest-django==4.10.0
     # via -r requirements/test.in
-python-dateutil==2.9.0.post0
-    # via faker
 python-slugify==8.0.4
     # via code-annotations
 pyyaml==6.0.2
@@ -219,7 +217,6 @@ six==1.17.0
     # via
     #   edx-lint
     #   httpretty
-    #   python-dateutil
 sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
@@ -234,19 +231,20 @@ text-unidecode==1.3
     # via python-slugify
 tomlkit==0.13.2
     # via pylint
-tox==4.23.2
+tox==4.24.1
     # via -r requirements/test.in
 typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-    #   faker
+tzdata==2025.1
+    # via faker
 urllib3==2.2.3
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.txt
     #   requests
-virtualenv==20.29.1
+virtualenv==20.29.2
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
