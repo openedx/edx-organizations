@@ -84,7 +84,7 @@ semantic-version==2.10.0
     # via edx-drf-extensions
 sqlparse==0.5.3
     # via django
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   edx-django-utils
     #   edx-opaque-keys

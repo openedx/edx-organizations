@@ -12,7 +12,7 @@ astroid==3.3.8
     # via
     #   pylint
     #   pylint-celery
-cachetools==5.5.1
+cachetools==5.5.2
     # via tox
 certifi==2025.1.31
     # via
@@ -221,7 +221,7 @@ sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   -r requirements/base.txt
     #   code-annotations
