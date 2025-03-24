@@ -42,7 +42,7 @@ code-annotations==2.2.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage[toml]==7.7.0
+coverage[toml]==7.7.1
     # via
     #   -r requirements/test.in
     #   pytest-cov
@@ -102,13 +102,13 @@ edx-drf-extensions==10.5.0
     # via -r requirements/base.txt
 edx-lint==5.6.0
     # via -r requirements/test.in
-edx-opaque-keys==2.11.0
+edx-opaque-keys==2.12.0
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==37.0.0
+faker==37.0.2
     # via factory-boy
 filelock==3.18.0
     # via
@@ -120,7 +120,7 @@ idna==3.10
     # via
     #   -r requirements/base.txt
     #   requests
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via pytest
 isort==6.0.1
     # via pylint
@@ -145,7 +145,7 @@ pbr==6.1.1
     #   stevedore
 pillow==11.1.0
     # via -r requirements/base.txt
-platformdirs==4.3.6
+platformdirs==4.3.7
     # via
     #   pylint
     #   tox
@@ -169,7 +169,7 @@ pyjwt[crypto]==2.10.1
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==3.3.5
+pylint==3.3.6
     # via
     #   edx-lint
     #   pylint-celery
@@ -183,7 +183,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.11.2
+pymongo==4.11.3
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -237,7 +237,7 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-tzdata==2025.1
+tzdata==2025.2
     # via faker
 urllib3==2.2.3
     # via
