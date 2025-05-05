@@ -6,17 +6,17 @@
 #
 asgiref==3.8.1
     # via django
-certifi==2025.1.31
+certifi==2025.4.26
     # via requests
 cffi==1.17.1
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via requests
 click==8.1.8
     # via edx-django-utils
-cryptography==44.0.2
+cryptography==44.0.3
     # via pyjwt
 django==4.2.20
     # via
@@ -54,13 +54,13 @@ edx-django-utils==7.4.0
     # via edx-drf-extensions
 edx-drf-extensions==10.6.0
     # via -r requirements/base.in
-edx-opaque-keys==2.12.0
+edx-opaque-keys==3.0.0
     # via
     #   -r requirements/base.in
     #   edx-drf-extensions
 idna==3.10
     # via requests
-newrelic==10.9.0
+newrelic==10.11.0
     # via edx-django-utils
 pbr==6.1.1
     # via stevedore
@@ -74,7 +74,7 @@ pyjwt[crypto]==2.10.1
     # via
     #   drf-jwt
     #   edx-drf-extensions
-pymongo==4.12.0
+pymongo==4.12.1
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -96,7 +96,7 @@ urllib3==2.2.3
     #   requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==78.1.0
+setuptools==80.3.1
     # via
     #   -r requirements/base.in
     #   pbr
