@@ -526,8 +526,9 @@ def fetch_organization_courses(organization):
     Retrieves the set of courses currently linked to the specified organization
     """
     organization_obj = serializers.deserialize_organization(organization)
+    # Since django 5.2 unsaved objects can't be used in related queries so we use the pk directly
     queryset = internal.OrganizationCourse.objects.filter(
-        organization=organization_obj,
+        organization_id=organization_obj.pk,
         active=True
     ).select_related('organization')
     return [serializers.serialize_organization_with_course(organization) for organization in queryset]
