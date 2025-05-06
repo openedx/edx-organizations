@@ -4,6 +4,7 @@ Tests for Organizations API serializers.
 
 
 from django.test import TestCase
+from django.utils.timezone import localtime
 from rest_framework.settings import api_settings
 
 from organizations.serializers import OrganizationSerializer
@@ -26,7 +27,7 @@ class TestOrganizationSerializer(TestCase):
             "description": self.organization.description,
             "logo": None,
             "active": self.organization.active,
-            "created": self.organization.created.strftime(api_settings.DATETIME_FORMAT),
-            "modified": self.organization.modified.strftime(api_settings.DATETIME_FORMAT)
+            "created": localtime(self.organization.created).strftime(api_settings.DATETIME_FORMAT),
+            "modified": localtime(self.organization.modified).strftime(api_settings.DATETIME_FORMAT)
         }
         self.assertEqual(serialize_data.data, expected)
