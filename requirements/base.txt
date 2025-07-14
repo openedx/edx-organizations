@@ -4,21 +4,21 @@
 #
 #    make upgrade
 #
-asgiref==3.8.1
+asgiref==3.9.1
     # via django
-certifi==2025.1.31
+certifi==2025.7.9
     # via requests
 cffi==1.17.1
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via requests
-click==8.1.8
+click==8.2.1
     # via edx-django-utils
-cryptography==44.0.2
+cryptography==45.0.5
     # via pyjwt
-django==4.2.20
+django==4.2.23
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.in
@@ -37,7 +37,7 @@ django-simple-history==3.1.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-django-waffle==4.2.0
+django-waffle==5.0.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
@@ -50,21 +50,19 @@ dnspython==2.7.0
     # via pymongo
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==7.4.0
+edx-django-utils==8.0.0
     # via edx-drf-extensions
 edx-drf-extensions==10.6.0
     # via -r requirements/base.in
-edx-opaque-keys==2.12.0
+edx-opaque-keys==3.0.0
     # via
     #   -r requirements/base.in
     #   edx-drf-extensions
 idna==3.10
     # via requests
-newrelic==10.9.0
-    # via edx-django-utils
 pbr==6.1.1
     # via stevedore
-pillow==11.2.1
+pillow==11.3.0
     # via -r requirements/base.in
 psutil==7.0.0
     # via edx-django-utils
@@ -74,11 +72,11 @@ pyjwt[crypto]==2.10.1
     # via
     #   drf-jwt
     #   edx-drf-extensions
-pymongo==4.12.0
+pymongo==4.13.2
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
-requests==2.32.3
+requests==2.32.4
     # via edx-drf-extensions
 semantic-version==2.10.0
     # via edx-drf-extensions
@@ -88,7 +86,7 @@ stevedore==5.4.1
     # via
     #   edx-django-utils
     #   edx-opaque-keys
-typing-extensions==4.13.2
+typing-extensions==4.14.1
     # via edx-opaque-keys
 urllib3==2.2.3
     # via
@@ -96,7 +94,7 @@ urllib3==2.2.3
     #   requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==78.1.0
+setuptools==80.9.0
     # via
     #   -r requirements/base.in
     #   pbr
