@@ -34,7 +34,7 @@ django-crum==0.7.9
     # via edx-django-utils
 django-model-utils==5.0.0
     # via -r requirements/base.in
-django-simple-history==3.8.0
+django-simple-history==3.10.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
