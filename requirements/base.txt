@@ -8,7 +8,7 @@ asgiref==3.9.1
     # via django
 certifi==2025.8.3
     # via requests
-cffi==1.17.1
+cffi==2.0.0
     # via
     #   cryptography
     #   pynacl
@@ -16,9 +16,9 @@ charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via edx-django-utils
-cryptography==45.0.6
+cryptography==45.0.7
     # via pyjwt
-django==4.2.23
+django==4.2.24
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.in
@@ -47,7 +47,7 @@ djangorestframework==3.16.1
     #   -r requirements/base.in
     #   drf-jwt
     #   edx-drf-extensions
-dnspython==2.7.0
+dnspython==2.8.0
     # via pymongo
 drf-jwt==1.19.2
     # via edx-drf-extensions
@@ -65,15 +65,15 @@ pillow==11.3.0
     # via -r requirements/base.in
 psutil==7.0.0
     # via edx-django-utils
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pyjwt[crypto]==2.10.1
     # via
     #   drf-jwt
     #   edx-drf-extensions
-pymongo==4.14.1
+pymongo==4.15.0
     # via edx-opaque-keys
-pynacl==1.5.0
+pynacl==1.6.0
     # via edx-django-utils
 requests==2.32.5
     # via edx-drf-extensions
