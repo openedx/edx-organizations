@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.9.1
+asgiref==3.10.0
     # via
     #   -r requirements/base.txt
     #   django
@@ -14,11 +14,11 @@ astroid==3.3.11
     #   pylint-celery
 cachetools==6.2.0
     # via tox
-certifi==2025.8.3
+certifi==2025.10.5
     # via
     #   -r requirements/base.txt
     #   requests
-cffi==1.17.1
+cffi==2.0.0
     # via
     #   -r requirements/base.txt
     #   cryptography
@@ -29,7 +29,7 @@ charset-normalizer==3.4.3
     # via
     #   -r requirements/base.txt
     #   requests
-click==8.2.1
+click==8.3.0
     # via
     #   -r requirements/base.txt
     #   click-log
@@ -42,11 +42,11 @@ code-annotations==2.3.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/test.in
     #   pytest-cov
-cryptography==45.0.6
+cryptography==46.0.2
     # via
     #   -r requirements/base.txt
     #   pyjwt
@@ -87,7 +87,7 @@ djangorestframework==3.16.1
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-dnspython==2.7.0
+dnspython==2.8.0
     # via
     #   -r requirements/base.txt
     #   pymongo
@@ -95,7 +95,7 @@ drf-jwt==1.19.2
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-django-utils==8.0.0
+edx-django-utils==8.0.1
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
@@ -109,7 +109,7 @@ edx-opaque-keys==3.0.0
     #   edx-drf-extensions
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==37.6.0
+faker==37.8.0
     # via factory-boy
 filelock==3.19.1
     # via
@@ -123,11 +123,11 @@ idna==3.10
     #   requests
 iniconfig==2.1.0
     # via pytest
-isort==6.0.1
+isort==6.1.0
     # via pylint
 jinja2==3.1.6
     # via code-annotations
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via jinja2
 mccabe==0.7.0
     # via pylint
@@ -148,13 +148,13 @@ pluggy==1.6.0
     #   pytest
     #   pytest-cov
     #   tox
-psutil==7.0.0
+psutil==7.1.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
 pycodestyle==2.14.0
     # via -r requirements/test.in
-pycparser==2.22
+pycparser==2.23
     # via
     #   -r requirements/base.txt
     #   cffi
@@ -165,7 +165,7 @@ pyjwt[crypto]==2.10.1
     #   -r requirements/base.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==3.3.8
+pylint==3.3.9
     # via
     #   edx-lint
     #   pylint-celery
@@ -179,27 +179,27 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.14.1
+pymongo==4.15.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-pynacl==1.5.0
+pynacl==1.6.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
 pyproject-api==1.9.1
     # via tox
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==7.0.0
     # via -r requirements/test.in
 pytest-django==4.11.1
     # via -r requirements/test.in
 python-slugify==8.0.4
     # via code-annotations
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via code-annotations
 requests==2.32.5
     # via
@@ -227,7 +227,7 @@ text-unidecode==1.3
     # via python-slugify
 tomlkit==0.13.3
     # via pylint
-tox==4.29.0
+tox==4.30.3
     # via -r requirements/test.in
 typing-extensions==4.15.0
     # via
