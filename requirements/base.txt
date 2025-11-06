@@ -18,10 +18,10 @@ click==8.2.1
     # via edx-django-utils
 cryptography==45.0.6
     # via pyjwt
-django==4.2.23
+django==4.2.26
     # via
-    #   -c requirements/common_constraints.txt
-    #   -r requirements/base.in
+    #   -c common_constraints.txt
+    #   -r base.in
     #   django-crum
     #   django-model-utils
     #   django-simple-history
@@ -33,18 +33,18 @@ django==4.2.23
 django-crum==0.7.9
     # via edx-django-utils
 django-model-utils==5.0.0
-    # via -r requirements/base.in
+    # via -r base.in
 django-simple-history==3.10.1
     # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.in
+    #   -c constraints.txt
+    #   -r base.in
 django-waffle==5.0.0
     # via
     #   edx-django-utils
     #   edx-drf-extensions
 djangorestframework==3.16.1
     # via
-    #   -r requirements/base.in
+    #   -r base.in
     #   drf-jwt
     #   edx-drf-extensions
 dnspython==2.7.0
@@ -54,15 +54,15 @@ drf-jwt==1.19.2
 edx-django-utils==8.0.0
     # via edx-drf-extensions
 edx-drf-extensions==10.6.0
-    # via -r requirements/base.in
+    # via -r base.in
 edx-opaque-keys==3.0.0
     # via
-    #   -r requirements/base.in
+    #   -r base.in
     #   edx-drf-extensions
 idna==3.10
     # via requests
 pillow==11.3.0
-    # via -r requirements/base.in
+    # via -r base.in
 psutil==7.0.0
     # via edx-django-utils
 pycparser==2.22
@@ -92,4 +92,4 @@ urllib3==2.5.0
 
 # The following packages are considered to be unsafe in a requirements file:
 setuptools==80.9.0
-    # via -r requirements/base.in
+    # via -r base.in
