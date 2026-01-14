@@ -4,21 +4,21 @@
 #
 #    make upgrade
 #
-asgiref==3.9.1
+asgiref==3.11.0
     # via django
-certifi==2025.8.3
+certifi==2026.1.4
     # via requests
-cffi==1.17.1
+cffi==2.0.0
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.3
+charset-normalizer==3.4.4
     # via requests
-click==8.2.1
+click==8.3.1
     # via edx-django-utils
-cryptography==45.0.6
+cryptography==46.0.3
     # via pyjwt
-django==4.2.23
+django==5.2.10
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.in
@@ -34,7 +34,7 @@ django-crum==0.7.9
     # via edx-django-utils
 django-model-utils==5.0.0
     # via -r requirements/base.in
-django-simple-history==3.10.1
+django-simple-history==3.11.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
@@ -47,11 +47,11 @@ djangorestframework==3.16.1
     #   -r requirements/base.in
     #   drf-jwt
     #   edx-drf-extensions
-dnspython==2.7.0
+dnspython==2.8.0
     # via pymongo
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==8.0.0
+edx-django-utils==8.0.1
     # via edx-drf-extensions
 edx-drf-extensions==10.6.0
     # via -r requirements/base.in
@@ -59,35 +59,35 @@ edx-opaque-keys==3.0.0
     # via
     #   -r requirements/base.in
     #   edx-drf-extensions
-idna==3.10
+idna==3.11
     # via requests
-pillow==11.3.0
+pillow==12.1.0
     # via -r requirements/base.in
-psutil==7.0.0
+psutil==7.2.1
     # via edx-django-utils
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pyjwt[crypto]==2.10.1
     # via
     #   drf-jwt
     #   edx-drf-extensions
-pymongo==4.14.1
+pymongo==4.16.0
     # via edx-opaque-keys
-pynacl==1.5.0
+pynacl==1.6.2
     # via edx-django-utils
 requests==2.32.5
     # via edx-drf-extensions
 semantic-version==2.10.0
     # via edx-drf-extensions
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via django
-stevedore==5.5.0
+stevedore==5.6.0
     # via
     #   edx-django-utils
     #   edx-opaque-keys
 typing-extensions==4.15.0
     # via edx-opaque-keys
-urllib3==2.5.0
+urllib3==2.6.3
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
