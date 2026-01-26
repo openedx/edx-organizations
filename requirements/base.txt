@@ -65,7 +65,7 @@ pillow==12.1.0
     # via -r requirements/base.in
 psutil==7.2.1
     # via edx-django-utils
-pycparser==2.23
+pycparser==3.0
     # via cffi
 pyjwt[crypto]==2.10.1
     # via
@@ -91,5 +91,5 @@ urllib3==2.6.3
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==80.9.0
+setuptools==80.10.2
     # via -r requirements/base.in
