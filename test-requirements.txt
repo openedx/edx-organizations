@@ -136,7 +136,7 @@ packaging==25.0
     #   pyproject-api
     #   pytest
     #   tox
-pillow==12.1.0
+pillow==12.1.1
     # via -r requirements/base.txt
 platformdirs==4.5.1
     # via
