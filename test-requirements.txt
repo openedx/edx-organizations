@@ -12,7 +12,7 @@ astroid==4.0.4
     # via
     #   pylint
     #   pylint-celery
-cachetools==7.0.3
+cachetools==7.0.5
     # via tox
 certifi==2026.2.25
     # via
@@ -23,7 +23,7 @@ cffi==2.0.0
     #   -r requirements/base.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.5
+charset-normalizer==3.4.6
     # via
     #   -r requirements/base.txt
     #   requests
@@ -36,11 +36,11 @@ click==8.3.1
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.3.2
+code-annotations==3.0.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage[toml]==7.13.4
+coverage[toml]==7.13.5
     # via
     #   -r requirements/test.in
     #   pytest-cov
@@ -80,7 +80,7 @@ django-waffle==5.0.0
     #   -r requirements/base.txt
     #   edx-django-utils
     #   edx-drf-extensions
-djangorestframework==3.16.1
+djangorestframework==3.17.0
     # via
     #   -r requirements/base.txt
     #   drf-jwt
@@ -99,7 +99,7 @@ edx-django-utils==8.0.1
     #   edx-drf-extensions
 edx-drf-extensions==10.6.0
     # via -r requirements/base.txt
-edx-lint==5.6.0
+edx-lint==6.0.0
     # via -r requirements/test.in
 edx-opaque-keys==3.1.0
     # via
@@ -107,9 +107,9 @@ edx-opaque-keys==3.1.0
     #   edx-drf-extensions
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==40.8.0
+faker==40.11.0
     # via factory-boy
-filelock==3.25.0
+filelock==3.25.2
     # via
     #   python-discovery
     #   tox
@@ -160,7 +160,7 @@ pycparser==3.0
     #   cffi
 pygments==2.19.2
     # via pytest
-pyjwt[crypto]==2.11.0
+pyjwt[crypto]==2.12.1
     # via
     #   -r requirements/base.txt
     #   drf-jwt
@@ -193,11 +193,11 @@ pytest==9.0.2
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via -r requirements/test.in
 pytest-django==4.12.0
     # via -r requirements/test.in
-python-discovery==1.1.0
+python-discovery==1.2.0
     # via virtualenv
 python-slugify==8.0.4
     # via code-annotations
@@ -231,7 +231,7 @@ tomli-w==1.2.0
     # via tox
 tomlkit==0.14.0
     # via pylint
-tox==4.49.0
+tox==4.50.3
     # via -r requirements/test.in
 typing-extensions==4.15.0
     # via
@@ -241,7 +241,7 @@ urllib3==2.6.3
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==21.1.0
+virtualenv==21.2.0
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
