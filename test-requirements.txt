@@ -40,7 +40,7 @@ code-annotations==3.0.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage[toml]==7.14.0
+coverage[toml]==7.14.1
     # via
     #   -r requirements/test.in
     #   pytest-cov
@@ -116,7 +116,7 @@ filelock==3.29.0
     #   virtualenv
 httpretty==0.9.7
     # via -r requirements/test.in
-idna==3.16
+idna==3.17
     # via
     #   -r requirements/base.txt
     #   requests
@@ -137,7 +137,7 @@ packaging==26.2
     #   tox
 pillow==12.2.0
     # via -r requirements/base.txt
-platformdirs==4.9.6
+platformdirs==4.10.0
     # via
     #   pylint
     #   python-discovery
@@ -187,7 +187,7 @@ pynacl==1.6.2
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pyproject-api==1.10.0
+pyproject-api==1.10.1
     # via tox
 pytest==9.0.3
     # via
@@ -197,7 +197,7 @@ pytest-cov==7.1.0
     # via -r requirements/test.in
 pytest-django==4.12.0
     # via -r requirements/test.in
-python-discovery==1.3.1
+python-discovery==1.4.0
     # via
     #   tox
     #   virtualenv
@@ -235,7 +235,7 @@ tomlkit==0.15.0
     # via
     #   edx-lint
     #   pylint
-tox==4.54.0
+tox==4.55.0
     # via -r requirements/test.in
 typing-extensions==4.15.0
     # via
@@ -245,7 +245,7 @@ urllib3==2.7.0
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==21.3.3
+virtualenv==21.4.2
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
