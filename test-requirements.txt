@@ -52,7 +52,7 @@ ddt==1.7.2
     # via -r requirements/test.in
 dill==0.4.1
     # via pylint
-distlib==0.4.0
+distlib==0.4.1
     # via virtualenv
     # via
     #   -c requirements/common_constraints.txt
@@ -107,16 +107,16 @@ edx-opaque-keys==4.0.0
     #   edx-drf-extensions
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==40.19.1
+faker==40.21.0
     # via factory-boy
-filelock==3.29.0
+filelock==3.29.1
     # via
     #   python-discovery
     #   tox
     #   virtualenv
 httpretty==0.9.7
     # via -r requirements/test.in
-idna==3.17
+idna==3.18
     # via
     #   -r requirements/base.txt
     #   requests
@@ -235,7 +235,7 @@ tomlkit==0.15.0
     # via
     #   edx-lint
     #   pylint
-tox==4.55.0
+tox==4.55.1
     # via -r requirements/test.in
 typing-extensions==4.15.0
     # via
