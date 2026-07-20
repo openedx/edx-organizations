@@ -4,21 +4,21 @@
 #
 #    make upgrade
 #
-asgiref==3.11.1
+asgiref==3.12.1
     # via django
-certifi==2026.5.20
+certifi==2026.6.17
     # via requests
-cffi==2.0.0
+cffi==2.1.0
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via requests
-click==8.4.1
+click==8.4.2
     # via edx-django-utils
-cryptography==48.0.0
+cryptography==49.0.0
     # via pyjwt
-django==5.2.14
+django==5.2.16
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/base.in
@@ -34,7 +34,7 @@ django-crum==0.7.9
     # via edx-django-utils
 django-model-utils==5.0.0
     # via -r requirements/base.in
-django-simple-history==3.11.0
+django-simple-history==3.12.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
@@ -59,9 +59,9 @@ edx-opaque-keys==4.0.0
     # via
     #   -r requirements/base.in
     #   edx-drf-extensions
-idna==3.17
+idna==3.18
     # via requests
-pillow==12.2.0
+pillow==12.3.0
     # via -r requirements/base.in
 psutil==7.2.2
     # via edx-django-utils
@@ -81,15 +81,15 @@ semantic-version==2.10.0
     # via edx-drf-extensions
 sqlparse==0.5.5
     # via django
-stevedore==5.8.0
+stevedore==5.9.0
     # via
     #   edx-django-utils
     #   edx-opaque-keys
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via edx-opaque-keys
 urllib3==2.7.0
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==82.0.1
+setuptools==83.0.0
     # via -r requirements/base.in
