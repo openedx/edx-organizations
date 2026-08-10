@@ -14,6 +14,27 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[v9.0.0] - 2026-08-10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Removed
+_______
+
+* Dropped support for Django 4.2, following
+  https://github.com/openedx/public-engineering/issues/458
+* Dropped the unused Python 3.11 tox factor, which was left behind when Python
+  3.11 support was removed in v8.0.0
+
+
+[v8.0.0] - 2026-03-10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Removed
+_______
+
+* Dropped support for Python 3.11
+
+
 [v7.3.0] - 2025-08-28
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
