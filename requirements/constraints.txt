@@ -17,3 +17,10 @@ django-simple-history>=3.10.1
 
 # it is not availablein python3.9
 backports.zoneinfo;python_version<"3.9"
+
+# 2026-08-10: pip 26.2 made `allow_editables` a required keyword-only argument of
+# RequirementCommand.make_requirement_preparer(), which pip-tools 7.6.0 does not pass,
+# so `make upgrade` dies with a TypeError while compiling base.txt.
+# Remove once a pip-tools release includes the fix.
+# Tracking issue: https://github.com/jazzband/pip-tools/issues/2437
+pip<26.2
