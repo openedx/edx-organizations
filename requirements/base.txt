@@ -12,7 +12,7 @@ cffi==2.1.1
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.9
+charset-normalizer==3.5.1
     # via requests
 click==8.4.2
     # via edx-django-utils
@@ -79,7 +79,7 @@ requests==2.34.2
     # via edx-drf-extensions
 semantic-version==2.10.0
     # via edx-drf-extensions
-sqlparse==0.5.5
+sqlparse==0.6.0
     # via django
 stevedore==5.9.0
     # via
