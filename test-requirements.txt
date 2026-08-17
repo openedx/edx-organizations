@@ -216,7 +216,7 @@ six==1.17.0
     # via
     #   edx-lint
     #   httpretty
-sqlparse==0.5.5
+sqlparse==0.6.0
     # via
     #   -r requirements/base.txt
     #   django
