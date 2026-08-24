@@ -23,7 +23,7 @@ cffi==2.1.1
     #   -r requirements/base.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.9
+charset-normalizer==3.5.1
     # via
     #   -r requirements/base.txt
     #   requests
@@ -97,9 +97,9 @@ edx-django-utils==8.0.1
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
-edx-drf-extensions==10.6.0
+edx-drf-extensions==10.7.0
     # via -r requirements/base.txt
-edx-lint==6.1.0
+edx-lint==6.2.0
     # via -r requirements/test.in
 edx-opaque-keys==4.0.0
     # via
@@ -107,16 +107,16 @@ edx-opaque-keys==4.0.0
     #   edx-drf-extensions
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==40.36.0
+faker==40.37.0
     # via factory-boy
-filelock==3.32.2
+filelock==3.32.4
     # via
     #   python-discovery
     #   tox
     #   virtualenv
 httpretty==0.9.7
     # via -r requirements/test.in
-idna==3.18
+idna==3.19
     # via
     #   -r requirements/base.txt
     #   requests
@@ -137,7 +137,7 @@ packaging==26.3
     #   tox
 pillow==12.3.0
     # via -r requirements/base.txt
-platformdirs==4.11.2
+platformdirs==4.11.3
     # via
     #   pylint
     #   tox
@@ -157,7 +157,7 @@ pycparser==3.0
     # via
     #   -r requirements/base.txt
     #   cffi
-pygments==2.20.0
+pygments==2.21.0
     # via pytest
 pyjwt[crypto]==2.13.0
     # via
@@ -196,7 +196,7 @@ pytest-cov==7.1.0
     # via -r requirements/test.in
 pytest-django==4.14.0
     # via -r requirements/test.in
-python-discovery==1.5.1
+python-discovery==1.5.2
     # via
     #   tox
     #   virtualenv
@@ -216,11 +216,11 @@ six==1.17.0
     # via
     #   edx-lint
     #   httpretty
-sqlparse==0.5.5
+sqlparse==0.6.0
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.9.0
+stevedore==5.9.1
     # via
     #   -r requirements/base.txt
     #   code-annotations
@@ -234,17 +234,18 @@ tomlkit==0.15.1
     # via
     #   edx-lint
     #   pylint
-tox==4.58.0
+tox==4.60.0
     # via -r requirements/test.in
 typing-extensions==4.16.0
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
+    #   tox
 urllib3==2.7.0
     # via
     #   -r requirements/base.txt
     #   requests
-virtualenv==21.7.3
+virtualenv==21.7.4
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
