@@ -5,9 +5,6 @@
 *.eggs
 *.egg-info/
 
-# Installation artifacts
-src
-
 # Sphinx docs:
 build
 

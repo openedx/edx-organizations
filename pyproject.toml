@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>8.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edx-organizations"
+description = "Organization management module for Open edX"
+requires-python = ">=3.12"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE*"]
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Web Environment',
+    'Framework :: Django',
+    'Framework :: Django :: 5.2',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.12',
+]
+
+dynamic = ["readme", "version"]
+
+dependencies = [
+    "Django",
+    "django-model-utils",
+    "django-simple-history>=3.10.1",
+    "djangorestframework",
+    "edx-drf-extensions",
+    "edx-opaque-keys>=0.1.2",
+    "Pillow",
+    "setuptools",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/edx-organizations"
+Repository = "https://github.com/openedx/edx-organizations"
+
+[dependency-groups]
+test = [
+    "ddt",
+    "coverage",
+    "edx-lint",
+    "factory-boy",
+    "httpretty>=0.8.14,<1.0.0",
+    "pycodestyle",
+    "pytest-cov",
+    "pytest-django",
+    "tox",
+    "Django>=5.2,<6.0",
+]
+quality = [
+    {include-group = "test"},
+]
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst"], content-type = "text/x-rst"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.semantic_release]
+build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+
+[tool.setuptools_scm]
+version_scheme = 'only-version'
+local_scheme = 'no-local-version'
+fallback_version = "0.0.0.dev0"
+
+[tool.uv]
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+    "social-auth-app-django<6.0.0",
+    "social-auth-core<5.0.0",
+    "pip<26.2.1",
+    "django-simple-history>=3.10.1",
+]
+
+[tool.edx_lint]
+uv_constraints = [
+    # incremental upgrade plan.
+    "django-simple-history>=3.10.1",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+omit = [
+    "**/migrations/*",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test_settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--cov --cov-report term-missing --cov-report xml"
+norecursedirs = [".*"]
