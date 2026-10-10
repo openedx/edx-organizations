@@ -1,6 +1,23 @@
-include LICENSE
-include README.rst
-graft organizations
-recursive-include requirements *.in *.txt
-global-exclude *.pyc
-include requirements/constraints.txt
+# Exclude development, test, and documentation folders
+prune .github
+prune docs
+
+# Exclude root level configuration and build files
+exclude Makefile
+exclude .gitignore
+exclude tox.ini
+exclude CHANGELOG.rst
+exclude catalog-info.yaml
+exclude codecov.yml
+exclude manage.py
+exclude pylintrc
+exclude pylintrc_tweaks
+exclude test_settings.py
+
+# Exclude test/coverage artifacts
+prune htmlcov
+global-exclude .coverage
+global-exclude coverage.xml
+
+# Exclude dev/CI lockfile (pip never reads it during sdist install)
+exclude uv.lock

@@ -24,8 +24,8 @@ Local Development
 .. code-block:: bash
 
     $ make requirements
-    $ make test
-    $ make quality
+    $ uv run make test
+    $ uv run make quality
 
 Open edX Platform Integration
 -----------------------------
