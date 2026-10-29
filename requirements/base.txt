@@ -4,9 +4,9 @@
 #
 #    make upgrade
 #
-asgiref==3.12.1
+asgiref==3.13.0
     # via django
-certifi==2026.10.19
+certifi==2026.10.23
     # via requests
 cffi==2.1.1
     # via
@@ -65,7 +65,7 @@ pillow==13.0.0
     # via -r requirements/base.in
 psutil==7.2.2
     # via edx-django-utils
-pycparser==3.11
+pycparser==3.12
     # via cffi
 pyjwt[crypto]==2.15.1
     # via
@@ -91,5 +91,5 @@ urllib3==2.8.0
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==84.0.0
+setuptools==84.2.1
     # via -r requirements/base.in
